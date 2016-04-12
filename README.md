@@ -15,14 +15,14 @@ This package uses [Bootstrap datepicker widget version 1.6.1 ](https://github.co
 #### forms.py
 
 ```python
-from bootstrap_date.widgets import DatePicker
+from bootstrap_datepicker.widgets import DatePicker
 from django import forms
 
   class ToDoForm(forms.Form):
       todo = forms.CharField(
           widget=forms.TextInput(attrs={"class": "form-control"}))
       date = forms.DateField(
-          widget=DatePicker(options={"format": "mm/dd/yyyy"}))
+          widget=DatePicker(options={"format": "mm/dd/yyyy","autoclose": True}))
 
 ```
 

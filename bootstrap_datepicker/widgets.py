@@ -4,6 +4,7 @@ import json
 from django.forms.utils import flatatt
 from django.forms.widgets import DateTimeInput
 from django.utils.safestring import mark_safe
+from django.utils import translation
 from django.utils.html import conditional_escape
 from django.utils.encoding import force_text
 
@@ -95,13 +96,13 @@ class DatePicker(DateTimeInput):
             div_attrs = {'class': 'input-group date'}
         if format is None and options and options.get('format'):
             format = self.conv_datetime_format_js2py(options.get('format'))
-        super(DateTimePicker, self).__init__(attrs, format)
+        super(DatePicker, self).__init__(attrs, format)
         if 'class' not in self.attrs:
             self.attrs['class'] = 'form-control'
         self.div_attrs = div_attrs and div_attrs.copy() or {}
         self.icon_attrs = icon_attrs and icon_attrs.copy() or {}
         self.picker_id = self.div_attrs.get('id') or None
-        if options == False:  # datetimepicker will not be initalized when options is False
+        if options == False:  # datepicker will not be initalized when options is False
             self.options = False
         else:
             self.options = options and options.copy() or {}

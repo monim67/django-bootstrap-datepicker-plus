@@ -42,16 +42,14 @@ class DatePicker(DateTimeInput):
     # http://docs.python.org/2/library/datetime.html#strftime-strptime-behavior
 
     format_map = (
-        ('d', r'%d'),
         ('dd', r'%d'),
-        ('D', r'%a'),
         ('DD', r'%A'),
-        ('M', r'%b'),
+        ('D', r'%a'),
         ('MM', r'%B'),
-        ('m', r'%m'),
+        ('M', r'%b'),
         ('mm', r'%m'),
-        ('yy', r'%y'),
         ('yyyy', r'%Y'),
+        ('yy', r'%y'),
     )
 
 

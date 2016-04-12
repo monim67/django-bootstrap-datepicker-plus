@@ -69,4 +69,5 @@ draw out your HTML manually.
 * Python >= 3.3
 * Django >= 1.8
 * Bootstrap == 4.0-alpha2
+* jquery >= 1.7.1
 * font-awesome == 4.5.X

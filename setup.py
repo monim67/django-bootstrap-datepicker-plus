@@ -13,7 +13,7 @@ setup(
                                           'static/js/*.js',
                                           'static/js/locales/*.js',]},
     include_package_data=True,
-    version='1.1.1',
+    version='1.2.0',
     description='Bootstrap3/4 compatible datepicker for Django projects.',
     long_description=long_description,
     author='Paul Bucher',

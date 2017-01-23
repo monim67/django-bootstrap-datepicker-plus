@@ -1,6 +1,6 @@
 # django-bootstrap3-datetimepicker
 
-This package uses [Bootstrap datepicker widget version 1.6.1 ](https://github.com/eternicode/bootstrap-datepicker.git).
+This package uses [Bootstrap datepicker widget version 1.6.4 ](https://github.com/uxsolutions/bootstrap-datepicker).
 
 ## Install
 
@@ -29,11 +29,11 @@ from django import forms
 The `options` will be passed to the JavaScript datepicker instance. 
 Available `options` are explained in the following documents:
 
-* [Online Docs](http://bootstrap-datepicker.readthedocs.org/en/stable/) (ReadTheDocs.com)
+* [Online Docs](https://bootstrap-datepicker.readthedocs.org/en/stable/) (ReadTheDocs.com)
 
 Checkout the online demo to help with exploring different options:
 
-* [Online Demo](http://eternicode.github.io/bootstrap-datepicker/)
+* [Online Demo](https://uxsolutions.github.io/bootstrap-datepicker/)
 
 You don't need to set the `language` option, 
 because it will be set the current language of the thread automatically.
@@ -68,6 +68,6 @@ draw out your HTML manually.
 
 * Python >= 3.3
 * Django >= 1.8
-* Bootstrap == 4.0-alpha2
+* Bootstrap == 4.0-alpha4
 * jquery >= 1.7.1
-* font-awesome == 4.5.X
+* font-awesome >= 4.5.X

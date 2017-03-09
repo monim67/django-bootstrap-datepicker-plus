@@ -9,12 +9,19 @@ if 'upload' in sys.argv or 'register' in sys.argv:
 setup(
     name='django-bootstrap-datepicker',
     packages=['bootstrap_datepicker'],
-    package_data={'bootstrap_datepicker': ['static/css/*.css', 
-                                          'static/js/*.js',
-                                          'static/js/locales/*.js',]},
+    package_data={
+        'bootstrap_datepicker': [
+            'static/css/*.css',
+            'static/js/*.js',
+            'static/js/locales/*.js',
+        ]
+    },
+    install_requires=[
+        'django>=1.8,<2',
+    ],
     include_package_data=True,
-    version='1.2.2',
-    description='Bootstrap3/4 compatible datepicker for Django projects.',
+    version='1.2.3',
+    description='Bootstrap 3/4 compatible datepicker for Django projects.',
     long_description=long_description,
     author='Paul Bucher',
     author_email='paulb@lctcb.org',

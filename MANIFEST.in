@@ -1,3 +1,2 @@
-
 include LICENSE
 recursive-include bootstrap_datepicker *.js *.css *.map

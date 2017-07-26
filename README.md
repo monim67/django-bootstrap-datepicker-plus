@@ -1,12 +1,12 @@
-# django-bootstrap3-datetimepicker
+# django-bootstrap-datetimepicker
 
-This package uses [Bootstrap datepicker widget version 1.6.4 ](https://github.com/uxsolutions/bootstrap-datepicker).
+This package includes a Django widget for displaying date pickers with Bootstrap 3 or Bootstrap 4. It uses [Bootstrap datepicker widget version 1.6.4 ](https://github.com/uxsolutions/bootstrap-datepicker).
 
 ## Install
 
-    pip install git+https://github.com/pbucher/django-bootstrap-datepicker.git
+    pip install django-bootstrap-datepicker
 
-## ToDo
+## To-Do
 
     General cleanup and testing
 
@@ -18,25 +18,25 @@ This package uses [Bootstrap datepicker widget version 1.6.4 ](https://github.co
 from bootstrap_datepicker.widgets import DatePicker
 from django import forms
 
-  class ToDoForm(forms.Form):
-      todo = forms.CharField(
-          widget=forms.TextInput(attrs={"class": "form-control"}))
-      date = forms.DateField(
-          widget=DatePicker(options={"format": "mm/dd/yyyy","autoclose": True}))
-
+class ToDoForm(forms.Form):
+    todo = forms.CharField(
+        widget=forms.TextInput(attrs={"class": "form-control"}))
+    date = forms.DateField(
+        widget=DatePicker(
+            options={
+                "format": "mm/dd/yyyy",
+                "autoclose": True
+            }
+        )
+    )
 ```
 
-The `options` will be passed to the JavaScript datepicker instance. 
-Available `options` are explained in the following documents:
+The `options` will be passed to the JavaScript datepicker instance, and are documented and demonstrated here:
 
-* [Online Docs](https://bootstrap-datepicker.readthedocs.org/en/stable/) (ReadTheDocs.com)
+* [Bootstrap Datepicker Documentation](https://bootstrap-datepicker.readthedocs.org/en/stable/) (ReadTheDocs.com)
+* [Interactive Demo Sandbox of All Options](https://uxsolutions.github.io/bootstrap-datepicker/)
 
-Checkout the online demo to help with exploring different options:
-
-* [Online Demo](https://uxsolutions.github.io/bootstrap-datepicker/)
-
-You don't need to set the `language` option, 
-because it will be set the current language of the thread automatically.
+You don't need to set the `language` option, because it will be set the current language of the thread automatically.
 
 #### template.html
 
@@ -68,6 +68,6 @@ draw out your HTML manually.
 
 * Python >= 3.3
 * Django >= 1.8
-* Bootstrap == 4.0-alpha4
+* Bootstrap == 4.0-alpha6
 * jquery >= 1.7.1
 * font-awesome >= 4.5.X

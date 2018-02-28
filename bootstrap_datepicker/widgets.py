@@ -12,6 +12,10 @@ from django.utils.encoding import force_text
 class DatePicker(DateTimeInput):
     class Media:
         class JSFiles(object):
+            # Adding an extra __reversed__ method instead of renaming __iter__
+            # This keeps it compatible for both version 2 and below
+            def __reversed__(self):
+                return self.__iter__()
             def __iter__(self):
                 yield 'js/bootstrap-datepicker.min.js'
                 lang = translation.get_language()
@@ -109,13 +113,25 @@ class DatePicker(DateTimeInput):
     def render(self, name, value, attrs=None):
         if value is None:
             value = ''
-        extra_attrs = dict()
-        extra_attrs['type'] = self.input_type
-        extra_attrs['name'] = name
-        input_attrs = self.build_attrs(attrs, extra_attrs)
+        try:
+            # For DJango version 1.11 and above
+            extra_attrs = dict()
+            extra_attrs['type'] = self.input_type
+            extra_attrs['name'] = name
+            input_attrs = self.build_attrs(attrs, extra_attrs)
+        except:
+            # For DJango version below 1.11
+            attrs['type'] = self.input_type
+            attrs['name'] = name
+            input_attrs = self.build_attrs(attrs)
         if value != '':
             # Only add the 'value' attribute if a value is non-empty.
-            input_attrs['value'] = force_text(self._format_value(value))
+            try:
+                # For DJango version 1.10 and above
+                input_attrs['value'] = force_text(self.format_value(value))
+            except AttributeError:
+                # For DJango version below 1.10
+                input_attrs['value'] = force_text(self._format_value(value))
         input_attrs = {key: conditional_escape(val) for key, val in input_attrs.items()}
         if not self.picker_id:
             self.picker_id = (input_attrs.get('id', '') + '_pickers').replace(' ', '_')

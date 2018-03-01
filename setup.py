@@ -7,7 +7,7 @@ if 'upload' in sys.argv or 'register' in sys.argv:
     long_description = pypandoc.convert('README.md', 'rst')
 
 setup(
-    name='django-bootstrap-datepicker',
+    name='django-bootstrap-datepicker-plus',
     packages=['bootstrap_datepicker'],
     package_data={
         'bootstrap_datepicker': [
@@ -17,15 +17,15 @@ setup(
         ]
     },
     install_requires=[
-        'django>=1.8,<2',
+        'django>=1.8',
     ],
     include_package_data=True,
-    version='1.2.3',
+    version='1.0.0',
     description='Bootstrap 3/4 compatible datepicker for Django projects.',
     long_description=long_description,
-    author='Paul Bucher',
-    author_email='paulb@lctcb.org',
-    url='https://github.com/pbucher/django-bootstrap-datepicker',
+    author='Munim Munna',
+    author_email='monim67@yahoo.com',
+    url='https://github.com/monim67/django-bootstrap-datepicker',
     license='Apache License 2.0',
     classifiers=[
         'Intended Audience :: Developers',

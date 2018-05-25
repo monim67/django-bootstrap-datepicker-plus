@@ -1,28 +1,53 @@
 django-bootstrap-datepicker-plus
 ================================
 
+This django widget contains DatePickerInput, TimePickerInput, DateTimePickerInput, MonthPickerInput, YearPickerInput
+with date-range-picker functionality for django version 2.0.5, 1.11, 1.10 and 1.8.
+The widget implements `bootstrap-datetimepicker v4 <http://eonasdan.github.io/bootstrap-datetimepicker/>`__
+to show bootstrap-datepicker in django model forms and custom forms and can be configured easily for date-range selection.
+
+
 |  |ci-status| |coverage.io| |maintainability| |test-coverage|
 |  |pyversions| |djversions| |pypi-version|
 |  |format| |status| |license|
 
-This Django widget implements `Bootstrap Datepicker v1.6.4 <https://github.com/uxsolutions/bootstrap-datepicker>`__ to display date-pickers with Bootstrap 3 or Bootstrap 4. It has been tested in django version 1.8, 1.10, 1.11 and 2.0.4.
-
 |  |datepicker-image|
 
-Install
--------
+
+
+Getting Started
+---------------
+
+
+Prerequisites
+^^^^^^^^^^^^^
+-  Python >= 3.3
+-  Django >= 1.8
+-  Bootstrap >= 3
+-  jquery >= 1.7.1
+
+
+Installing
+^^^^^^^^^^
+Install the widget via pip
 
 ::
 
     pip install django-bootstrap-datepicker-plus
 
-Add jQuery
-----------
+Add ``bootstrap_datepicker_plus`` to the list of ``INSTALLED_APPS`` in your ``settings.py`` file.
 
-``jQuery`` is needed for the ``datepicker`` to render, make sure you have jQuery in your template, or you can enable Bootstraps included ``jQuery`` by setting ``include_jquery`` option to ``True`` in your ``settings.py``.
+.. code:: python
 
-settings.py
-^^^^^^^^^^^
+    INSTALLED_APPS = [
+        # Add the following
+        'bootstrap_datepicker_plus',
+    ]
+
+``jQuery`` is needed for ``datepicker`` to render, make sure you have jQuery in your template,
+or you can use ``jQuery`` included with ``Bootstrap`` by setting ``include_jquery`` option to ``True``
+in your ``settings.py`` file.
+If you don't have ``BOOTSTRAP3`` settings block you have to create one.
 
 .. code:: python
 
@@ -30,83 +55,8 @@ settings.py
         'include_jquery': True,
     }
 
-Simple Usage
-------------
-
-forms.py
-^^^^^^^^
-
-.. code:: python
-
-    from bootstrap_datepicker_plus import DatePickerInput
-    from django import forms
-
-    class ToDoForm(forms.Form):
-        todo = forms.CharField(
-            widget=forms.TextInput(attrs={"class": "form-control"}))
-        date = forms.DateField(
-            widget=DatePickerInput(
-                options={
-                    "format": "mm/dd/yyyy",
-                    "autoclose": True
-                }
-            )
-        )
-
-The ``options`` will be passed to the JavaScript datepicker instance, and are documented and demonstrated here:
-
--  `Bootstrap Datepicker Documentation <https://bootstrap-datepicker.readthedocs.org/en/stable/>`__ (ReadTheDocs.com)
--  `Interactive Demo Sandbox of All Options <https://uxsolutions.github.io/bootstrap-datepicker/>`__
-
-You don't need to set the ``language`` option, because it will be set the current language of the thread automatically.
-
-template.html
-^^^^^^^^^^^^^
-
-.. code:: html
-
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <link rel="stylesheet" href="{% static 'contrib/bootstrap.css' %}">
-        <link rel="stylesheet" href="{% static 'contrib/font-awesome.min.css' %}">
-        <script src="{% static 'contrib/bootstrap.js' %}"></script>
-      </head>
-      <body>
-        <form method="post" role="form">
-          {{ form|bootstrap }}
-          {% csrf_token %}
-          <div class="form-group">
-            <input type="submit" value="Submit" class="btn btn-primary" />
-          </div>
-        </form>
-      </body>
-    </html>
-
-Here we assume you're using `django-bootstrap-form <https://github.com/tzangms/django-bootstrap-form>`__ or `django-jinja-bootstrap-form <https://github.com/samuelcolvin/django-jinja-bootstrap-form>`__ but you can draw out your HTML manually.
-
-Usage in Model Form
--------------------
-
-forms.py
-^^^^^^^^
-
-.. code:: python
-
-    from bootstrap_datepicker_plus import DatePickerInput
-    from django import forms
-
-    class EventForm(forms.ModelForm):
-        class Meta:
-            model = Event
-            fields = ['name', 'start_date', 'end_date']
-            widgets = {
-                'start_date': DatePickerInput(), # default date format will be used
-                'end_date': DatePickerInput(options={'format':'mm/dd/yyyy'}),
-            }
-
-event.update.html
-^^^^^^^^^^^^^^^^^
+Make sure you have bootstrap tags in your template along with ``forms.media`` tag,
+it adds all JS and CSS resources needed to render the date-picker.
 
 .. code:: html
 
@@ -114,82 +64,151 @@ event.update.html
     {% bootstrap_css %}         {# Embeds Bootstrap CSS #}
     {% bootstrap_javascript %}  {# Embeds Bootstrap JS #}
 
-    {% block extrahead %}   {# Extra Resources Start #}
-    {{ form.media }}        {# Form required JS and CSS #}
-    {% endblock %}          {# Extra Resources End #}
-
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Update" />
-    </form>
+    {% block extrahead %}       {# Extra Resources Start #}
+    {{ form.media }}            {# Form required JS and CSS #}
+    {% endblock %}              {# Extra Resources End #}
 
 
-More Customization
-------------------
 
-You can extend the DatePickerInput to customize it further.
+Usage
+-----
 
-forms.py
-^^^^^^^^
+
+Custom Form usage
+^^^^^^^^^^^^^^^^^
 
 .. code:: python
 
+    # File: forms.py
     from bootstrap_datepicker_plus import DatePickerInput
     from django import forms
 
-    class CustomizedDatePickerInput(DatePickerInput):
-        def __init__(self):
-            super(DatePickerInput, self).__init__(options={
-                'format': 'mm/dd/yyyy',
-                'autoclose': True
-                })
-            self.div_attrs = {'class': 'input-group date custom-class1', custom-attribute="Hi"}
-            self.icon_attrs = {'class': 'fa fa-calendar fa-2 custom-class2'}
+    class ToDoForm(forms.Form):
+        todo = forms.CharField(
+            widget=forms.TextInput(attrs={"class": "form-control"})
+        )
+        date = forms.DateField(
+            widget=DatePickerInput(format='%m/%d/%Y')
+        )
+
+
+Model Form usage
+^^^^^^^^^^^^^^^^
+
+.. code:: python
+
+    # File: forms.py
+    from bootstrap_datepicker_plus import DatePickerInput
+    from django import forms
 
     class EventForm(forms.ModelForm):
         class Meta:
             model = Event
             fields = ['name', 'start_date', 'end_date']
             widgets = {
-                'start_date': CustomizedDatePickerInput(),
-                'end_date': CustomizedDatePickerInput(),
+                'start_date': DatePickerInput(), # default date-format %m/%d/%Y will be used
+                'end_date': DatePickerInput(format='%Y-%m-%d'), # specify date-frmat
             }
 
-You can define custom html template for DatePickerInput to render
 
-forms.py
-^^^^^^^^
+Types of DatePickers
+^^^^^^^^^^^^^^^^^^^^
+
+The widget contains all types of date-picker you may ever need.
 
 .. code:: python
 
+    # File: forms.py
+    from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput, DateTimePickerInput, MonthPickerInput, YearPickerInput
+    from django import forms
+
+    class EventForm(forms.ModelForm):
+        class Meta:
+            model = Event
+            fields = ['start_date', 'start_time', 'start_datetime', 'start_month', 'start_year']
+            widgets = {
+                'start_date': DatePickerInput(),
+                'start_time': TimePickerInput(),
+                'start_datetime': DateTimePickerInput(),
+                'start_month': MonthPickerInput(),
+                'start_year': YearPickerInput(),
+            }
+
+
+Implement date-range-picker
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+DatePickers can be linked to select a date-range or time-range.
+
+.. code:: python
+
+    # File: forms.py
+    from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput
+    from django import forms
+
+    class EventForm(forms.ModelForm):
+        class Meta:
+            model = Event
+            fields = ['name', 'start_date', 'end_date', 'start_time', 'end_time']
+            widgets = {
+                'start_date':DatePickerInput().start_of('event days'),
+                'end_date':DatePickerInput().end_of('event days'),
+                'start_time':TimePickerInput().start_of('party time'),
+                'end_time':TimePickerInput().end_of('party time'),
+            }
+
+
+Customize the Options
+^^^^^^^^^^^^^^^^^^^^^
+
+The DatePicker can be customised by passing options to it.
+The ``options`` will be passed to the JavaScript datepicker instance, and are documented and demonstrated in 
+`Bootstrap Datepicker Options Reference <http://eonasdan.github.io/bootstrap-datetimepicker/Options/>`__.
+
+.. code:: python
+
+    # File: forms.py
     from bootstrap_datepicker_plus import DatePickerInput
     from django import forms
 
-    class CustomizedDatePickerInput(DatePickerInput):
-        def __init__(self):
-            super(DatePickerInput, self).__init__(options={
-                'format': 'mm/dd/yyyy',
-                'autoclose': True
-                })
-            self.html_template = '''
-                <div%(div_attrs)s>
-                    <input%(input_attrs)s/>
-                    <span class="input-group-addon">
-                        <span%(icon_attrs)s></span>
-                    </span>
-                </div>'''
+    class EventForm(forms.ModelForm):
+        class Meta:
+            model = Event
+            fields = ['name', 'start_date', 'end_date']
+            widgets = {
+                'start_date': DatePickerInput(format='%m/%d%Y'), # python date-time format
+                'end_date': DatePickerInput(
+                    options={
+                        "format": "MM/DD/YYYY", # moment date-time format 
+                        "showClose": True,
+                        "showClear": True,
+                        "showTodayButton": True,
+                    }
+                ),
+            }
+
+**Note:** You can specify the date-time format by passing a
+`python date-time format <https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior>`__
+as format parameter (see start_date in the example), or by passing a
+`moment date-time format <http://momentjs.com/docs/#/displaying/format/>`__
+as an option (see end_date in the example).
+If both are specified then the moment format in options will take precedence.
 
 
-Requirements
-------------
+Demo
+----
+You can see all the features in action in this `Online Demo <https://monim67.github.io/django-bootstrap-datepicker-plus/>`__.
 
--  Python >= 3.3
--  Django >= 1.8
--  Bootstrap >= 3
--  jquery >= 1.7.1
+License
+-------
 
-This project has been originally forked from `pbucher/django-bootstrap-datepicker <https://github.com/pbucher/django-bootstrap-datepicker>`__.
+This project is licensed under Apache License 2.0 - see the `LICENSE <https://github.com/monim67/django-bootstrap-datepicker-plus/blob/master/LICENSE>`__ file for details.
+
+Acknowledgments
+---------------
+
+This project implements `Eonasdan/bootstrap-datetimepicker <https://github.com/Eonasdan/bootstrap-datetimepicker>`__ to display date-pickers.
+The project was initially forked from `pbucher/django-bootstrap-datepicker <https://github.com/pbucher/django-bootstrap-datepicker>`__.
 
 
 .. |datepicker-image| image:: https://bootstrap-datepicker.readthedocs.io/en/latest/_images/demo_head.png

@@ -1,0 +1,1 @@
+<input type="{{ widget.type }}" name="{{ widget.name }}"{% if widget.value != None and widget.value != "" %} value="{{ widget.value }}"{% endif %} {% for name, value in widget.attrs.items %}{% ifnotequal value False %} {{ name }}{% ifnotequal value True %}="{{ value|stringformat:'s' }}"{% endifnotequal %}{% endifnotequal %}{% endfor %}/>

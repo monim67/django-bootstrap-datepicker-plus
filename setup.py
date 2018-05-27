@@ -24,6 +24,7 @@ setup(
     python_requires='>=3',
     package_data={
         'bootstrap_datepicker_plus': [
+            'templates/*.html',
             'static/js/*.js',
         ]
     },

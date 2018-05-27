@@ -49,9 +49,7 @@ class DateTimeBaseInputEx(DateTimeBaseInput):
     def format_value(self, value):
         if value == '' or value is None:
             return None
-        if self.is_localized:
-            return formats.localize_input(value)
-        return str(value)
+        return formats.localize_input(value, self.format)
 
     def get_context(self, name, value, attrs):
         context = {}

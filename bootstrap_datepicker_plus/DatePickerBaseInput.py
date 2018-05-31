@@ -67,6 +67,7 @@ class DatePickerBaseInput(DatePickerDictionary.get_base_input()):
         )
         css = {'all': (
             'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css',
+            'bootstrap_datepicker_plus/css/datepicker-widget.css'
         ), }
 
     @classmethod

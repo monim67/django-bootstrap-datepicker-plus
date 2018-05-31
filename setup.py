@@ -25,6 +25,7 @@ setup(
     package_data={
         'bootstrap_datepicker_plus': [
             'templates/*.html',
+            'static/css/*.css',
             'static/js/*.js',
         ]
     },

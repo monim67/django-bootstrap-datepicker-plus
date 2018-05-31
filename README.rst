@@ -1,17 +1,27 @@
 django-bootstrap-datepicker-plus
 ================================
 
-This django widget contains DatePickerInput, TimePickerInput, DateTimePickerInput, MonthPickerInput, YearPickerInput
+This django widget contains Bootstrap3/Bootstrap4
+DatePickerInput, TimePickerInput, DateTimePickerInput, MonthPickerInput, YearPickerInput
 with date-range-picker functionality for django version 2.0.5, 1.11, 1.10 and 1.8.
 The widget implements `bootstrap-datetimepicker v4 <http://eonasdan.github.io/bootstrap-datetimepicker/>`__
-to show bootstrap-datepicker in django model forms and custom forms and can be configured easily for date-range selection.
+to show bootstrap-datepicker in django model forms and custom forms
+and can be configured easily for date-range selection.
 
 
 |  |ci-status| |coverage.io| |maintainability| |test-coverage|
 |  |pyversions| |djversions| |pypi-version|
 |  |format| |status| |license|
 
-|  |datepicker-image|
+|  |date-picker-image| |datetime-picker-image| |time-picker-image| 
+
+
+
+
+Demo
+----
+-  `With Bootstrap 3 <https://monim67.github.io/django-bootstrap-datepicker-plus/>`__.
+-  `With Bootstrap 4 <https://monim67.github.io/django-bootstrap-datepicker-plus/Bootstrap4.html>`__.
 
 
 
@@ -195,10 +205,6 @@ as an option (see end_date in the example).
 If both are specified then the moment format in options will take precedence.
 
 
-Demo
-----
-You can see all the features in action in this `Online Demo <https://monim67.github.io/django-bootstrap-datepicker-plus/>`__.
-
 License
 -------
 
@@ -211,9 +217,20 @@ This project implements `Eonasdan/bootstrap-datetimepicker <https://github.com/E
 The project was initially forked from `pbucher/django-bootstrap-datepicker <https://github.com/pbucher/django-bootstrap-datepicker>`__.
 
 
-.. |datepicker-image| image:: https://bootstrap-datepicker.readthedocs.io/en/latest/_images/demo_head.png
-    :alt: Datepickers
-    :height: 306px
+.. |date-picker-image| image:: https://raw.githubusercontent.com/monim67/django-bootstrap-datepicker-plus/master/images/date-picker.png
+    :alt: Date-picker
+    :width: 280px
+    :height: 360px
+
+.. |datetime-picker-image| image:: https://raw.githubusercontent.com/monim67/django-bootstrap-datepicker-plus/master/images/datetime-picker.png
+    :alt: Datetime-picker
+    :width: 280px
+    :height: 360px
+
+.. |time-picker-image| image:: https://raw.githubusercontent.com/monim67/django-bootstrap-datepicker-plus/master/images/time-picker.png
+    :alt: Time-picker
+    :width: 280px
+    :height: 360px
 
 .. |ci-status| image:: https://travis-ci.org/monim67/django-bootstrap-datepicker-plus.svg?branch=master
     :target: https://travis-ci.org/monim67/django-bootstrap-datepicker-plus

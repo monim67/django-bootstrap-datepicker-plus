@@ -57,11 +57,12 @@ Add ``bootstrap_datepicker_plus`` to the list of ``INSTALLED_APPS`` in your ``se
 ``jQuery`` is needed for ``datepicker`` to render, make sure you have jQuery in your template,
 or you can use ``jQuery`` included with ``Bootstrap`` by setting ``include_jquery`` option to ``True``
 in your ``settings.py`` file.
-If you don't have ``BOOTSTRAP3`` settings block you have to create one.
+If you don't have ``BOOTSTRAP3``/``BOOTSTRAP4`` settings block you have to create one.
 
 .. code:: python
 
-    BOOTSTRAP3 = {
+    # Use BOOTSTRAP3 if you are using Bootstrap 3
+    BOOTSTRAP4 = {
         'include_jquery': True,
     }
 
@@ -70,9 +71,9 @@ it adds all JS and CSS resources needed to render the date-picker.
 
 .. code:: html
 
-    {% load bootstrap3 %}       {# imports bootstrap3 #}
-    {% bootstrap_css %}         {# Embeds Bootstrap CSS #}
-    {% bootstrap_javascript %}  {# Embeds Bootstrap JS #}
+    {% load bootstrap4 %}       {# import bootstrap4/bootstrap3 #}
+    {% bootstrap_css %}         {# Embed Bootstrap CSS #}
+    {% bootstrap_javascript jquery='full' %}  {# Embed Bootstrap JS+jQuery #}
 
     {% block extrahead %}       {# Extra Resources Start #}
     {{ form.media }}            {# Form required JS and CSS #}
@@ -219,18 +220,18 @@ The project was initially forked from `pbucher/django-bootstrap-datepicker <http
 
 .. |date-picker-image| image:: https://raw.githubusercontent.com/monim67/django-bootstrap-datepicker-plus/master/images/date-picker.png
     :alt: Date-picker
-    :width: 280px
-    :height: 360px
+    :width: 218px
+    :height: 280px
 
 .. |datetime-picker-image| image:: https://raw.githubusercontent.com/monim67/django-bootstrap-datepicker-plus/master/images/datetime-picker.png
     :alt: Datetime-picker
-    :width: 280px
-    :height: 360px
+    :width: 218px
+    :height: 280px
 
 .. |time-picker-image| image:: https://raw.githubusercontent.com/monim67/django-bootstrap-datepicker-plus/master/images/time-picker.png
     :alt: Time-picker
-    :width: 280px
-    :height: 360px
+    :width: 218px
+    :height: 280px
 
 .. |ci-status| image:: https://travis-ci.org/monim67/django-bootstrap-datepicker-plus.svg?branch=master
     :target: https://travis-ci.org/monim67/django-bootstrap-datepicker-plus

@@ -1,12 +1,12 @@
 django-bootstrap-datepicker-plus
 ================================
 
-This django widget contains Bootstrap3/Bootstrap4
-DatePickerInput, TimePickerInput, DateTimePickerInput, MonthPickerInput, YearPickerInput
-with date-range-picker functionality for django version 2.0.5, 1.11, 1.10 and 1.8.
+This django widget contains Bootstrap 3 and Bootstrap 4
+Date-Picker, Time-Picker, DateTime-Picker, Month-Picker and Year-Picker input
+with date-range-picker functionality for django version 2.1, 2.0, 1.11, 1.10 and 1.8.
 The widget implements `bootstrap-datetimepicker v4 <http://eonasdan.github.io/bootstrap-datetimepicker/>`__
 to show bootstrap-datepicker in django model forms and custom forms
-and can be configured easily for date-range selection.
+which can be configured easily for date-range selection.
 
 
 |  |ci-status| |coverage.io| |maintainability| |test-coverage|
@@ -74,10 +74,22 @@ it adds all JS and CSS resources needed to render the date-picker.
     {% load bootstrap4 %}       {# import bootstrap4/bootstrap3 #}
     {% bootstrap_css %}         {# Embed Bootstrap CSS #}
     {% bootstrap_javascript jquery='full' %}  {# Embed Bootstrap JS+jQuery #}
+    {{ form.media }}            {# Adds date-picker required JS and CSS #}
 
-    {% block extrahead %}       {# Extra Resources Start #}
-    {{ form.media }}            {# Form required JS and CSS #}
-    {% endblock %}              {# Extra Resources End #}
+The ``form.media`` tag is only for Generic Views. If you are generating the view yourself
+and passing the form to ``render`` function, you have to use ``<your-form-variable>.media``.
+For Example, in case of the following example you have to use ``{{ my_form.media }}``
+instead of ``{{ form.media }}``.
+
+.. code:: python
+
+    # File: views.py
+    from django.shortcuts import render
+    from .forms import UserForm
+
+    def create_user(request):
+        user_form = UserForm()
+        return render(request, 'my_template.html', {'my_form': user_form})
 
 
 

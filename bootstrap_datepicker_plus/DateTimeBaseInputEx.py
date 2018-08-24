@@ -55,6 +55,7 @@ class DateTimeBaseInputEx(DateTimeBaseInput):
         context = {}
         context['widget'] = {
             'name': name,
+            'type': 'text',
             'is_hidden': self.is_hidden,
             'required': self.is_required,
             'value': self.format_value(value),

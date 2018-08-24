@@ -18,7 +18,7 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 script:
-  - coverage run --source=bootstrap_datepicker_plus -m tests.test_widgets
+  - coverage run --source=bootstrap_datepicker_plus runtests.py
   - coverage xml
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT

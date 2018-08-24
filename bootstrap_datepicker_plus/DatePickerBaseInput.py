@@ -70,6 +70,7 @@ class DatePickerBaseInput(DatePickerDictionary.get_base_input()):
         self.config['picker_type'] = self.picker_type
         self.config['options'] = self._calculate_options(options)
         # Configure Format
+        self.format_parameter = format
         if format is None:
             format = self.format
         if self.config['options'].get('format'):
@@ -103,19 +104,25 @@ class DatePickerBaseInput(DatePickerDictionary.get_base_input()):
         DatePickerDictionary.items[str(event_id)] = self
         return self
 
-    def end_of(self, event_id):
+    def end_of(self, event_id, import_options=True):
         '''
         Set Datepicker as the end-date of a date-range
 
         event_id => a user-defined unique string to identify the date-range
+        import_options => import options from other input, default is TRUE
         '''
         event_id = str(event_id)
         if event_id in DatePickerDictionary.items:
             linked_picker = DatePickerDictionary.items[event_id]
             self.config['linked_to'] = linked_picker.config['id']
-            self.config['options'].update(linked_picker.config['options'])
-            if self.options_parameter:
+            if import_options:
+                backup_moment_format = self.config['options']['format']
+                self.config['options'].update(linked_picker.config['options'])
                 self.config['options'].update(self.options_parameter)
+                if self.format_parameter or 'format' in self.options_parameter:
+                    self.config['options']['format'] = backup_moment_format
+                else:
+                    self.format = linked_picker.format
             # Important! See https://github.com/Eonasdan/bootstrap-datetimepicker/issues/1075
             self.config['options']['useCurrent'] = False
             self._link_to(linked_picker)

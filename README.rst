@@ -230,17 +230,17 @@ This project implements `Eonasdan/bootstrap-datetimepicker <https://github.com/E
 The project was initially forked from `pbucher/django-bootstrap-datepicker <https://github.com/pbucher/django-bootstrap-datepicker>`__.
 
 
-.. |date-picker-image| image:: https://raw.githubusercontent.com/monim67/django-bootstrap-datepicker-plus/master/images/date-picker.png
+.. |date-picker-image| image:: https://raw.githubusercontent.com/monim67/django-bootstrap-datepicker-plus/26d89a744d403a895422313a48c02885c4718251/images/date-picker.png
     :alt: Date-picker
     :width: 218px
     :height: 280px
 
-.. |datetime-picker-image| image:: https://raw.githubusercontent.com/monim67/django-bootstrap-datepicker-plus/master/images/datetime-picker.png
+.. |datetime-picker-image| image:: https://raw.githubusercontent.com/monim67/django-bootstrap-datepicker-plus/26d89a744d403a895422313a48c02885c4718251/images/datetime-picker.png
     :alt: Datetime-picker
     :width: 218px
     :height: 280px
 
-.. |time-picker-image| image:: https://raw.githubusercontent.com/monim67/django-bootstrap-datepicker-plus/master/images/time-picker.png
+.. |time-picker-image| image:: https://raw.githubusercontent.com/monim67/django-bootstrap-datepicker-plus/26d89a744d403a895422313a48c02885c4718251/images/time-picker.png
     :alt: Time-picker
     :width: 218px
     :height: 280px

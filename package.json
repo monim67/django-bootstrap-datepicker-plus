@@ -1,0 +1,27 @@
+{
+  "name": "django-bootstrap-datepicker-plus-dev-suite",
+  "version": "1.0.0",
+  "description": "Developement package for django-bootstrap-datepicker-plus",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "python runtests.py",
+    "coverage": "coverage run --source=bootstrap_datepicker_plus runtests.py && coverage report",
+    "travis-test": "coverage run --source=bootstrap_datepicker_plus runtests.py",
+    "build": "python setup.py sdist bdist_wheel",
+    "upload": "twine upload dist/*",
+    "test-upload": "twine upload --repository testpypi dist/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/monim67/django-bootstrap-datepicker-plus.git"
+  },
+  "author": "Munim Munna",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/monim67/django-bootstrap-datepicker-plus/issues"
+  },
+  "homepage": "https://github.com/monim67/django-bootstrap-datepicker-plus"
+}

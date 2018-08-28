@@ -1,0 +1,28 @@
+{% extends 'layouts/bootstrap4.html' %}
+{% load bootstrap4 %}
+
+{% block extra_css %}
+{{ form.media.css }}
+{% endblock %}
+
+{% block extra_js %}
+{{ form.media.js }}
+{% endblock %}
+
+
+{% block content %}
+<h2 class="pb-2 mt-4 mb-2 border-bottom">Custom Form with Bootstrap 4</h2>
+<div class="row">
+    <div class='col-sm-6'>
+        <form action="" method="post">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">
+                    Submit
+                </button>
+            {% endbuttons %}
+        </form>
+    </div>
+</div>
+{% endblock %}

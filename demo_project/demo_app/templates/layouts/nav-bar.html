@@ -1,0 +1,19 @@
+<div id="navbar" class="navbar-collapse collapse">
+    <ul class="nav navbar-nav mr-auto">
+        <li class="nav-item {% ifequal url_sub_section 'custom-form' %}active{% endifequal %}">
+            <a class="nav-link" href="custom-form.html">Custom Form</a>
+        </li>
+        <li class="nav-item {% ifequal url_sub_section 'model-form-1' %}active{% endifequal %}">
+            <a class="nav-link" href="model-form-1.html">Model Form</a>
+        </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right flex-row ml-md-auto d-none d-md-flex">
+        {% ifequal bootstrap_version 3 %}
+        <li class="nav-item"><a href="../bootstrap4/{{ url_sub_section }}.html">Switch to Bootstrap 4</a></li>
+        {% endifequal %}
+        {% ifequal bootstrap_version 4 %}
+        <li class="nav-item"><a href="../bootstrap3/{{ url_sub_section }}.html">Switch to Bootstrap 3</a></li>
+        {% endifequal %}
+        <li class="nav-item"><a>Django {{ django_version_string }}</a></li>
+    </ul>
+</div>

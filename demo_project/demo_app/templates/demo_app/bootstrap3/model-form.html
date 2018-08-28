@@ -1,0 +1,28 @@
+{% extends 'layouts/bootstrap3.html' %}
+{% load bootstrap3 %}
+
+{% block extra_css %}
+{{ form.media.css }}
+{% endblock %}
+
+{% block extra_js %}
+{{ form.media.js }}
+{% endblock %}
+
+
+{% block content %}
+<h2 class="page-header">Model Form with Bootstrap 3</h2>
+<div class="row">
+    <div class='col-sm-6'>
+        <form action="" method="post">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">
+                    {% bootstrap_icon "star" %} Update
+                </button>
+            {% endbuttons %}
+        </form>
+    </div>
+</div>
+{% endblock %}

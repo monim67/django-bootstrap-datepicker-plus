@@ -7,6 +7,9 @@
     "test": "tests"
   },
   "scripts": {
+    "demo": "python demo_project\\manage.py runserver",
+    "pip-install": "python -m pip install -r demo_project\\requirements.txt",
+    "migrate": "python demo_project\\manage.py migrate",
     "test": "python runtests.py",
     "coverage": "coverage run --source=bootstrap_datepicker_plus runtests.py && coverage report",
     "travis-test": "coverage run --source=bootstrap_datepicker_plus runtests.py",

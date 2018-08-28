@@ -218,6 +218,12 @@ as an option (see end_date in the example).
 If both are specified then the moment format in options will take precedence.
 
 
+Contributing
+------------
+
+ - `CONTRIBUTING.md <https://github.com/monim67/django-bootstrap-datepicker-plus/blob/master/.github/CONTRIBUTING.md>`__.
+ - `CODE_OF_CONDUCT.md <https://github.com/monim67/django-bootstrap-datepicker-plus/blob/master/.github/CODE_OF_CONDUCT.md>`__.
+
 License
 -------
 

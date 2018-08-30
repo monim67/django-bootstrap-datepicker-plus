@@ -27,8 +27,8 @@ jQuery(function ($) {
     $.each(datepickerDict, function (id, to_picker) {
         if (to_picker.linked_to) {
             var from_picker = datepickerDict[to_picker.linked_to];
-            from_picker.datepickerdata.maxDate(to_picker.datepickerdata.date());
-            to_picker.datepickerdata.minDate(from_picker.datepickerdata.date());
+            from_picker.datepickerdata.maxDate(to_picker.datepickerdata.date() || false);
+            to_picker.datepickerdata.minDate(from_picker.datepickerdata.date() || false);
             from_picker.$element.on("dp.change", function (e) {
                 to_picker.datepickerdata.minDate(e.date);
             });

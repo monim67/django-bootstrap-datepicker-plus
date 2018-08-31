@@ -2,7 +2,7 @@ jQuery(function ($) {
     var datepickerDict = {};
     var isBootstrap4 = $.fn.collapse.Constructor.VERSION.split('.').shift() == "4";
     function fixMonthEndDate(e, picker) {
-        picker.val(e.date.endOf('month').format('YYYY-MM-DD'));
+        e.date && picker.val().length && picker.val(e.date.endOf('month').format('YYYY-MM-DD'));
     }
     $("[dp_config]:not([disabled])").each(function (i, element) {
         var $element = $(element), data = {};
@@ -30,11 +30,11 @@ jQuery(function ($) {
             from_picker.datepickerdata.maxDate(to_picker.datepickerdata.date() || false);
             to_picker.datepickerdata.minDate(from_picker.datepickerdata.date() || false);
             from_picker.$element.on("dp.change", function (e) {
-                to_picker.datepickerdata.minDate(e.date);
+                to_picker.datepickerdata.minDate(e.date || false);
             });
             to_picker.$element.on("dp.change", function (e) {
                 if (to_picker.picker_type == 'MONTH') fixMonthEndDate(e, to_picker.$element);
-                from_picker.datepickerdata.maxDate(e.date);
+                from_picker.datepickerdata.maxDate(e.date || false);
             });
             if (to_picker.picker_type == 'MONTH') {
                 to_picker.$element.on("dp.hide", function (e) {

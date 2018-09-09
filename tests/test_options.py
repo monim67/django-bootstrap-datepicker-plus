@@ -1,24 +1,24 @@
 from django.test import SimpleTestCase
 
-from bootstrap_datepicker_plus.DatePickerBaseInput import DatePickerBaseInput
+from bootstrap_datepicker_plus._base import BasePickerInput
 
 
-class custom_input(DatePickerBaseInput):
+class custom_input(BasePickerInput):
     format = '%Y-%m-%d'
 
 
 class TestOptionOverrides(SimpleTestCase):
 
     def test_format_as_parameter(self):
-        dp_input = DatePickerBaseInput(format='%Y-%m-%d')
+        dp_input = BasePickerInput(format='%Y-%m-%d')
         self.assertEqual(dp_input.format, '%Y-%m-%d')
 
     def test_format_as_option(self):
-        dp_input = DatePickerBaseInput(options={'format': 'YYYY-MM-DD'})
+        dp_input = BasePickerInput(options={'format': 'YYYY-MM-DD'})
         self.assertEqual(dp_input.format, '%Y-%m-%d')
 
     def test_format_as_both(self):
-        dp_input = DatePickerBaseInput(
+        dp_input = BasePickerInput(
             format='%m/%d/%Y', options={'format': 'YYYY-MM-DD'})
         self.assertEqual(dp_input.format, '%Y-%m-%d')
 

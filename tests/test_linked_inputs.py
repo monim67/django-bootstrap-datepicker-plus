@@ -1,26 +1,26 @@
 from django.test import SimpleTestCase
 
-from bootstrap_datepicker_plus.DatePickerBaseInput import DatePickerBaseInput
+from bootstrap_datepicker_plus._base import BasePickerInput
 from bootstrap_datepicker_plus import YearPickerInput
 
 
 class TestLinkedInputs(SimpleTestCase):
 
     def test_raising_error_on_no_start_of_key(self):
-        endpicker = DatePickerBaseInput()
+        endpicker = BasePickerInput()
         self.assertRaises(KeyError, lambda: endpicker.end_of('undefined'))
 
     def test_format_copy(self):
-        dp_input1 = DatePickerBaseInput(
+        dp_input1 = BasePickerInput(
             format='%Y-%m-%d').start_of('format_copy')
-        dp_input2 = DatePickerBaseInput().end_of('format_copy')
+        dp_input2 = BasePickerInput().end_of('format_copy')
         self.assertEqual(dp_input1.format, '%Y-%m-%d')
         self.assertEqual(dp_input2.format, '%Y-%m-%d')
 
     def test_format_copy_override(self):
-        dp_input1 = DatePickerBaseInput(
+        dp_input1 = BasePickerInput(
             format='%Y-%m-%d').start_of('format_copy_override')
-        dp_input2 = DatePickerBaseInput(
+        dp_input2 = BasePickerInput(
             format='%m/%d/%Y').end_of('format_copy_override')
         self.assertEqual(dp_input1.format, '%Y-%m-%d')
         self.assertEqual(dp_input2.format, '%m/%d/%Y')

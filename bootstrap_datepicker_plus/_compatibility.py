@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from functools import lru_cache
 from pathlib import Path
 
 from django.forms.widgets import DateTimeBaseInput
@@ -33,7 +34,7 @@ class EngineMixin:
         })
 
 
-class DjangoTemplatesEx(EngineMixin, BaseRenderer):
+class DjangoTemplateRenderer(EngineMixin, BaseRenderer):
     """
     Load Django templates from the built-in widget templates in
     django/forms/templates and from apps' 'templates' directory.
@@ -41,7 +42,12 @@ class DjangoTemplatesEx(EngineMixin, BaseRenderer):
     backend = DjangoTemplates
 
 
-class DateTimeBaseInputEx(DateTimeBaseInput):
+@lru_cache()
+def get_default_renderer():
+    return DjangoTemplateRenderer()
+
+
+class CompatibleDateTimeBaseInput(DateTimeBaseInput):
     format = '%m/%d/%Y'
     format_key = 'DATE_INPUT_FORMATS'
     template_name = 'bootstrap_datepicker_plus/date-picker.html'
@@ -71,5 +77,5 @@ class DateTimeBaseInputEx(DateTimeBaseInput):
 
     def _render(self, template_name, context, renderer=None):
         if renderer is None:
-            renderer = DjangoTemplatesEx()
+            renderer = get_default_renderer()
         return mark_safe(renderer.render(template_name, context))

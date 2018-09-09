@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 from json import dumps as json_dumps
-from .DatePickerDictionary import DatePickerDictionary
+from bootstrap_datepicker_plus._helpers import (
+    get_base_input,
+    DatePickerDictionary,
+)
 
 
-class DatePickerBaseInput(DatePickerDictionary.get_base_input()):
+class BasePickerInput(get_base_input()):
     template_name = 'bootstrap_datepicker_plus/date-picker.html'
     picker_type = 'DATE'
     format = '%m/%d/%Y'
@@ -22,7 +25,8 @@ class DatePickerBaseInput(DatePickerDictionary.get_base_input()):
         'showTodayButton': True,
     }
 
-    # source: https://github.com/tutorcruncher/django-bootstrap3-datetimepicker/blob/master/bootstrap3_datetime/widgets.py
+    # source: https://github.com/tutorcruncher/django-bootstrap3-datetimepicker
+    # file: /blob/31fbb09/bootstrap3_datetime/widgets.py#L33
     format_map = (
         ('DDD', r'%j'),
         ('DD', r'%d'),
@@ -41,28 +45,31 @@ class DatePickerBaseInput(DatePickerDictionary.get_base_input()):
 
     class Media:
         js = (
-            'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js',
-            'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/'
+            'moment-with-locales.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/'
+            '4.17.47/js/bootstrap-datetimepicker.min.js',
             'bootstrap_datepicker_plus/js/datepicker-widget.js'
         )
         css = {'all': (
-            'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css',
+            'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/'
+            '4.17.47/css/bootstrap-datetimepicker.css',
             'bootstrap_datepicker_plus/css/datepicker-widget.css'
         ), }
 
     @classmethod
-    def format_py2js(cls, format):
+    def format_py2js(cls, datetime_format):
         ''' convert python datetime format to moment format '''
-        for js, py in cls.format_map:
-            format = format.replace(py, js)
-        return format
+        for js_format, py_format in cls.format_map:
+            datetime_format = datetime_format.replace(py_format, js_format)
+        return datetime_format
 
     @classmethod
-    def format_js2py(cls, format):
+    def format_js2py(cls, datetime_format):
         ''' convert moment format to python datetime format '''
-        for js, py in cls.format_map:
-            format = format.replace(js, py)
-        return format
+        for js_format, py_format in cls.format_map:
+            datetime_format = datetime_format.replace(js_format, py_format)
+        return datetime_format
 
     def __init__(self, attrs={}, format=None, options={}):
         self.config = self._default_config.copy()
@@ -80,7 +87,7 @@ class DatePickerBaseInput(DatePickerDictionary.get_base_input()):
         # Initilize
         if 'class' not in attrs:
             attrs['class'] = 'form-control'
-        super(DatePickerBaseInput, self).__init__(attrs, format)
+        super().__init__(attrs, format)
 
     def _calculate_options(self, options):
         self.options_parameter = options
@@ -90,7 +97,7 @@ class DatePickerBaseInput(DatePickerDictionary.get_base_input()):
         return _options
 
     def get_context(self, name, value, attrs):
-        context = super(DatePickerBaseInput, self).get_context(
+        context = super().get_context(
             name, value, attrs)
         context['widget']['attrs']['dp_config'] = json_dumps(self.config)
         return context
@@ -123,7 +130,8 @@ class DatePickerBaseInput(DatePickerDictionary.get_base_input()):
                     self.config['options']['format'] = backup_moment_format
                 else:
                     self.format = linked_picker.format
-            # Important! See https://github.com/Eonasdan/bootstrap-datetimepicker/issues/1075
+            # Setting useCurrent is necessary, see following issue
+            # https://github.com/Eonasdan/bootstrap-datetimepicker/issues/1075
             self.config['options']['useCurrent'] = False
             self._link_to(linked_picker)
         else:
@@ -132,4 +140,4 @@ class DatePickerBaseInput(DatePickerDictionary.get_base_input()):
         return self
 
     def _link_to(self, linked_picker):
-        ...
+        pass

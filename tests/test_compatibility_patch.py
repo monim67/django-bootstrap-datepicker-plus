@@ -1,17 +1,14 @@
 from django.test import SimpleTestCase
 
-from bootstrap_datepicker_plus.DateTimeBaseInputEx import BaseRenderer
-from bootstrap_datepicker_plus.DatePickerDictionary import DatePickerDictionary
-
-from json import dumps as json_dumps
-import re
+from bootstrap_datepicker_plus._compatibility import BaseRenderer
+from bootstrap_datepicker_plus._helpers import get_base_input
 
 
 class TestCompatibilityPatch(SimpleTestCase):
 
     def setUp(self):
-        self.DatePickerInputEx = DatePickerDictionary.get_base_input(True)
-        self.dp_input = self.DatePickerInputEx()
+        self.CompatibleDatePickerInput = get_base_input(True)
+        self.dp_input = self.CompatibleDatePickerInput()
 
     def test_raise_on_get_template(self):
         self.assertRaises(NotImplementedError,

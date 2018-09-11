@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+"""Contains Base Date-Picker input class for widgets of this package."""
+
 from json import dumps as json_dumps
 from bootstrap_datepicker_plus._helpers import (
     get_base_input,
@@ -7,6 +9,8 @@ from bootstrap_datepicker_plus._helpers import (
 
 
 class BasePickerInput(get_base_input()):
+    """Base Date-Picker input class for widgets of this package."""
+
     template_name = 'bootstrap_datepicker_plus/date-picker.html'
     picker_type = 'DATE'
     format = '%m/%d/%Y'
@@ -44,6 +48,8 @@ class BasePickerInput(get_base_input()):
     )
 
     class Media:
+        """JS/CSS resources needed to render the date-picker calendar."""
+
         js = (
             'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/'
             'moment-with-locales.min.js',
@@ -59,19 +65,20 @@ class BasePickerInput(get_base_input()):
 
     @classmethod
     def format_py2js(cls, datetime_format):
-        ''' convert python datetime format to moment format '''
+        """Convert python datetime format to moment datetime format."""
         for js_format, py_format in cls.format_map:
             datetime_format = datetime_format.replace(py_format, js_format)
         return datetime_format
 
     @classmethod
     def format_js2py(cls, datetime_format):
-        ''' convert moment format to python datetime format '''
+        """Convert moment datetime format to python datetime format."""
         for js_format, py_format in cls.format_map:
             datetime_format = datetime_format.replace(js_format, py_format)
         return datetime_format
 
     def __init__(self, attrs=None, format=None, options=None):
+        """Initialize the Date-picker widget."""
         self.format_param = format
         self.options_param = options if options else {}
         self.config = self._default_config.copy()
@@ -84,6 +91,7 @@ class BasePickerInput(get_base_input()):
         super().__init__(attrs, self._calculate_format())
 
     def _calculate_options(self):
+        """Calculate and Return the options."""
         _options = self._default_options.copy()
         _options.update(self.options)
         if self.options_param:
@@ -91,6 +99,7 @@ class BasePickerInput(get_base_input()):
         return _options
 
     def _calculate_format(self):
+        """Calculate and Return the datetime format."""
         _format = self.format_param if self.format_param else self.format
         if self.config['options'].get('format'):
             _format = self.format_js2py(self.config['options'].get('format'))
@@ -99,27 +108,31 @@ class BasePickerInput(get_base_input()):
         return _format
 
     def get_context(self, name, value, attrs):
+        """Return widget context dictionary."""
         context = super().get_context(
             name, value, attrs)
         context['widget']['attrs']['dp_config'] = json_dumps(self.config)
         return context
 
     def start_of(self, event_id):
-        '''
-        Set Datepicker as the start-date of a date-range
+        """
+        Set Date-Picker as the start-date of a date-range.
 
-        event_id => a user-defined unique string to identify the date-range
-        '''
+        Args:
+            - event_id (string): User-defined unique id for linking two fields
+        """
         DatePickerDictionary.items[str(event_id)] = self
         return self
 
     def end_of(self, event_id, import_options=True):
-        '''
-        Set Datepicker as the end-date of a date-range
+        """
+        Set Date-Picker as the end-date of a date-range.
 
-        event_id => a user-defined unique string to identify the date-range
-        import_options => import options from other input, default is TRUE
-        '''
+        Args:
+            - event_id (string): User-defined unique id for linking two fields
+            - import_options (bool): inherit options from start-date input,
+              default: TRUE
+        """
         event_id = str(event_id)
         if event_id in DatePickerDictionary.items:
             linked_picker = DatePickerDictionary.items[event_id]
@@ -142,4 +155,9 @@ class BasePickerInput(get_base_input()):
         return self
 
     def _link_to(self, linked_picker):
+        """
+        Executed when two date-inputs are linked together.
+
+        This method for sub-classes to override to customize the linking.
+        """
         pass

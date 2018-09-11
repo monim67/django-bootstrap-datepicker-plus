@@ -18,7 +18,7 @@ class BasePickerInput(get_base_input()):
         'options': {}  # final merged options
     }
     options = {}  # options extended by user
-    options_parameter = {}  # options passed as parameter
+    options_param = {}  # options passed as parameter
     _default_options = {
         'showClose': True,
         'showClear': True,
@@ -71,30 +71,32 @@ class BasePickerInput(get_base_input()):
             datetime_format = datetime_format.replace(js_format, py_format)
         return datetime_format
 
-    def __init__(self, attrs={}, format=None, options={}):
+    def __init__(self, attrs=None, format=None, options=None):
+        self.format_param = format
+        self.options_param = options if options else {}
         self.config = self._default_config.copy()
         self.config['id'] = DatePickerDictionary.generate_id()
         self.config['picker_type'] = self.picker_type
-        self.config['options'] = self._calculate_options(options)
-        # Configure Format
-        self.format_parameter = format
-        if format is None:
-            format = self.format
-        if self.config['options'].get('format'):
-            format = self.format_js2py(self.config['options'].get('format'))
-        else:
-            self.config['options']['format'] = self.format_py2js(format)
-        # Initilize
+        self.config['options'] = self._calculate_options()
+        attrs = attrs if attrs else {}
         if 'class' not in attrs:
             attrs['class'] = 'form-control'
-        super().__init__(attrs, format)
+        super().__init__(attrs, self._calculate_format())
 
-    def _calculate_options(self, options):
-        self.options_parameter = options
+    def _calculate_options(self):
         _options = self._default_options.copy()
         _options.update(self.options)
-        _options.update(self.options_parameter)
+        if self.options_param:
+            _options.update(self.options_param)
         return _options
+
+    def _calculate_format(self):
+        _format = self.format_param if self.format_param else self.format
+        if self.config['options'].get('format'):
+            _format = self.format_js2py(self.config['options'].get('format'))
+        else:
+            self.config['options']['format'] = self.format_py2js(_format)
+        return _format
 
     def get_context(self, name, value, attrs):
         context = super().get_context(
@@ -125,8 +127,8 @@ class BasePickerInput(get_base_input()):
             if import_options:
                 backup_moment_format = self.config['options']['format']
                 self.config['options'].update(linked_picker.config['options'])
-                self.config['options'].update(self.options_parameter)
-                if self.format_parameter or 'format' in self.options_parameter:
+                self.config['options'].update(self.options_param)
+                if self.format_param or 'format' in self.options_param:
                     self.config['options']['format'] = backup_moment_format
                 else:
                     self.format = linked_picker.format

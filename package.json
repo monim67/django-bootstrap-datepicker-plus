@@ -14,6 +14,9 @@
     "coverage": "coverage run --source=bootstrap_datepicker_plus runtests.py && coverage report",
     "travis-test": "coverage run --source=bootstrap_datepicker_plus runtests.py",
     "build": "python setup.py sdist bdist_wheel",
+    "docs": "start docs/_build/index.html",
+    "build-docs": "sphinx-build docs docs\\_build",
+    "pydoc.io": "sphinx-build docs\\pydoc.io docs\\_build",
     "upload": "twine upload dist/*",
     "test-upload": "twine upload --repository testpypi dist/*"
   },

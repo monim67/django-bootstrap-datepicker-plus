@@ -34,7 +34,7 @@ author = 'Munim Munna'
 # The short X.Y version
 version = '3.0'
 # The full version, including alpha/beta/rc tags
-release = '3.0.4'
+release = '3.0.5'
 
 
 # -- General configuration ---------------------------------------------------

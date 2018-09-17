@@ -9,7 +9,7 @@ to show bootstrap-datepicker in django model forms and custom forms
 which can be configured easily for date-range selection.
 
 
-|  |ci-status| |coverage.io| |maintainability| |test-coverage|
+|  |ci-status| |docs-status| |coverage.io| |maintainability| |test-coverage|
 |  |pyversions| |djversions| |pypi-version|
 |  |format| |status| |license|
 
@@ -254,6 +254,11 @@ The project was initially forked from `pbucher/django-bootstrap-datepicker <http
 .. |ci-status| image:: https://travis-ci.org/monim67/django-bootstrap-datepicker-plus.svg?branch=master
     :target: https://travis-ci.org/monim67/django-bootstrap-datepicker-plus
     :alt: Build Status
+    :height: 20px
+
+.. |docs-status| image:: https://readthedocs.org/projects/django-bootstrap-datepicker-plus/badge/?version=latest
+    :target: https://django-bootstrap-datepicker-plus.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
     :height: 20px
 
 .. |coverage.io| image:: https://coveralls.io/repos/github/monim67/django-bootstrap-datepicker-plus/badge.svg?branch=master

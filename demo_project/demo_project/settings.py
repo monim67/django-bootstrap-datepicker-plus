@@ -140,10 +140,10 @@ STATICFILES_DIRS = [
 # ]
 
 # Default settings
-BOOTSTRAP3 = {
-    'include_jquery': True,
-}
+# BOOTSTRAP3 = {
+#     'include_jquery': True,
+# }
 
-BOOTSTRAP4 = {
-    'include_jquery': True,
-}
+# BOOTSTRAP4 = {
+#     'include_jquery': True,
+# }

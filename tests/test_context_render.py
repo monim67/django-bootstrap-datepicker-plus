@@ -5,6 +5,14 @@ from json import dumps as json_dumps
 import re
 
 
+class CustomDatePickerInput(DatePickerInput):
+    template_name = 'demo_app/custom_input/date-picker.html'
+
+
+class CustomTimePickerInput(TimePickerInput):
+    template_name = 'demo_app/custom_input/time-picker.html'
+
+
 class TestContextRender(SimpleTestCase):
 
     def test_get_context(self):
@@ -30,3 +38,20 @@ class TestContextRender(SimpleTestCase):
         html = re.sub('dp_\\d+', '', html)
         snapshot = re.sub('dp_\\d+', '', snapshot)
         self.assertEqual(html, snapshot)
+
+    def test_custom_date_input_snapshot(self):
+        dp_input = CustomDatePickerInput()
+        html = dp_input.render('input_name', '2018-04-12', {})
+        snapshot = open('tests/snapshots/date-input-custom.html').read()
+        html = re.sub('dp_\\d+', '', html)
+        snapshot = re.sub('dp_\\d+', '', snapshot)
+        self.assertEqual(html, snapshot)
+
+    def test_custom_time_input_snapshot(self):
+        dp_input = CustomTimePickerInput()
+        html = dp_input.render('input_name', '12:30', {})
+        snapshot = open('tests/snapshots/time-input-custom.html').read()
+        html = re.sub('dp_\\d+', '', html)
+        snapshot = re.sub('dp_\\d+', '', snapshot)
+        self.assertEqual(html, snapshot)
+

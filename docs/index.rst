@@ -35,7 +35,10 @@ Demo
    :caption: Contents:
 
    Getting_Started
+   Walkthrough
    Usage
+   Template_Customizing
+   Troubleshooting
    Contributing
 
 

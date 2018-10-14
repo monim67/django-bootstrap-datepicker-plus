@@ -2,6 +2,25 @@ Usage
 -----
 
 
+Usage in Generic View
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. code:: python
+
+    # File: views.py
+    from bootstrap_datepicker_plus import DateTimePickerInput
+    from django.views import generic
+    from .models import Question
+
+    class CreateView(generic.edit.CreateView):
+        model = Question
+        fields = ['question_text', 'pub_date']
+        def get_form(self):
+            form = super().get_form()
+            form.fields['pub_date'].widget = DateTimePickerInput()
+            return form
+
+
 Custom Form usage
 ^^^^^^^^^^^^^^^^^
 
@@ -27,6 +46,7 @@ Model Form usage
 
     # File: forms.py
     from bootstrap_datepicker_plus import DatePickerInput
+    from .models import Event
     from django import forms
 
     class EventForm(forms.ModelForm):

@@ -29,5 +29,8 @@ If applicable, add screenshots to help explain your problem.
  - Bootstrap version [e.g. 3/4]
  - jQuery version [e.g. 1.7.1]
 
-**Additional context**
-Add any other context about the problem here.
+[x] I have followed the [configuration instructions][configuration_page] and checked out the
+[common error troubleshooting][troubleshooting_page] page.
+
+[configuration_page]: https://monim67.github.io/django-bootstrap-datepicker-plus/configure/
+[troubleshooting_page]: https://django-bootstrap-datepicker-plus.readthedocs.io/en/latest/Troubleshooting.html

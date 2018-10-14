@@ -27,7 +27,7 @@ Add ``bootstrap_datepicker_plus`` to the list of ``INSTALLED_APPS`` in your ``se
         'bootstrap_datepicker_plus',
     ]
 
-This installation instruction assumes you have ``jQuery`` and Bootstrap JS/CSS files present in your template
-and you are using ``form.media`` in your django template. If not you should checkout our
-`configuration instructions <https://monim67.github.io/django-bootstrap-datepicker-plus/configure/>`__
-which covers almost everything you need to get the widget running.
+.. warning:: This installation instruction assumes you have ``jQuery`` and Bootstrap JS/CSS files present
+    in your template and you are using ``form.media`` in your django template. If not you should checkout our
+    `configuration instructions <https://monim67.github.io/django-bootstrap-datepicker-plus/configure/>`__
+    which covers almost everything you need to get the widget running.

@@ -28,6 +28,7 @@ Custom Form usage
 
     # File: forms.py
     from bootstrap_datepicker_plus import DatePickerInput
+    from .models import Event
     from django import forms
 
     class ToDoForm(forms.Form):
@@ -68,6 +69,7 @@ The widget contains all types of date-picker you may ever need.
 
     # File: forms.py
     from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput, DateTimePickerInput, MonthPickerInput, YearPickerInput
+    from .models import Event
     from django import forms
 
     class EventForm(forms.ModelForm):
@@ -92,6 +94,7 @@ DatePickers can be linked to select a date-range or time-range.
 
     # File: forms.py
     from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput
+    from .models import Event
     from django import forms
 
     class EventForm(forms.ModelForm):
@@ -106,10 +109,10 @@ DatePickers can be linked to select a date-range or time-range.
             }
 
 
-Customize the Options
-^^^^^^^^^^^^^^^^^^^^^
+Customize Datepicker Options
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The DatePicker can be customised by passing options to it.
+The DatePicker can be customized by passing options to it.
 The ``options`` will be passed to the JavaScript datepicker instance, and are documented and demonstrated in 
 `Bootstrap Datepicker Options Reference <http://eonasdan.github.io/bootstrap-datetimepicker/Options/>`__.
 
@@ -117,6 +120,7 @@ The ``options`` will be passed to the JavaScript datepicker instance, and are do
 
     # File: forms.py
     from bootstrap_datepicker_plus import DatePickerInput
+    from .models import Event
     from django import forms
 
     class EventForm(forms.ModelForm):
@@ -141,5 +145,32 @@ as format parameter (see start_date in the example), or by passing a
 `moment date-time format <http://momentjs.com/docs/#/displaying/format/>`__
 as an option (see end_date in the example).
 If both are specified then the moment format in options will take precedence.
+
+
+Customize the Language
+^^^^^^^^^^^^^^^^^^^^^^^
+
+The DatePicker language can be customized by passing a ``locale`` option to datepicker input.
+See `moment.js locales <https://github.com/moment/moment/tree/develop/locale>`__ for valid locales.
+
+.. code:: python
+
+    # File: forms.py
+    from bootstrap_datepicker_plus import DatePickerInput
+    from .models import Event
+    from django import forms
+
+    class EventForm(forms.ModelForm):
+        class Meta:
+            model = Event
+            fields = ['name', 'pub_date']
+            widgets = {
+                'pub_date': DatePickerInput(
+                    options={
+                        "format": "MM/DD/YYYY",
+                        "locale": "bn",
+                    }
+                ),
+            }
 
 

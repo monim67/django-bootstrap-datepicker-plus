@@ -2,15 +2,20 @@ Quick Walkthrough Tutorial
 --------------------------
 
 This tutorial will take off where django official tutorial `Writing your first Django app, part 4 <django_tutorial_04_>`_
-left off. The Question model has a datetime field. We are going to create a page to add new poll questions
-and a page to edit them.
+left off. If you don't have the project you can clone the following repository and checkout to completion of tutorial 04.
+
+::
+
+    git clone https://github.com/monim67/django-polls
+    cd django-polls
+    git checkout d2.1t4
 
 
-
-.. tip:: We are going to use Bootstrap 4 here, if you are using Bootstrap 3 just replace the 4's with 3's in the
-        codes and instructions below.
-
-Open up your console and install the following packages:
+The Question model has a datetime field. We are going to create a page to add new poll questions and a page to edit
+them with a date-time-picker calendar on the datetime field.
+We are going to use Bootstrap 4 here, if you are using Bootstrap 3 just replace the 4's with 3's in the codes
+and instructions below.
+Install following packages:
 
 ::
 

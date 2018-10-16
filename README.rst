@@ -39,7 +39,7 @@ Prerequisites
 
 Installing
 ^^^^^^^^^^
-Install the widget via pip
+Install the PyPI package via pip
 
 ::
 
@@ -55,9 +55,15 @@ Add ``bootstrap_datepicker_plus`` to the list of ``INSTALLED_APPS`` in your ``se
     ]
 
 This installation instruction assumes you have ``jQuery`` and Bootstrap JS/CSS files present in your template
-and you are using ``form.media`` in your django template. If not you should checkout our
-`configuration instructions <https://monim67.github.io/django-bootstrap-datepicker-plus/configure/>`__
-which covers almost everything you need to get the widget running.
+and you are using ``form.media`` in your django template. If not you have to configure your template.
+
+
+Next
+^^^^^^^^^^
+ - `Template configuration <https://monim67.github.io/django-bootstrap-datepicker-plus/configure/>`__
+ - `Documentation on ReadTheDocs <https://django-bootstrap-datepicker-plus.readthedocs.io/en/latest/>`__
+ - `Quick Walkthrough Tutorial <https://django-bootstrap-datepicker-plus.readthedocs.io/en/latest/Walkthrough.html>`__
+ - `I am having errors <https://django-bootstrap-datepicker-plus.readthedocs.io/en/latest/Troubleshooting.html>`__
 
 
 
@@ -65,41 +71,30 @@ Usage
 -----
 
 
-Custom Form usage
+Usage in Generic View
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. code:: python
+
+    # File: views.py
+    from bootstrap_datepicker_plus import DateTimePickerInput
+    from django.views import generic
+    from .models import Question
+
+    class CreateView(generic.edit.CreateView):
+        model = Question
+        fields = ['question_text', 'pub_date']
+        def get_form(self):
+            form = super().get_form()
+            form.fields['pub_date'].widget = DateTimePickerInput()
+            return form
+
+
+Advanced Usage
 ^^^^^^^^^^^^^^^^^
 
-.. code:: python
-
-    # File: forms.py
-    from bootstrap_datepicker_plus import DatePickerInput
-    from django import forms
-
-    class ToDoForm(forms.Form):
-        todo = forms.CharField(
-            widget=forms.TextInput(attrs={"class": "form-control"})
-        )
-        date = forms.DateField(
-            widget=DatePickerInput(format='%m/%d/%Y')
-        )
-
-
-Model Form usage
-^^^^^^^^^^^^^^^^
-
-.. code:: python
-
-    # File: forms.py
-    from bootstrap_datepicker_plus import DatePickerInput
-    from django import forms
-
-    class EventForm(forms.ModelForm):
-        class Meta:
-            model = Event
-            fields = ['name', 'start_date', 'end_date']
-            widgets = {
-                'start_date': DatePickerInput(), # default date-format %m/%d/%Y will be used
-                'end_date': DatePickerInput(format='%Y-%m-%d'), # specify date-frmat
-            }
+ - `Usage in Custom Form <https://django-bootstrap-datepicker-plus.readthedocs.io/en/latest/Usage.html#custom-form-usage>`__
+ - `Usage in Model Form <https://django-bootstrap-datepicker-plus.readthedocs.io/en/latest/Usage.html#model-form-usage>`__
 
 
 Types of DatePickers
@@ -149,41 +144,11 @@ DatePickers can be linked to select a date-range or time-range.
             }
 
 
-Customize the Options
-^^^^^^^^^^^^^^^^^^^^^
-
-The DatePicker can be customised by passing options to it.
-The ``options`` will be passed to the JavaScript datepicker instance, and are documented and demonstrated in 
-`Bootstrap Datepicker Options Reference <http://eonasdan.github.io/bootstrap-datetimepicker/Options/>`__.
-
-.. code:: python
-
-    # File: forms.py
-    from bootstrap_datepicker_plus import DatePickerInput
-    from django import forms
-
-    class EventForm(forms.ModelForm):
-        class Meta:
-            model = Event
-            fields = ['name', 'start_date', 'end_date']
-            widgets = {
-                'start_date': DatePickerInput(format='%m/%d%Y'), # python date-time format
-                'end_date': DatePickerInput(
-                    options={
-                        "format": "MM/DD/YYYY", # moment date-time format 
-                        "showClose": True,
-                        "showClear": True,
-                        "showTodayButton": True,
-                    }
-                ),
-            }
-
-**Note:** You can specify the date-time format by passing a
-`python date-time format <https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior>`__
-as format parameter (see start_date in the example), or by passing a
-`moment date-time format <http://momentjs.com/docs/#/displaying/format/>`__
-as an option (see end_date in the example).
-If both are specified then the moment format in options will take precedence.
+Customization
+^^^^^^^^^^^^^^
+ - `Datepicker Options <https://django-bootstrap-datepicker-plus.readthedocs.io/en/latest/Usage.html#customize-datepicker-options>`__
+ - `Input field HTML template <https://django-bootstrap-datepicker-plus.readthedocs.io/en/latest/Template_Customizing.html>`__
+ - `Language <https://django-bootstrap-datepicker-plus.readthedocs.io/en/latest/Usage.html#customize-the-language>`__
 
 
 Contributing

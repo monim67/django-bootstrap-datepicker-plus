@@ -25,9 +25,10 @@ Install following packages:
 
 Add these packages to the list of INSTALLED_APPS as you did here on `Tutorial 02 <django_tutorial_activating_model_>`_.
 
-.. code:: python
+.. code-block:: python
+   :emphasize-lines: 10,11
 
-    # FIle: mysite/settings.py
+    # file: mysite/settings.py
     INSTALLED_APPS = [
         'polls.apps.PollsConfig',
         'django.contrib.admin',
@@ -46,9 +47,10 @@ CreateView for Question model
 
 Add a CreateView for Question model. The ``get_form`` method is used to specify widgets on the form fields.
 
-.. code:: python
+.. code-block:: python
+   :emphasize-lines: 7,12-18
 
-    # FIle: polls/views.py
+    # file: polls/views.py
     from django.http import HttpResponseRedirect
     from django.shortcuts import get_object_or_404, render
     from django.urls import reverse
@@ -73,9 +75,9 @@ Add a CreateView for Question model. The ``get_form`` method is used to specify 
 Create a template named question_form.html in your app to render the form. If you use a different name you have to
 set template_name property of CreateView class in your views.py file above.
 
-.. code:: html
+.. code-block:: html
 
-    <!-- File: polls/templates/polls/question_form.html -->
+    <!-- file: polls/templates/polls/question_form.html -->
     {% load bootstrap4 %}
     {% bootstrap_css %}
     {% bootstrap_javascript jquery='full' %}
@@ -88,9 +90,10 @@ set template_name property of CreateView class in your views.py file above.
 
 Add a ``get_absolute_url`` method to your Question model.
 
-.. code:: python
+.. code-block:: python
+   :emphasize-lines: 19-20
 
-    # FIle: polls/models.py
+    # file: polls/models.py
     import datetime
 
     from django.db import models
@@ -114,9 +117,10 @@ Add a ``get_absolute_url`` method to your Question model.
 
 Add an urlpattern for creating new poll question.
 
-.. code:: python
+.. code-block:: python
+   :emphasize-lines: 9
 
-    # FIle: polls/urls.py
+    # file: polls/urls.py
     from django.urls import path
 
     from . import views
@@ -134,8 +138,10 @@ Add an urlpattern for creating new poll question.
 Now run the developement server and visit http://localhost:8000/polls/create, if everything works fine
 you can wrap up your template in proper HTML.
 
-.. code:: html
+.. code-block:: html
+   :emphasize-lines: 8-11,17
 
+    <!-- file: polls/templates/polls/question_form.html -->
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -168,9 +174,9 @@ UpdateView for Question model
 
 We can now add a page to update a poll question. First we add an UpdateView to our views.
 
-.. code:: python
+.. code-block:: python
 
-    # FIle: add these to polls/views.py
+    # file: add these to polls/views.py
     class UpdateView(generic.edit.UpdateView):
         model = Question
         fields = ['question_text', 'pub_date']
@@ -181,9 +187,10 @@ We can now add a page to update a poll question. First we add an UpdateView to o
 
 Then add a urlpattern to access the question update page.
 
-.. code:: python
+.. code-block:: python
+   :emphasize-lines: 11
 
-    # FIle: polls/urls.py
+    # file: polls/urls.py
     from django.urls import path
 
     from . import views

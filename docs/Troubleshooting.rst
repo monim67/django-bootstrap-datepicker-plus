@@ -42,6 +42,38 @@ You forgot to add bootstrap JavaScript file to your template, make sure you have
 and CSS files to your included in your template. Checkout our `configuration instructions <configuration_page_>`_
 to see various options to do it.
 
+
+Fix 404 (Not Found) errors
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. error:: GET ``http://.../datepicker-widget.js`` net::ERR_ABORTED 404 (Not Found)
+
+.. error:: GET ``http://.../datepicker-widget.css`` net::ERR_ABORTED 404 (Not Found)
+
+In some production environment you need to collect static JS/CSS resources from all packages to a single
+location specified as STATIC_ROOT in ``settings.py`` file. Check your hosting provider manual to see how
+to do it correctly.
+
+Otherwise if your hosting interface provides access to console, log in to your server console and run the
+following command and then reload the server from your hosting interface.
+
+::
+
+    python3 manage.py collectstatic
+
+.. error:: You're using the staticfiles app without having set the STATIC_ROOT setting to a filesystem path
+
+If you encounter above error then you don't have ``STATIC_ROOT`` directory set. Check your hosting provider
+instruction manual to identify the directory it serves static files from, generally it's the ``static``
+directory in your prject root. If so add the following line at the bottom of your ``settings.py`` file.
+
+.. code-block:: python
+
+    STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+Now you can execute ``collectstatic`` command and reload the server from your hosting interface.
+
+
 No errors anywhere, but the calendar does not show up!
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 You forgot to add ``{{ form.media }}`` to your template. Checkout our `configuration instructions <configuration_page_>`_

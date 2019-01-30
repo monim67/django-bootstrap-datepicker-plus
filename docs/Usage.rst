@@ -5,7 +5,8 @@ Usage
 Usage in Generic View
 ^^^^^^^^^^^^^^^^^^^^^^
 
-.. code:: python
+.. code-block:: python
+   :emphasize-lines: 2,11
 
     # File: views.py
     from bootstrap_datepicker_plus import DateTimePickerInput
@@ -24,7 +25,8 @@ Usage in Generic View
 Custom Form usage
 ^^^^^^^^^^^^^^^^^
 
-.. code:: python
+.. code-block:: python
+   :emphasize-lines: 2,11
 
     # File: forms.py
     from bootstrap_datepicker_plus import DatePickerInput
@@ -43,7 +45,8 @@ Custom Form usage
 Model Form usage
 ^^^^^^^^^^^^^^^^
 
-.. code:: python
+.. code-block:: python
+   :emphasize-lines: 2,11-12
 
     # File: forms.py
     from bootstrap_datepicker_plus import DatePickerInput
@@ -65,7 +68,8 @@ Types of DatePickers
 
 The widget contains all types of date-picker you may ever need.
 
-.. code:: python
+.. code-block:: python
+   :emphasize-lines: 2,11-15
 
     # File: forms.py
     from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput, DateTimePickerInput, MonthPickerInput, YearPickerInput
@@ -90,7 +94,8 @@ Implement date-range-picker
 
 DatePickers can be linked to select a date-range or time-range.
 
-.. code:: python
+.. code-block:: python
+   :emphasize-lines: 2,11-12
 
     # File: forms.py
     from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput
@@ -116,7 +121,8 @@ The DatePicker can be customized by passing options to it.
 The ``options`` will be passed to the JavaScript datepicker instance, and are documented and demonstrated in 
 `Bootstrap Datepicker Options Reference <http://eonasdan.github.io/bootstrap-datetimepicker/Options/>`__.
 
-.. code:: python
+.. code-block:: python
+   :emphasize-lines: 14-17
 
     # File: forms.py
     from bootstrap_datepicker_plus import DatePickerInput
@@ -153,7 +159,8 @@ Customize the Language
 The DatePicker language can be customized by passing a ``locale`` option to datepicker input.
 See `moment.js locales <https://github.com/moment/moment/tree/develop/locale>`__ for valid locales.
 
-.. code:: python
+.. code-block:: python
+   :emphasize-lines: 14
 
     # File: forms.py
     from bootstrap_datepicker_plus import DatePickerInput

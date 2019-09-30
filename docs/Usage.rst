@@ -181,3 +181,30 @@ See `moment.js locales <https://github.com/moment/moment/tree/develop/locale>`__
             }
 
 
+Event Handling
+^^^^^^^^^^^^^^
+
+Datepicker support event handling, which can be configured by passing a configuation dictionary.
+
+The following events are supported: http://eonasdan.github.io/bootstrap-datetimepicker/Events/
+
+.. code-block:: python
+   :emphasize-lines: 13-15
+
+    # File: forms.py
+    from bootstrap_datepicker_plus import DatePickerInput
+    from .models import Event
+    from django import forms
+
+    class EventForm(forms.ModelForm):
+        class Meta:
+            model = Event
+            fields = ['name', 'pub_date']
+            widgets = {
+                'pub_date': DatePickerInput(
+                    options={},
+                    events = {
+                        "dp.show": "myJavascriptFunction"
+                    }
+                ),
+            }

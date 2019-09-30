@@ -77,7 +77,7 @@ class BasePickerInput(get_base_input()):
             datetime_format = datetime_format.replace(js_format, py_format)
         return datetime_format
 
-    def __init__(self, attrs=None, format=None, options=None):
+    def __init__(self, attrs=None, format=None, options=None, events=None):
         """Initialize the Date-picker widget."""
         self.format_param = format
         self.options_param = options if options else {}
@@ -85,6 +85,7 @@ class BasePickerInput(get_base_input()):
         self.config['id'] = DatePickerDictionary.generate_id()
         self.config['picker_type'] = self.picker_type
         self.config['options'] = self._calculate_options()
+        self.config['events'] = events if events else {}
         attrs = attrs if attrs else {}
         if 'class' not in attrs:
             attrs['class'] = 'form-control'

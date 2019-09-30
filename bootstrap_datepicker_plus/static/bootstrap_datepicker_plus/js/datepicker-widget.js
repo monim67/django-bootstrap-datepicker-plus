@@ -1,35 +1,30 @@
 jQuery(function ($) {
     var datepickerDict = {};
     var isBootstrap4 = $.fn.collapse.Constructor.VERSION.split('.').shift() == "4";
-
     function fixMonthEndDate(e, picker) {
         e.date && picker.val().length && picker.val(e.date.endOf('month').format('YYYY-MM-DD'));
     }
-
     $("[dp_config]:not([disabled])").each(function (i, element) {
-        var $element = $(element), data = {}, events = {};
+        var $element = $(element), data = {};
         try {
             data = JSON.parse($element.attr('dp_config'));
-        } catch (x) {
         }
+        catch (x) { }
         if (data.id && data.options) {
             data.$element = $element.datetimepicker(data.options);
-            data.datepickerdata = $element.data("DateTi;mePicker")
+            data.datepickerdata = $element.data("DateTimePicker");
             datepickerDict[data.id] = data;
-            data.$element.next('.input-group-addon').on('click', function () {
+            data.$element.next('.input-group-addon').on('click', function(){
                 data.datepickerdata.show();
             });
-            if (isBootstrap4) {
+            if(isBootstrap4){
                 data.$element.on("dp.show", function (e) {
                     $('.collapse.in').addClass('show');
                 });
             }
-
             Object.keys(data.events).forEach(function (key) {
                 data.$element.on(key, eval(data.events[key]));
             })
-
-
         }
     });
     $.each(datepickerDict, function (id, to_picker) {
@@ -48,15 +43,15 @@ jQuery(function ($) {
                 to_picker.$element.on("dp.hide", function (e) {
                     fixMonthEndDate(e, to_picker.$element);
                 });
-                fixMonthEndDate({date: to_picker.datepickerdata.date()}, to_picker.$element);
+                fixMonthEndDate({ date: to_picker.datepickerdata.date() }, to_picker.$element);
             }
         }
     });
-    if (isBootstrap4) {
-        $('body').on('show.bs.collapse', '.bootstrap-datetimepicker-widget .collapse', function (e) {
+    if(isBootstrap4) {
+        $('body').on('show.bs.collapse','.bootstrap-datetimepicker-widget .collapse',function(e){
             $(e.target).addClass('in');
         });
-        $('body').on('hidden.bs.collapse', '.bootstrap-datetimepicker-widget .collapse', function (e) {
+        $('body').on('hidden.bs.collapse','.bootstrap-datetimepicker-widget .collapse',function(e){
             $(e.target).removeClass('in');
         });
     }

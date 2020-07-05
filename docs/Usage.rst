@@ -153,6 +153,29 @@ as an option (see end_date in the example).
 If both are specified then the moment format in options will take precedence.
 
 
+Customize DatePicker Format
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In order to use arbitraty formats you must specify the pattern to the field's ``input_formats`` and the widget's ``format``.
+
+.. code-block:: python
+   :emphasize-lines: 11-12
+   
+    # File: forms.py
+    from bootstrap_datepicker_plus import DatePickerInput
+    from .models import Event
+    from django import forms
+
+    class ToDoForm(forms.Form):
+        todo = forms.CharField(
+            widget=forms.TextInput(attrs={"class": "form-control"})
+        )
+        date = forms.DateField(
+            input_formats=['%d/%m/%Y'],
+            widget=DatePickerInput(format='%d/%m/%Y')
+        )
+
+
 Customize the Language
 ^^^^^^^^^^^^^^^^^^^^^^^
 

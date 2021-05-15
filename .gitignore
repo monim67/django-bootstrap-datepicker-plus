@@ -1,4 +1,4 @@
-.venv
+/venv*
 .vscode
 node_modules
 db.sqlite3

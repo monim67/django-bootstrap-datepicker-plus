@@ -16,23 +16,22 @@ Follow the following steps to get started contributing to this project.
         git checkout -b name-of-your-bugfix-or-feature
 
  3. Create a virtual environment of your choice and activate it.
- 4. Install the dependencies via pip and run the migrations for demo_project.
+ 4. Install the dependencies via pip and run the migrations for django application.
 
-        npm run pip-install
-        npm run migrate
+        make
 
- 5. Now you can run the demo_project on localhost:8000 to see the changes you make in action real-time.
+ 5. Now you can run the django application on localhost:8000 to see the changes you make in action real-time.
 
-        npm run demo
+        make dev
 
 
 ## Testing
 
  1. Run the tests by the following command.
 
-        npm run test
+        make test
 
  2. See the coverage report by the following command.
 
-        npm run coverage
+        make coverage
 

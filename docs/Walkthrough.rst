@@ -1,5 +1,6 @@
+##############################
 Quick Walkthrough Tutorial
---------------------------
+##############################
 
 This tutorial will take off where django official tutorial `Writing your first Django app, part 4 <django_tutorial_04_>`_
 left off. If you don't have the project you can clone the following repository and checkout to completion of tutorial 04.
@@ -26,7 +27,7 @@ Install following packages:
 Add these packages to the list of INSTALLED_APPS as you did here on `Tutorial 02 <django_tutorial_activating_model_>`_.
 
 .. code-block:: python
-   :emphasize-lines: 10,11
+    :emphasize-lines: 10,11
 
     # file: mysite/settings.py
     INSTALLED_APPS = [
@@ -42,13 +43,14 @@ Add these packages to the list of INSTALLED_APPS as you did here on `Tutorial 02
     ]
 
 
+******************************
 CreateView for Question model
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+******************************
 
 Add a CreateView for Question model. The ``get_form`` method is used to specify widgets on the form fields.
 
 .. code-block:: python
-   :emphasize-lines: 7,12-18
+    :emphasize-lines: 7,12-18
 
     # file: polls/views.py
     from django.http import HttpResponseRedirect
@@ -68,7 +70,7 @@ Add a CreateView for Question model. The ``get_form`` method is used to specify 
             form = super().get_form()
             form.fields['pub_date'].widget = DateTimePickerInput()
             return form
-    
+
     # Leave other classes unchanged
 
 
@@ -84,14 +86,14 @@ set template_name property of CreateView class in your views.py file above.
     {{ form.media }}
 
     <form method="post">{% csrf_token %}
-      {% bootstrap_form form %}
-      <input type="submit" value="Save">
+        {% bootstrap_form form %}
+        <input type="submit" value="Save">
     </form>
 
 Add a ``get_absolute_url`` method to your Question model.
 
 .. code-block:: python
-   :emphasize-lines: 19-20
+    :emphasize-lines: 19-20
 
     # file: polls/models.py
     import datetime
@@ -110,7 +112,7 @@ Add a ``get_absolute_url`` method to your Question model.
 
         def was_published_recently(self):
             return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
-        
+
         def get_absolute_url(self):
             return reverse('polls:detail', kwargs={'pk': self.pk})
 
@@ -118,7 +120,7 @@ Add a ``get_absolute_url`` method to your Question model.
 Add an urlpattern for creating new poll question.
 
 .. code-block:: python
-   :emphasize-lines: 9
+    :emphasize-lines: 9
 
     # file: polls/urls.py
     from django.urls import path
@@ -139,38 +141,39 @@ Now run the developement server and visit http://localhost:8000/polls/create, if
 you can wrap up your template in proper HTML.
 
 .. code-block:: html
-   :emphasize-lines: 8-11,17
+    :emphasize-lines: 8-11,17
 
     <!-- file: polls/templates/polls/question_form.html -->
     <!DOCTYPE html>
     <html lang="en">
     <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <title>Document</title>
-      {% load bootstrap4 %}
-      {% bootstrap_css %}
-      {% bootstrap_javascript jquery='full' %}
-      {{ form.media }}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+        {% load bootstrap4 %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript jquery='full' %}
+        {{ form.media }}
     </head>
     <body>
-      <div class="container">
-        <div class="col-md-3">
-          <form method="post">{% csrf_token %}
-            {% bootstrap_form form %}
-            {% buttons %}
-            <button type="submit" class="btn btn-primary">Save</button>
-            {% endbuttons %}
-          </form>
+        <div class="container">
+            <div class="col-md-3">
+            <form method="post">{% csrf_token %}
+                {% bootstrap_form form %}
+                {% buttons %}
+                <button type="submit" class="btn btn-primary">Save</button>
+                {% endbuttons %}
+            </form>
+            </div>
         </div>
-      </div>
     </body>
     </html>
 
 
+******************************
 UpdateView for Question model
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+******************************
 
 We can now add a page to update a poll question. First we add an UpdateView to our views.
 
@@ -188,7 +191,7 @@ We can now add a page to update a poll question. First we add an UpdateView to o
 Then add a urlpattern to access the question update page.
 
 .. code-block:: python
-   :emphasize-lines: 11
+    :emphasize-lines: 11
 
     # file: polls/urls.py
     from django.urls import path

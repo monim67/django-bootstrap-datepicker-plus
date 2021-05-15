@@ -1,4 +1,0 @@
-Django>=1.8
-django-bootstrap3
-django-bootstrap4
-coverage>=4.5.1

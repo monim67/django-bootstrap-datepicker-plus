@@ -1,12 +1,14 @@
+####################
 TroubleShooting
----------------
+####################
 
 
 If the date-picker calendar does not show up, possibility is you missed something of the installation procedure.
 Check out the following errors and you might find your solution.
 
+****************************************
 Errors displayed on browser screen
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+****************************************
 
 .. error:: TemplateSyntaxError: bootstrap3/4 is not a registered tag library.
 
@@ -23,8 +25,10 @@ Checkout our `configuration instructions <configuration_page_>`_ to see how to d
 You have not loaded bootstrap3/bootstrap4 tag. Checkout our
 `configuration instructions <configuration_page_>`_ to see how to do it.
 
+****************************************
 Errors displayed on browser console
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+****************************************
+
 Sometimes the page loads just fine, but errors are logged into browser's developer console.
 
 .. error:: Uncaught TypeError: Cannot read property 'fn' of undefined
@@ -42,9 +46,9 @@ You forgot to add bootstrap JavaScript file to your template, make sure you have
 and CSS files to your included in your template. Checkout our `configuration instructions <configuration_page_>`_
 to see various options to do it.
 
-
+******************************
 Fix 404 (Not Found) errors
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+******************************
 
 .. error:: GET ``http://.../datepicker-widget.js`` net::ERR_ABORTED 404 (Not Found)
 
@@ -74,13 +78,17 @@ directory in your prject root. If so add the following line at the bottom of you
 Now you can execute ``collectstatic`` command and reload the server from your hosting interface.
 
 
+************************************************************
 No errors anywhere, but the calendar does not show up!
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+************************************************************
+
 You forgot to add ``{{ form.media }}`` to your template. Checkout our `configuration instructions <configuration_page_>`_
 to learn more about this issue.
 
+******************************
 My error is not listed here
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+******************************
+
 Please `create an issue <create_issue_page_>`_ on the project's GitHub repository providing as much information
 you can.
 

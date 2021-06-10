@@ -1,0 +1,42 @@
+name: build
+
+on:
+  push:
+    branches: ['*']
+  pull_request:
+
+jobs:
+  build:
+    if: "!contains(github.event.head_commit.message, 'skip-ci')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python 3.6
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.6'
+
+      - name: Install
+        run: python3 -m pip install -r requirements/build.txt
+
+      - name: Lint
+        run: make lint
+
+      - name: Test & Coverage
+        run: make coverage
+
+      - name: Coveralls.io notification
+        uses: AndreMiras/coveralls-python-action@develop
+        with:
+          parallel: true
+          flag-name: Unit Test
+
+  coveralls_finish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Coveralls Finished
+      uses: AndreMiras/coveralls-python-action@develop
+      with:
+        parallel-finished: true

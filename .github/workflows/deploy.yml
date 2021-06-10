@@ -1,0 +1,27 @@
+name: deploy
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python 3.6
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.6'
+
+    - name: Install dependencies
+      run: 'python -m pip install build wheel --user'
+
+    - name: Build
+      run: make build
+
+    - name: Publish to PyPI
+      uses: pypa/gh-action-pypi-publish@master
+      with:
+        password: ${{ secrets.PYPI_API_TOKEN }}

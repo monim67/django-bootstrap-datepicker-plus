@@ -18,7 +18,7 @@ class BaseRenderer:
 
     def get_template(self, template_name):
         """Return template name."""
-        raise NotImplementedError('subclasses must implement get_template()')
+        raise NotImplementedError("subclasses must implement get_template()")
 
     def render(self, template_name, context, request=None):
         """Render template from template_name."""
@@ -36,12 +36,14 @@ class EngineMixin:
     @cached_property
     def engine(self):
         """Return Render Engine."""
-        return self.backend({
-            'APP_DIRS': True,
-            'DIRS': [str(ROOT / self.backend.app_dirname)],
-            'NAME': 'djangoforms',
-            'OPTIONS': {},
-        })
+        return self.backend(
+            {
+                "APP_DIRS": True,
+                "DIRS": [str(ROOT / self.backend.app_dirname)],
+                "NAME": "djangoforms",
+                "OPTIONS": {},
+            }
+        )
 
 
 class DjangoTemplateRenderer(EngineMixin, BaseRenderer):
@@ -64,9 +66,9 @@ def get_default_renderer():
 class CompatibleDateTimeBaseInput(DateTimeBaseInput):
     """Fallback class containing methods missing in older django version."""
 
-    format = '%m/%d/%Y'
-    format_key = 'DATE_INPUT_FORMATS'
-    template_name = 'bootstrap_datepicker_plus/date-picker.html'
+    format = "%m/%d/%Y"
+    format_key = "DATE_INPUT_FORMATS"
+    template_name = "bootstrap_datepicker_plus/date-picker.html"
 
     def format_value(self, value):
         """
@@ -74,21 +76,21 @@ class CompatibleDateTimeBaseInput(DateTimeBaseInput):
 
         Missing method of django.forms.widgets.Widget class
         """
-        if value == '' or value is None:
+        if value == "" or value is None:
             return None
         return formats.localize_input(value, self.format)
 
     def get_context(self, name, value, attrs):
         """Missing method of django.forms.widgets.Widget class."""
         context = {}
-        context['widget'] = {
-            'name': name,
-            'type': 'text',
-            'is_hidden': self.is_hidden,
-            'required': self.is_required,
-            'value': self.format_value(value),
-            'attrs': {**self.attrs, **(attrs or {})},
-            'template_name': self.template_name,
+        context["widget"] = {
+            "name": name,
+            "type": "text",
+            "is_hidden": self.is_hidden,
+            "required": self.is_required,
+            "value": self.format_value(value),
+            "attrs": {**self.attrs, **(attrs or {})},
+            "template_name": self.template_name,
         }
         return context
 
@@ -98,6 +100,7 @@ class CompatibleDateTimeBaseInput(DateTimeBaseInput):
 
         Missing method of django.forms.widgets.Widget class
         """
+        # pylint: disable=arguments-differ
         context = self.get_context(name, value, attrs)
         return self._render(self.template_name, context, renderer)
 

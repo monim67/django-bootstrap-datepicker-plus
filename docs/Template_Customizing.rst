@@ -1,5 +1,6 @@
+####################
 Template Customizing
---------------------
+####################
 
 
 The calendar is not yet available for customizing, but the input field template can be customized. You can use a custom template for the input field to render.

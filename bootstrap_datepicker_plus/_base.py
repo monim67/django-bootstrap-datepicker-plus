@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Contains Base Date-Picker input class for widgets of this package."""
-
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from json import dumps as json_dumps
 
 from ._helpers import DatePickerDictionary, get_base_input
@@ -49,17 +49,14 @@ class BasePickerInput(get_base_input()):
         """JS/CSS resources needed to render the date-picker calendar."""
 
         js = (
-            "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/"
-            "moment-with-locales.min.js",
-            "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/"
-            "4.17.47/js/bootstrap-datetimepicker.min.js",
-            "bootstrap_datepicker_plus/js/datepicker-widget.js",
+            static("js/moment-with-locales.min.js"),
+            static("js/bootstrap-datetimepicker.min.js"),
+            static("js/datepicker-widget.js"),
         )
         css = {
             "all": (
-                "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/"
-                "4.17.47/css/bootstrap-datetimepicker.css",
-                "bootstrap_datepicker_plus/css/datepicker-widget.css",
+                static("css/bootstrap-datetimepicker.css"),
+                static("css/datepicker-widget.css"),
             ),
         }
 
@@ -151,7 +148,8 @@ class BasePickerInput(get_base_input()):
             self.config["options"]["useCurrent"] = False
             self._link_to(linked_picker)
         else:
-            raise KeyError('start-date not specified for event_id "%s"' % event_id)
+            raise KeyError(
+                'start-date not specified for event_id "%s"' % event_id)
         return self
 
     def _link_to(self, linked_picker):

@@ -2,9 +2,9 @@
 django-bootstrap-datepicker-plus
 ########################################
 
-This django widget contains Bootstrap 3 and Bootstrap 4
+This django widget contains Bootstrap 3, Bootstrap 4 and Bootstrap 5
 Date-Picker, Time-Picker, DateTime-Picker, Month-Picker and Year-Picker input
-with date-range-picker functionality for django version 2.1, 2.0, 1.11, 1.10 and 1.8.
+with date-range-picker functionality for django version >= 1.8.
 The widget implements `bootstrap-datetimepicker v4 <http://eonasdan.github.io/bootstrap-datetimepicker/>`_
 to show bootstrap-datepicker in django model forms and custom forms
 which can be configured easily for date-range selection.
@@ -86,7 +86,7 @@ Usage in Generic View
 .. code:: python
 
     # File: views.py
-    from bootstrap_datepicker_plus import DateTimePickerInput
+    from bootstrap_datepicker_plus.widgets import DateTimePickerInput
     from django.views import generic
     from .models import Question
 
@@ -116,7 +116,7 @@ The widget contains all types of date-picker you may ever need.
 .. code:: python
 
     # File: forms.py
-    from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput, DateTimePickerInput, MonthPickerInput, YearPickerInput
+    from bootstrap_datepicker_plus.widgets import DatePickerInput, TimePickerInput, DateTimePickerInput, MonthPickerInput, YearPickerInput
     from django import forms
 
     class EventForm(forms.ModelForm):
@@ -141,7 +141,7 @@ DatePickers can be linked to select a date-range or time-range.
 .. code:: python
 
     # File: forms.py
-    from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput
+    from bootstrap_datepicker_plus.widgets import DatePickerInput, TimePickerInput
     from django import forms
 
     class EventForm(forms.ModelForm):

@@ -58,7 +58,7 @@ Add a CreateView for Question model. The ``get_form`` method is used to specify 
     from django.urls import reverse
     from django.views import generic
 
-    from bootstrap_datepicker_plus import DateTimePickerInput
+    from bootstrap_datepicker_plus.widgets import DateTimePickerInput
 
     from .models import Choice, Question
 

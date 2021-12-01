@@ -8,6 +8,7 @@
 }(function ($) {
   var datepickerDict = {};
   var isBootstrap4 = $.fn.collapse.Constructor.VERSION.split('.').shift() === "4";
+  var isBootstrap5 = $.fn.collapse.Constructor.VERSION.split('.').shift() == "5";
   function fixMonthEndDate(e, picker) {
     e.date && picker.val().length && picker.val(e.date.endOf('month').format('YYYY-MM-DD'));
   }
@@ -24,7 +25,7 @@
       data.$element.next('.input-group-addon').on('click', function() {
         data.datepickerdata.show();
       });
-      if (isBootstrap4) {
+      if (isBootstrap4 || isBootstrap5) {
         data.$element.on("dp.show", function(e) {
           $('.collapse.in').addClass('show');
         });
@@ -66,13 +67,19 @@
   }
   $(function(){
     $("[dp_config]:not([disabled])").djangoDatetimePicker();
-    if (isBootstrap4) {
+    if (isBootstrap4 || isBootstrap5) {
       $('body').on('show.bs.collapse','.bootstrap-datetimepicker-widget .collapse',function(e){
         $(e.target).addClass('in');
       });
       $('body').on('hidden.bs.collapse','.bootstrap-datetimepicker-widget .collapse',function(e){
         $(e.target).removeClass('in');
       });
+    }
+    if(isBootstrap5){
+      $('.input-group-addon[data-target="#datetimepicker1"]').each(function (){
+        $(this).attr('data-bs-target','#datetimepicker1').removeAttr('data-target')
+        $(this).attr('data-bs-toggle','datetimepickerv').removeAttr('data-toggle')
+      })
     }
   });
 }));

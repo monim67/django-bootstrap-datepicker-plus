@@ -19,7 +19,7 @@ class TestContextRender(SimpleTestCase):
         self.assertEqual(context["widget"]["name"], "input_name")
         self.assertEqual(context["widget"]["value"], "2018-04-12")
         self.assertTrue(
-            context["widget"]["attrs"]["dp_config"] == json_dumps(dp_input.config)
+            context["widget"]["attrs"]["data-dp-config"] == json_dumps(dp_input.config)
         )
 
     def test_date_input_snapshot(self):

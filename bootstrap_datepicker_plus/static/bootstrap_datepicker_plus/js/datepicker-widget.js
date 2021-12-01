@@ -16,7 +16,7 @@
   function initOnePicker(element, options) {
     var $element = $(element), data = {};
     try {
-      data = JSON.parse($element.attr('dp_config'));
+      data = JSON.parse($element.attr('data-dp-config'));
     }
     catch (x) { }
     $.extend(1, data.options, options);
@@ -67,7 +67,7 @@
     return this;
   }
   $(function(){
-    $("[dp_config]:not([disabled])").djangoDatetimePicker();
+    $("[data-dp-config]:not([disabled])").djangoDatetimePicker();
     if (isBootstrap4 || isBootstrap5) {
       $('body').on('show.bs.collapse','.bootstrap-datetimepicker-widget .collapse',function(e){
         $(e.target).addClass('in');

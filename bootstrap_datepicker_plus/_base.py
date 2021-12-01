@@ -112,7 +112,7 @@ class BasePickerInput(get_base_input()):
         """Return widget context dictionary."""
         # pylint: disable=no-member
         context = super().get_context(name, value, attrs)
-        context["widget"]["attrs"]["dp_config"] = json_dumps(self.config)
+        context["widget"]["attrs"]["data-dp-config"] = json_dumps(self.config)
         return context
 
     def start_of(self, event_id):

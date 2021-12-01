@@ -11,7 +11,7 @@ Usage in Generic View
     :emphasize-lines: 2,11
 
     # File: views.py
-    from bootstrap_datepicker_plus import DateTimePickerInput
+    from bootstrap_datepicker_plus.widgets import DateTimePickerInput
     from django.views import generic
     from .models import Question
 
@@ -32,7 +32,7 @@ Custom Form usage
     :emphasize-lines: 2,11
 
     # File: forms.py
-    from bootstrap_datepicker_plus import DatePickerInput
+    from bootstrap_datepicker_plus.widgets import DatePickerInput
     from .models import Event
     from django import forms
 
@@ -53,7 +53,7 @@ Model Form usage
     :emphasize-lines: 2,11-12
 
     # File: forms.py
-    from bootstrap_datepicker_plus import DatePickerInput
+    from bootstrap_datepicker_plus.widgets import DatePickerInput
     from .models import Event
     from django import forms
 
@@ -77,7 +77,7 @@ The widget contains all types of date-picker you may ever need.
     :emphasize-lines: 2,11-15
 
     # File: forms.py
-    from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput, DateTimePickerInput, MonthPickerInput, YearPickerInput
+    from bootstrap_datepicker_plus.widgets import DatePickerInput, TimePickerInput, DateTimePickerInput, MonthPickerInput, YearPickerInput
     from .models import Event
     from django import forms
 
@@ -104,7 +104,7 @@ DatePickers can be linked to select a date-range or time-range.
     :emphasize-lines: 2,11-14
 
     # File: forms.py
-    from bootstrap_datepicker_plus import DatePickerInput, TimePickerInput
+    from bootstrap_datepicker_plus.widgets import DatePickerInput, TimePickerInput
     from .models import Event
     from django import forms
 
@@ -132,7 +132,7 @@ The ``options`` will be passed to the JavaScript datepicker instance, and are do
     :emphasize-lines: 14-17
 
     # File: forms.py
-    from bootstrap_datepicker_plus import DatePickerInput
+    from bootstrap_datepicker_plus.widgets import DatePickerInput
     from .models import Event
     from django import forms
 
@@ -170,7 +170,7 @@ In order to use arbitraty formats you must specify the pattern to the field's ``
     :emphasize-lines: 11-12
 
     # File: forms.py
-    from bootstrap_datepicker_plus import DatePickerInput
+    from bootstrap_datepicker_plus.widgets import DatePickerInput
     from .models import Event
     from django import forms
 
@@ -195,7 +195,7 @@ See `moment.js locales <https://github.com/moment/moment/tree/develop/locale>`_ 
     :emphasize-lines: 14
 
     # File: forms.py
-    from bootstrap_datepicker_plus import DatePickerInput
+    from bootstrap_datepicker_plus.widgets import DatePickerInput
     from .models import Event
     from django import forms
 

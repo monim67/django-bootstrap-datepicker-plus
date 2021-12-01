@@ -9,7 +9,7 @@ The calendar is not yet available for customizing, but the input field template 
 .. code:: python
 
     # File: forms.py
-    from bootstrap_datepicker_plus import DatePickerInput
+    from bootstrap_datepicker_plus.widgets import DatePickerInput
     from django import forms
 
     class MyDatePickerInput(DatePickerInput):

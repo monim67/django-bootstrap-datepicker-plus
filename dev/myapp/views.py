@@ -26,8 +26,14 @@ class Bootstrap3_UpdateView(UpdateView):
     model = Event
     form_class = EventForm
 
+    def get_success_url(self):
+        return self.request.META.get("HTTP_REFERER")
+
 
 class Bootstrap4_UpdateView(UpdateView):
     template_name = "myapp/bootstrap4/model-form.html"
     model = Event
     form_class = EventForm
+
+    def get_success_url(self):
+        return self.request.META.get("HTTP_REFERER")

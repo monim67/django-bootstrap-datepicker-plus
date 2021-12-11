@@ -3,10 +3,12 @@
 
 from json import dumps as json_dumps
 
-from ._helpers import DatePickerDictionary, get_base_input
+from django.forms.widgets import DateTimeBaseInput
+
+from ._helpers import DatePickerDictionary
 
 
-class BasePickerInput(get_base_input()):
+class BasePickerInput(DateTimeBaseInput):
     """Base Date-Picker input class for widgets of this package."""
 
     template_name = "bootstrap_datepicker_plus/date-picker.html"

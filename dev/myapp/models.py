@@ -16,6 +16,3 @@ class Event(models.Model):
 
     def __str__(self):
         return str(self.name)
-
-    def get_absolute_url(self):
-        return "/dpp_test/event/" + str(self.pk)

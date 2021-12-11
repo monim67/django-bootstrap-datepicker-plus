@@ -1,5 +1,5 @@
 -r base.txt
-django-bootstrap3==11.1.0
+django-bootstrap3==12.1.0
 django-bootstrap4==1.1.1
 coverage==5.3.1
 pylint==2.5.3

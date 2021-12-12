@@ -35,7 +35,7 @@ Prerequisites
 ++++++++++++++++++++
 
 - Python >= 3.6
-- Django >= 1.8
+- Django >= 2.0
 - Bootstrap >= 3
 - jquery >= 1.7.1
 
@@ -185,6 +185,8 @@ Acknowledgments
 This project implements `Eonasdan/bootstrap-datetimepicker <https://github.com/Eonasdan/bootstrap-datetimepicker>`_ to display date-pickers.
 The project was initially forked from `pbucher/django-bootstrap-datepicker <https://github.com/pbucher/django-bootstrap-datepicker>`_.
 
+|buymeacoffee|
+
 
 .. |date-picker-image| image:: https://raw.githubusercontent.com/monim67/django-bootstrap-datepicker-plus/26d89a744d403a895422313a48c02885c4718251/images/date-picker.png
     :alt: Date-picker
@@ -235,3 +237,8 @@ The project was initially forked from `pbucher/django-bootstrap-datepicker <http
     :target: https://pypi.python.org/pypi/django-bootstrap-datepicker-plus
     :alt: Licence
     :height: 20px
+
+.. |buymeacoffee| image:: https://cdn.buymeacoffee.com/buttons/v2/default-orange.png
+   :target: https://www.buymeacoffee.com/monim67
+   :alt: Buy Me A Coffee
+   :height: 48px

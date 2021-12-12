@@ -8,7 +8,7 @@ Prerequisites
 ********************
 
 - Python >= 3.6
-- Django >= 1.8
+- Django >= 2.0
 - Bootstrap >= 3
 - jquery >= 1.7.1
 

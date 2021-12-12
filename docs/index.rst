@@ -39,6 +39,9 @@ Demo
     Contributing
 
 
+|buymeacoffee|
+
+
 .. |date-picker-image| image:: https://raw.githubusercontent.com/monim67/django-bootstrap-datepicker-plus/26d89a744d403a895422313a48c02885c4718251/images/date-picker.png
     :alt: Date-picker
     :width: 218px
@@ -88,3 +91,8 @@ Demo
     :target: https://pypi.python.org/pypi/django-bootstrap-datepicker-plus
     :alt: Licence
     :height: 20px
+
+.. |buymeacoffee| image:: https://cdn.buymeacoffee.com/buttons/v2/default-orange.png
+   :target: https://www.buymeacoffee.com/monim67
+   :alt: Buy Me A Coffee
+   :height: 48px

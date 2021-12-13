@@ -22,7 +22,7 @@ setup(
     keywords="django bootstrap date-picker time-picker datetime-picker "
     "date-range-picker",
     packages=["bootstrap_datepicker_plus"],
-    install_requires=["django>=1.8,<2.0",],
+    install_requires=["django>=1.8,<=4.0",],
     python_requires=">=3.6",
     package_data={
         "bootstrap_datepicker_plus": [

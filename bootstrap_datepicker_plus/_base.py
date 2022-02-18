@@ -4,7 +4,7 @@
 from json import dumps as json_dumps
 
 from django.forms.widgets import DateTimeBaseInput
-
+from django.conf import settings
 from ._helpers import DatePickerDictionary
 
 
@@ -50,20 +50,33 @@ class BasePickerInput(DateTimeBaseInput):
     class Media:
         """JS/CSS resources needed to render the date-picker calendar."""
 
-        js = (
-            "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/"
-            "moment-with-locales.min.js",
-            "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/"
-            "4.17.47/js/bootstrap-datetimepicker.min.js",
-            "bootstrap_datepicker_plus/js/datepicker-widget.js",
-        )
-        css = {
-            "all": (
+        if hasattr(settings, 'DATEPICKERPLUS_LOCAL_STATICS') and settings.DATEPICKERPLUS_LOCAL_STATICS:
+            js = (
+                "bootstrap_datepicker_plus/js/moment-with-locales.min.js",
+                "bootstrap_datepicker_plus/js/bootstrap-datetimepicker.min.js",
+                "bootstrap_datepicker_plus/js/datepicker-widget.js",
+            )
+            css = {
+                "all": (
+                    "bootstrap_datepicker_plus/css/bootstrap-datetimepicker.css",
+                    "bootstrap_datepicker_plus/css/datepicker-widget.css",
+                ),
+            }
+        else:
+            js = (
+                "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/"
+                "moment-with-locales.min.js",
                 "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/"
-                "4.17.47/css/bootstrap-datetimepicker.css",
-                "bootstrap_datepicker_plus/css/datepicker-widget.css",
-            ),
-        }
+                "4.17.47/js/bootstrap-datetimepicker.min.js",
+                "bootstrap_datepicker_plus/js/datepicker-widget.js",
+            )
+            css = {
+                "all": (
+                    "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/"
+                    "4.17.47/css/bootstrap-datetimepicker.css",
+                    "bootstrap_datepicker_plus/css/datepicker-widget.css",
+                ),
+            }
 
     @classmethod
     def format_py2js(cls, datetime_format):

@@ -164,6 +164,11 @@ Customization
 - `Input field HTML template <https://django-bootstrap-datepicker-plus.readthedocs.io/en/latest/Template_Customizing.html>`_
 - `Language <https://django-bootstrap-datepicker-plus.readthedocs.io/en/latest/Usage.html#customize-the-language>`_
 
+++++++++++++++++++++++++++++++
+Settings
+++++++++++++++++++++++++++++++
+
+For GDPR compliance you can set ``DATEPICKERPLUS_LOCAL_STATICS`` to ``True`` in your ``settings.py`` file to serve static files locally.
 
 ********************
 Contributing

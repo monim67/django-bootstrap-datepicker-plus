@@ -38,6 +38,7 @@ Prerequisites
 - Django >= 2.0
 - Bootstrap >= 3
 - jquery >= 1.7.1
+- Font Awesome >= 5
 
 
 ++++++++++++++++++++

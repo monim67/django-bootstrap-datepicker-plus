@@ -8,7 +8,7 @@
      url('//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
-.glyphicon {
+.bootstrap-datapicker-glyphicon {
     position: relative;
     top: 1px;
     display: inline-block;

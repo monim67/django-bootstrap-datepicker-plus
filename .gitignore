@@ -1,15 +1,21 @@
-/venv*
-.vscode
+/tmp
 node_modules
 db.sqlite3
 docs/_build
-docs/pydoc.io/autoapi
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
 .pytest_cache/
 *.py[cod]
 *$py.class
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
 
 # Unit test / coverage reports
 htmlcov/

@@ -16,22 +16,28 @@ Follow the following steps to get started contributing to this project.
         git checkout -b name-of-your-bugfix-or-feature
 
  3. Create a virtual environment of your choice and activate it.
- 4. Install the dependencies via pip and run the migrations for django application.
+ 4. Install the dependencies via poetry and activate poetry virtual environment.
 
-        make
+        poetry install
+        poetry shell
 
- 5. Now you can run the django application on localhost:8000 to see the changes you make in action real-time.
+ 5. Run the migrations for django application.
 
-        make dev
+        python dev/manage.py migrate
+
+ 6. Press F5 if you are using vscode to start the application debugger.
+ 7. Otherwise you can run the django application on localhost:8000 to see the changes you make in action real-time.
+
+        python dev/manage.py runserver
 
 
 ## Testing
 
  1. Run the tests by the following command.
 
-        make test
+        pytest
 
  2. See the coverage report by the following command.
 
-        make coverage
+        poe coverage
 

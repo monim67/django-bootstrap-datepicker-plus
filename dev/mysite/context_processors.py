@@ -1,4 +1,5 @@
-from django import VERSION as django_version, get_version as get_django_version
+from django import VERSION as django_version
+from django import get_version as get_django_version
 
 
 def demo_context(request):

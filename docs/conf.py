@@ -10,12 +10,6 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-import os
-import sys
-
-sys.path.insert(0, os.path.abspath(".."))
-import bootstrap_datepicker_plus
-
 
 # -- Project information -----------------------------------------------------
 
@@ -24,7 +18,7 @@ copyright = "2018, monim67"
 author = "Munim Munna"
 
 # The full version, including alpha/beta/rc tags
-release = bootstrap_datepicker_plus.__version__
+# release = "0.0.0"
 
 
 # -- General configuration ---------------------------------------------------

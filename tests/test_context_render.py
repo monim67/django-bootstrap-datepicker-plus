@@ -1,7 +1,8 @@
+from json import dumps as json_dumps
+
 from django.test import SimpleTestCase
 
 from bootstrap_datepicker_plus.widgets import DatePickerInput, TimePickerInput
-from json import dumps as json_dumps
 
 
 class CustomDatePickerInput(DatePickerInput):

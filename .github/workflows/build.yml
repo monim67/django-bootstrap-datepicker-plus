@@ -35,7 +35,7 @@ jobs:
         run: poetry run coverage run
 
       - name: Coveralls.io notification
-        uses: AndreMiras/coveralls-python-action@develop
+        uses: miurahr/coveralls-python-action@b5f4b04e702438c3f7eceb03acf0f3c60dbe252e
         with:
           parallel: true
           flag-name: Unit Test
@@ -45,6 +45,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Coveralls Finished
-        uses: AndreMiras/coveralls-python-action@develop
+        uses: miurahr/coveralls-python-action@b5f4b04e702438c3f7eceb03acf0f3c60dbe252e
         with:
           parallel-finished: true

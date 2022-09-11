@@ -29,25 +29,21 @@ classifiers = [
     "Framework :: Django :: 4.0",
 ]
 
-[tool.poetry.group.pypi.dependencies]
+[tool.poetry.dependencies]
 python = "^3.7"
 Django = ">=2,<5"
 
-[tool.poetry.dependencies]
-python = "^3.7"
-Django = [
-    { version = "^2.0", python = "<3.9" },
-    { version = "^3.0", python = ">=3.9,<3.10" },
-    { version = "^4.0", python = "^3.10" },
-]
+[tool.poetry.group.peer.dependencies]
 django-bootstrap4 = "^22.1"
 django-bootstrap3 = "^21.2"
+
+[tool.poetry.group.build.dependencies]
 pytest-django = "^4.5.2"
 black = "^22.6.0"
 isort = "^5.10.1"
 coverage = { version = "~6.2", extras = ["toml"] }
 pylint = "^2.12.0"
-rstcheck = "^6.0.0.post1"
+rstcheck = { version = "^6.0.0.post1", extras = ["sphinx"] }
 poethepoet = "^0.15.0"
 
 [tool.poetry.group.dev.dependencies]
@@ -85,7 +81,9 @@ isolated_build = True
 envlist = py{39,38,37}
 
 [testenv]
+deps = -r tests/requirements.txt
 commands = pytest
+allowlist_externals = pytest
 """
 
 [tool.poe.tasks]

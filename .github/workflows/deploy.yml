@@ -22,8 +22,6 @@ jobs:
       - name: Build
         run: |
           poetry version ${{ github.ref_name }}
-          sed -i "" "s/\[tool.poetry.dependencies\]/[tool.poetry.group.excluded.dependencies]/" pyproject.toml
-          sed -i "" "s/\[tool.poetry.group.pypi.dependencies\]/[tool.poetry.dependencies]/" pyproject.toml
           poetry build
 
       - name: Publish

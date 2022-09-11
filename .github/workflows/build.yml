@@ -26,7 +26,8 @@ jobs:
       - name: Install dependencies
         run: |
           poetry env use ${{ matrix.python-version }}
-          poetry install --no-interaction
+          poetry install --no-ansi --no-root --no-interaction --only build
+          poetry run pip install -r tests/requirements.txt
 
       - name: Lint
         run: poetry run poe lint

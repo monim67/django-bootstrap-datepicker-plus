@@ -1,0 +1,32 @@
+{% extends 'myapp/bootstrap5/layout.html' %}
+{% load django_bootstrap5 %}
+
+{% block extra_css %}
+{{ filter.form.media.css }}
+{% endblock %}
+
+{% block extra_js %}
+{{ filter.form.media.js }}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-6">
+    <h4 class="mt-4">Filter Events</h4>
+    {% bootstrap_alert "Demo site is static HTML clone of django, filters won't work here" alert_type='warning' %}
+    <form>
+      {% bootstrap_form filter.form %}
+      {% bootstrap_button "Clear Filters" href="?" button_class="btn-warning" %}
+      {% bootstrap_button submit_text button_type="submit" button_class="btn-primary" %}
+    </form>
+    <h4 class="mt-4">Events</h4>
+    <ul>
+      {% for event in object_list %}
+      <li>{{ event.name }} ({{ event.start_date|date }} - {{ event.end_date|date }})</li>
+      {% empty %}
+      <li>No events found.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% load bootstrap3 %}
+
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>django-bootstrap-datepicker-plus with Bootstrap 3 - {{ title_text }}</title>
+  {% bootstrap_css %}
+  {% block extra_css %}{% endblock %}
+  <style>
+    .navbar-brand {
+      display: flex;
+      gap: 0.5em;
+    }
+
+    .nav.justify-content-center {
+      display: flex;
+      justify-content: center;
+      margin-top: 3em;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+          aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="https://github.com/monim67/django-bootstrap-datepicker-plus">
+          <img src="https://github.githubassets.com/images/modules/site/icons/footer/github-mark.svg" class="mr-2"
+            alt="GitHub mark">
+          django-bootstrap-datepicker-plus on Github
+        </a>
+      </div>
+      {% include 'myapp/nav-bar.html' %}
+    </div>
+  </nav>
+  <div class="container">
+    <h2 class="page-header">{{ title_text }}</h2>
+    {% block content %}{% endblock %}
+  </div>
+  {% include 'myapp/footer.html' %}
+
+  {% bootstrap_javascript jquery='full' %}
+  {% block extra_js %}{% endblock %}
+</body>
+
+</html>

@@ -7,17 +7,17 @@ Getting Started
 Prerequisites
 ********************
 
-- Python >= 3.6
+- Python >= 3.7
 - Django >= 2.0
 - Bootstrap >= 3
 - jquery >= 1.7.1
 
 
 ********************
-Installing
+Install
 ********************
 
-Install the widget via pip
+Install the PyPI package via pip
 
 ::
 
@@ -29,10 +29,44 @@ Add ``bootstrap_datepicker_plus`` to the list of ``INSTALLED_APPS`` in your ``se
 
     INSTALLED_APPS = [
         # Add the following
-        'bootstrap_datepicker_plus',
+        "bootstrap_datepicker_plus",
     ]
 
-.. warning:: This installation instruction assumes you have ``jQuery`` and Bootstrap JS/CSS files present
-    in your template and you are using ``form.media`` in your django template. If not you should checkout our
-    `configuration instructions <https://monim67.github.io/django-bootstrap-datepicker-plus/configure/>`_
-    which covers almost everything you need to get the widget running.
+
+********************
+Configure template
+********************
+
+The following step requires ``jQuery`` and Bootstrap JS/CSS files to be present in your template.
+You can also use django-bootstrap3, django-bootstrap4, django-bootstrap5 or django-crispy-forms to
+render the form.
+
+.. code:: html
+
+    <!-- File: example-template.html -->
+    {{ form.media }}  {# Adds widget's JS/CSS files from CDN #}
+    <form method="post">
+      {% csrf_token %}
+      {% bootstrap_form form %}  {# Renders form fields using django-bootstrapX #}
+    </form>
+
+If you are using django-crispy-forms use ``crispy`` filter to render form fields instead.
+
+.. code:: html
+
+    <!-- File: example-template.html -->
+    {{ form.media }}  {# Adds widget's JS/CSS files from CDN #}
+    <form method="post">
+      {% csrf_token %}
+      {{ form | crispy }}  {# Renders form fields #}
+    </form>
+
+Alternatively you can use ``{% crispy %}`` tag to render entire form.
+
+.. code:: html
+
+    <!-- File: example-template.html -->
+    {% crispy form %} {# Adds widget's JS/CSS files from CDN and renders the form #}
+
+
+Then head over to Usage page to see how to use it in forms and views.

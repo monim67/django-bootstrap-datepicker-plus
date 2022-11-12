@@ -1,0 +1,24 @@
+<div id="navbar" class="navbar-collapse collapse">
+  <ul class="nav navbar-nav mr-auto">
+    {% with url_name=request.resolver_match.url_name %}
+    <li class="nav-item {% if url_name == 'custom-form' %}active{% endif %}">
+      <a class="nav-link" href="{% url 'myapp:custom-form' %}">Custom Form</a>
+    </li>
+    <li class="nav-item {% if url_name == 'model-form' %}active{% endif %}">
+      <a class="nav-link" href="{% url 'myapp:model-form' %}">Model Form</a>
+    </li>
+    <li class="nav-item {% if url_name == 'generic-view' %}active{% endif %}">
+      <a class="nav-link" href="{% url 'myapp:generic-view' %}">Generic View</a>
+    </li>
+    <li class="nav-item {% if url_name == 'crispy-form' %}active{% endif %}">
+      <a class="nav-link" href="{% url 'myapp:crispy-form' %}">With Crispy Form</a>
+    </li>
+    <li class="nav-item {% if url_name == 'dynamic-formset' %}active{% endif %}">
+      <a class="nav-link" href="{% url 'myapp:dynamic-formset' %}">Dynamic Formset</a>
+    </li>
+    <li class="nav-item {% if url_name == 'django-filter' %}active{% endif %}">
+      <a class="nav-link" href="{% url 'myapp:django-filter' %}">With django-filter</a>
+    </li>
+    {% endwith %}
+  </ul>
+</div>

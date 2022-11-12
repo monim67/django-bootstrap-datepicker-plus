@@ -1,3 +1,5 @@
+.env
+/pages
 /tmp
 node_modules
 db.sqlite3
@@ -18,6 +20,7 @@ __pycache__/
 .history/*
 
 # Unit test / coverage reports
+coverage/
 htmlcov/
 .tox/
 .coverage

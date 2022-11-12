@@ -7,6 +7,12 @@
 
 {% block extra_js %}
 {{ form.media.js }}
+<script src="https://cdn.jsdelivr.net/gh/elo80ka/django-dynamic-formset@v1.2.2/src/jquery.formset.js"></script>
+<script>
+  jQuery(($) => {
+    $(".formset").formset();
+  });
+</script>
 {% endblock %}
 
 {% block content %}
@@ -15,7 +21,10 @@
   <div class='col-md-6'>
     <form action="" method="post">
       {% csrf_token %}
-      {% bootstrap_form form %}
+      {{ form.management_form }}
+      {% for form in form %}
+      <div class="formset">{% bootstrap_form form %}</div>
+      {% endfor %}
       {% buttons %}
       <button type="submit" class="btn btn-primary">{{ submit_text }}</button>
       {% endbuttons %}

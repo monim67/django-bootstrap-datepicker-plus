@@ -1,4 +1,8 @@
+from typing import Iterable, NoReturn
+
+from crispy_forms.helper import FormHelper
 from django import forms
+from django_filters import DateFilter, FilterSet
 
 from bootstrap_datepicker_plus.widgets import (
     DatePickerInput,
@@ -7,16 +11,31 @@ from bootstrap_datepicker_plus.widgets import (
     TimePickerInput,
     YearPickerInput,
 )
-
-from .models import Event
+from dev.myapp.models import Event
 
 
 class CustomForm(forms.Form):
-    date = forms.DateField(label="Date", widget=DatePickerInput())
+    date = forms.DateField(label="Date", widget=DatePickerInput(), initial="2021-12-13")
     message = forms.CharField(label="Message", widget=forms.Textarea)
 
+    def clean_date(self) -> NoReturn:
+        raise forms.ValidationError("Just testing form errors")
 
-class EventForm(forms.ModelForm):
+
+class ToDoForm(forms.Form):
+    start_date = forms.DateField(label="Start Date", widget=DatePickerInput())
+    end_date = forms.DateField(
+        label="End Date", widget=DatePickerInput(range_from="start_date")
+    )
+
+    @property
+    def helper(self) -> FormHelper:
+        helper = FormHelper()
+        helper.include_media = False
+        return helper
+
+
+class EventForm(forms.ModelForm[Event]):
     class Meta:
         model = Event
         fields = [
@@ -32,15 +51,33 @@ class EventForm(forms.ModelForm):
             "end_year",
         ]
         widgets = {
-            # fmt: off
-            "start_date": DatePickerInput(options={"format": "YYYY-MM-DD", "debug": True}).start_of("event active days"),
-            "end_date": DatePickerInput(options={"format": "MM/DD/YYYY"}).end_of("event active days"),
-            "start_datetime": DateTimePickerInput(options={"debug": True}).start_of("event active dtime"),
-            "end_datetime": DateTimePickerInput().end_of("event active dtime"),
-            "start_time": TimePickerInput(options={"debug": True}).start_of("event active time"),
-            "end_time": TimePickerInput().end_of("event active time"),
-            "start_month": MonthPickerInput().start_of("active month"),
-            "end_month": MonthPickerInput().end_of("active month"),
-            "start_year": YearPickerInput().start_of("active year"),
-            "end_year": YearPickerInput().end_of("active year"),
+            "start_date": DatePickerInput(options={"format": "MM/DD/YYYY"}),
+            "end_date": DatePickerInput(
+                options={"format": "MM/DD/YYYY"}, range_from="start_date"
+            ),
+            "start_datetime": DateTimePickerInput(),
+            "end_datetime": DateTimePickerInput(range_from="start_datetime"),
+            "start_time": TimePickerInput(),
+            "end_time": TimePickerInput(range_from="start_time"),
+            "start_month": MonthPickerInput(),
+            "end_month": MonthPickerInput(range_from="start_month"),
+            "start_year": YearPickerInput().start_of("deprecated! do not use start_of"),
+            "end_year": YearPickerInput().end_of("deprecated! do not use end_of"),
         }
+
+
+class EventFilter(FilterSet):  # type: ignore
+    start_date__gt = DateFilter(
+        field_name="start_date",
+        lookup_expr="gt",
+        widget=DatePickerInput(),
+    )
+    start_date__lt = DateFilter(
+        field_name="start_date",
+        lookup_expr="lt",
+        widget=DatePickerInput(range_from="start_date__gt"),
+    )
+
+    class Meta:
+        model = Event
+        fields: Iterable[str] = []

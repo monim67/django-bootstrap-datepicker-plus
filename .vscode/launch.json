@@ -8,10 +8,13 @@
             "name": "Django: runserver",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/dev/manage.py",
+            "module": "poethepoet",
             "args": [
-                "runserver"
+                "start",
             ],
+            "env": {
+                "POETRY_ACTIVE": "1",
+            },
             "django": true,
             "justMyCode": true
         },

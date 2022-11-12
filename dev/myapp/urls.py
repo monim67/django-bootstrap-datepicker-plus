@@ -1,15 +1,27 @@
+from django.http import HttpResponse
 from django.urls import path
-from django.views.generic import RedirectView
 
-from . import views
+from dev.myapp import views
 
 app_name = "myapp"
 
 urlpatterns = [
-    # fmt: off
-    path("", RedirectView.as_view(pattern_name="myapp:bootstrap3.custom-form", permanent=False)),
-    path("bootstrap3/custom-form.html", views.Bootstrap3_CustomFormView.as_view(), name="bootstrap3.custom-form"),
-    path("bootstrap3/model-form-<int:pk>.html", views.Bootstrap3_UpdateView.as_view(), name="bootstrap3.model-form-1"),
-    path("bootstrap4/custom-form.html", views.Bootstrap4_CustomFormView.as_view(), name="bootstrap4.custom-form"),
-    path("bootstrap4/model-form-<int:pk>.html", views.Bootstrap4_UpdateView.as_view(), name="bootstrap4.model-form-1"),
+    path(
+        "",
+        lambda _: HttpResponse(
+            '<META http-equiv="refresh" content="0;URL=custom-form.html">'
+        ),
+    ),
+    path("custom-form.html", views.CustomFormView.as_view(), name="custom-form"),
+    path(
+        "model-form.html", views.EventUpdateView.as_view(), {"pk": 1}, name="model-form"
+    ),
+    path("generic-view.html", views.EventCreateView.as_view(), name="generic-view"),
+    path("crispy-form.html", views.CrispyFormView.as_view(), name="crispy-form"),
+    path("django-filter.html", views.EventListView.as_view(), name="django-filter"),
+    path(
+        "dynamic-formset.html",
+        views.DynamicFormsetView.as_view(),
+        name="dynamic-formset",
+    ),
 ]

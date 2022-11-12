@@ -14,5 +14,5 @@ class Event(models.Model):
     start_year = models.DateField()
     end_year = models.DateField()
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.name)

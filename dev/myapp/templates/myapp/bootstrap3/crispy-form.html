@@ -1,0 +1,31 @@
+{% extends 'myapp/bootstrap3/layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block extra_css %}
+{{ form.media.css }}
+{% endblock %}
+
+{% block extra_js %}
+{{ form.media.js }}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-6">
+    <h4>Using {% verbatim %}{% crispy form %}{% endverbatim %}</h4>
+    {% crispy form "bootstrap3" %}
+    <div class="alert alert-warning">
+      {% verbatim %}
+      <code>{% crispy form %}</code> renders JavaScript and CSS files inside the form, so you don't need to add
+      <code>{{ form.media }}</code> to your template, just make sure bootstrap JavaScript and jQuery is added before
+      <code>{% crispy form %}</code>.
+      {% endverbatim %}
+    </div>
+    <h4>Using {% verbatim %}{{ form | crispy }}{% endverbatim %}</h4>
+    <form method="post">
+      {% csrf_token %}
+      {{ form | crispy }}
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,13 +1,16 @@
 [tool.poetry]
 name = "django-bootstrap-datepicker-plus"
 version = "0.0.0"
-description = "Bootstrap3/Bootstrap4/Bootstrap5 DatePickerInput, TimePickerInput, DateTimePickerInput, MonthPickerInput, YearPickerInput"
+description = """\
+    Bootstrap3/Bootstrap4/Bootstrap5 DatePickerInput, TimePickerInput, \
+    DateTimePickerInput, MonthPickerInput, YearPickerInput\
+    """
 readme = "README.rst"
 authors = ["Munim Munna <6266677+monim67@users.noreply.github.com>"]
 repository = "https://github.com/monim67/django-bootstrap-datepicker-plus"
 documentation = "https://django-bootstrap-datepicker-plus.readthedocs.io/en/latest/"
-packages = [{ include = "bootstrap_datepicker_plus/**/*" }]
-license = "Apache-2.0"
+packages = [{ include = "*", from = "src" }]
+license = "MIT"
 keywords = [
     "django",
     "bootstrap",
@@ -32,21 +35,30 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.7"
 Django = ">=2,<5"
-
-[tool.poetry.group.peer.dependencies]
-django-bootstrap4 = "^22.1"
-django-bootstrap3 = "^21.2"
+pydantic = "*"
+typing-extensions = "*"
 
 [tool.poetry.group.build.dependencies]
+django-bootstrap3 = "^21.2"
+django-bootstrap4 = "^22.1"
+django-bootstrap5 = "^22.1"
 pytest-django = "^4.5.2"
+pytest-dotenv = "^0.5.2"
 black = "^22.6.0"
 isort = "^5.10.1"
-coverage = { version = "~6.2", extras = ["toml"] }
-pylint = "^2.12.0"
-rstcheck = { version = "^6.0.0.post1", extras = ["sphinx"] }
+pydocstyle = {extras = ["toml"], version = "^6.1.1"}
+mypy = "*"
+django-stubs = "^1.12.0"
+coverage = { extras = ["toml"], version = "^6.5.0" }
+rstcheck = "^6.1.0"
 poethepoet = "^0.15.0"
+django-crispy-forms = "^1.14.0"
+django-filter = "^22.1"
+crispy-bootstrap5 = "^0.7"
+urllib3 = "^1.26.12"
 
 [tool.poetry.group.dev.dependencies]
+pre-commit = "^2.20.0"
 tox = "^3.24.5"
 sphinx-rtd-theme = "^1.0.0"
 
@@ -54,45 +66,84 @@ sphinx-rtd-theme = "^1.0.0"
 requires = ["poetry_core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.pylint.master]
-disable = ["R", "C", "missing-docstring", "unused-argument"]
-
-[tool.pylint.format]
-max-line-length = 88
+[tool.poetry_bumpversion.file."src/bootstrap_datepicker_plus/__init__.py"]
 
 [tool.isort]
+py_version = "37"
 profile = "black"
 
+[tool.pydocstyle]
+convention = "google"
+add_select = "D401,D404"
+
+[tool.mypy]
+python_version = "3.7"
+namespace_packages = true
+strict = true
+plugins = ["mypy_django_plugin.main"]
+
+[[tool.mypy.overrides]]
+module = ["dev.myapp.migrations.*", "urllib3.*", "crispy_forms.*", "django_filters.*", "importlib_metadata.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["dev.myapp.migrations.*"]
+ignore_errors = true
+
+[tool.django-stubs]
+django_settings_module = "dev.mysite.settings"
+
 [tool.pytest.ini_options]
-pythonpath = [".", "dev"]
+pythonpath = "." # pytest-django needs it to find dev module
+django_find_project = false
 DJANGO_SETTINGS_MODULE = "dev.mysite.settings"
 addopts = "--reuse-db"
 testpaths = ["tests"]
+env_files = [".env", ".env.defaults"]
 
 [tool.coverage.run]
 command_line = "-m pytest"
 source = ["bootstrap_datepicker_plus"]
-relative_files = true
+parallel = true
+
+[tool.coverage.paths]
+source = [
+    "src/bootstrap_datepicker_plus",
+    "**/site-packages/bootstrap_datepicker_plus",
+]
 
 [tool.tox]
 legacy_tox_ini = """
 [tox]
 isolated_build = True
-envlist = py{39,38,37}
+envlist = py{311,310,39,38,37}
 
 [testenv]
-deps = -r tests/requirements.txt
-commands = pytest
-allowlist_externals = pytest
+allowlist_externals = poetry
+skip_install = true
+commands =
+    poetry install --no-root --only build
+    pip install -c tests/pip-constraints.txt .
+    poe lint
+    pytest
 """
 
-[tool.poe.tasks]
-coverage = { shell = """coverage run && coverage xml && coverage report""" }
+[tool.poe]
+envfile = [".env.defaults", ".env"]
 
-[tool.poe.tasks.lint]
-shell = """
-  python -m pylint bootstrap_datepicker_plus tests dev
-  python -m black --check bootstrap_datepicker_plus tests dev
-  python -m isort --check-only bootstrap_datepicker_plus tests dev
-  rstcheck --report-level warning *.rst docs/*.rst
-  """
+[tool.poe.tasks]
+start = { cmd = "python dev/manage.py runserver localhost:8000", help = "Start dev server (press F5 on vscode)" }
+docs = "poetry run make -C docs html"
+lint = [
+    { cmd = "python -m black --check src tests dev" },
+    { cmd = "python -m isort --check-only src tests dev" },
+    { cmd = "mypy src tests dev" },
+    { cmd = "pydocstyle src" },
+    { cmd = "rstcheck --report-level warning README.rst docs/*.rst" },
+]
+test-cov = [
+    { cmd = "coverage run" },
+    { cmd = "coverage combine" },
+    { cmd = "coverage lcov -o coverage/lcov.info" },
+    { cmd = "coverage report" },
+]

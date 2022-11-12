@@ -17,10 +17,10 @@ Usage in Generic View
 
     class CreateView(generic.edit.CreateView):
         model = Question
-        fields = ['question_text', 'pub_date']
-        def get_form(self):
-            form = super().get_form()
-            form.fields['pub_date'].widget = DateTimePickerInput()
+        fields = ["question_text", "pub_date"]
+        def get_form(self, form_class):
+            form = super().get_form(form_class)
+            form.fields["pub_date"].widget = DateTimePickerInput()
             return form
 
 
@@ -29,7 +29,7 @@ Custom Form usage
 ******************************
 
 .. code-block:: python
-    :emphasize-lines: 2,11
+    :emphasize-lines: 2,8
 
     # File: forms.py
     from bootstrap_datepicker_plus.widgets import DatePickerInput
@@ -37,12 +37,8 @@ Custom Form usage
     from django import forms
 
     class ToDoForm(forms.Form):
-        todo = forms.CharField(
-            widget=forms.TextInput(attrs={"class": "form-control"})
-        )
-        date = forms.DateField(
-            widget=DatePickerInput(format='%m/%d/%Y')
-        )
+        todo = forms.CharField()
+        date = forms.DateField(widget=DatePickerInput())
 
 
 ******************************
@@ -60,10 +56,10 @@ Model Form usage
     class EventForm(forms.ModelForm):
         class Meta:
             model = Event
-            fields = ['name', 'start_date', 'end_date']
+            fields = ["name", "start_date", "end_date"]
             widgets = {
-                'start_date': DatePickerInput(), # default date-format %m/%d/%Y will be used
-                'end_date': DatePickerInput(format='%Y-%m-%d'), # specify date-frmat
+                "start_date": DatePickerInput(),
+                "end_date": DatePickerInput(options={"format": "MM/DD/YYYY"}),
             }
 
 
@@ -84,13 +80,13 @@ The widget contains all types of date-picker you may ever need.
     class EventForm(forms.ModelForm):
         class Meta:
             model = Event
-            fields = ['start_date', 'start_time', 'start_datetime', 'start_month', 'start_year']
+            fields = ["start_date", "start_time", "start_datetime", "start_month", "start_year"]
             widgets = {
-                'start_date': DatePickerInput(),
-                'start_time': TimePickerInput(),
-                'start_datetime': DateTimePickerInput(),
-                'start_month': MonthPickerInput(),
-                'start_year': YearPickerInput(),
+                "start_date": DatePickerInput(),
+                "start_time": TimePickerInput(),
+                "start_datetime": DateTimePickerInput(),
+                "start_month": MonthPickerInput(),
+                "start_year": YearPickerInput(),
             }
 
 
@@ -111,103 +107,10 @@ DatePickers can be linked to select a date-range or time-range.
     class EventForm(forms.ModelForm):
         class Meta:
             model = Event
-            fields = ['name', 'start_date', 'end_date', 'start_time', 'end_time']
+            fields = ["name", "start_date", "end_date", "start_time", "end_time"]
             widgets = {
-                'start_date':DatePickerInput().start_of('event days'),
-                'end_date':DatePickerInput().end_of('event days'),
-                'start_time':TimePickerInput().start_of('party time'),
-                'end_time':TimePickerInput().end_of('party time'),
-            }
-
-
-******************************
-Customize Datepicker Options
-******************************
-
-The DatePicker can be customized by passing options to it.
-The ``options`` will be passed to the JavaScript datepicker instance, and are documented and demonstrated in
-`Bootstrap Datepicker Options Reference <http://eonasdan.github.io/bootstrap-datetimepicker/Options/>`_.
-
-.. code-block:: python
-    :emphasize-lines: 14-17
-
-    # File: forms.py
-    from bootstrap_datepicker_plus.widgets import DatePickerInput
-    from .models import Event
-    from django import forms
-
-    class EventForm(forms.ModelForm):
-        class Meta:
-            model = Event
-            fields = ['name', 'start_date', 'end_date']
-            widgets = {
-                'start_date': DatePickerInput(format='%m/%d%Y'), # python date-time format
-                'end_date': DatePickerInput(
-                    options={
-                        "format": "MM/DD/YYYY", # moment date-time format
-                        "showClose": True,
-                        "showClear": True,
-                        "showTodayButton": True,
-                    }
-                ),
-            }
-
-**Note:** You can specify the date-time format by passing a
-`python date-time format <https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior>`_
-as format parameter (see start_date in the example), or by passing a
-`moment date-time format <http://momentjs.com/docs/#/displaying/format/>`_
-as an option (see end_date in the example).
-If both are specified then the moment format in options will take precedence.
-
-
-******************************
-Customize DatePicker Format
-******************************
-
-In order to use arbitraty formats you must specify the pattern to the field's ``input_formats`` and the widget's ``format``.
-
-.. code-block:: python
-    :emphasize-lines: 11-12
-
-    # File: forms.py
-    from bootstrap_datepicker_plus.widgets import DatePickerInput
-    from .models import Event
-    from django import forms
-
-    class ToDoForm(forms.Form):
-        todo = forms.CharField(
-            widget=forms.TextInput(attrs={"class": "form-control"})
-        )
-        date = forms.DateField(
-            input_formats=['%d/%m/%Y'],
-            widget=DatePickerInput(format='%d/%m/%Y')
-        )
-
-
-******************************
-Customize the Language
-******************************
-
-The DatePicker language can be customized by passing a ``locale`` option to datepicker input.
-See `moment.js locales <https://github.com/moment/moment/tree/develop/locale>`_ for valid locales.
-
-.. code-block:: python
-    :emphasize-lines: 14
-
-    # File: forms.py
-    from bootstrap_datepicker_plus.widgets import DatePickerInput
-    from .models import Event
-    from django import forms
-
-    class EventForm(forms.ModelForm):
-        class Meta:
-            model = Event
-            fields = ['name', 'pub_date']
-            widgets = {
-                'pub_date': DatePickerInput(
-                    options={
-                        "format": "MM/DD/YYYY",
-                        "locale": "bn",
-                    }
-                ),
+                "start_date": DatePickerInput(),
+                "end_date": DatePickerInput(range_from="start_date"),
+                "start_time": TimePickerInput(),
+                "end_time": TimePickerInput(range_from="start_time"),
             }

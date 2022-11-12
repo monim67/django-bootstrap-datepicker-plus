@@ -6,9 +6,55 @@ on:
   pull_request:
 
 jobs:
-  build:
-    if: "!contains(github.event.head_commit.message, 'skip-ci')"
+  pre-build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11"]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: poetry
+
+      - name: Check poetry.lock
+        run: |
+          poetry env use ${{ matrix.python-version }}
+          poetry lock --check
+
+      - name: Install dependencies
+        run: |
+          poetry env use ${{ matrix.python-version }}
+          poetry install --no-root --only build --no-ansi --no-interaction
+          poetry run pip install -c tests/pip-constraints.txt .
+
+      - name: Lint
+        run: poetry run poe lint
+
+      - name: Test Coverage
+        run: poetry run poe test-cov
+
+      - name: Coveralls Parallel
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: run-${{ matrix.python-version }}
+          parallel: true
+
+      - name: Upload pages artifact
+        uses: actions/upload-pages-artifact@v1
+        if: github.event_name == 'push' && github.ref_name == 'master' && github.repository_owner == 'monim67'
+        with:
+          path: ./pages
+
+  build:
+    runs-on: ubuntu-latest
+    needs: pre-build
     strategy:
       matrix:
         python-version: ["3.10", "3.9", "3.8", "3.7"]
@@ -18,7 +64,7 @@ jobs:
       - name: Install poetry
         run: pipx install poetry
 
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
           cache: poetry
@@ -26,26 +72,41 @@ jobs:
       - name: Install dependencies
         run: |
           poetry env use ${{ matrix.python-version }}
-          poetry install --no-ansi --no-root --no-interaction --only build
-          poetry run pip install -r tests/requirements.txt
-
-      - name: Lint
-        run: poetry run poe lint
+          poetry install --no-root --only build --no-ansi --no-interaction
+          poetry run pip install -c tests/pip-constraints.txt .
 
       - name: Test Coverage
-        run: poetry run coverage run
+        run: poetry run poe test-cov
 
-      - name: Coveralls.io notification
-        uses: miurahr/coveralls-python-action@b5f4b04e702438c3f7eceb03acf0f3c60dbe252e
+      - name: Coveralls Parallel
+        uses: coverallsapp/github-action@master
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: run-${{ matrix.python-version }}
           parallel: true
-          flag-name: Unit Test
 
-  coveralls_finish:
-    needs: build
+  coveralls:
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - name: Coveralls Finished
-        uses: miurahr/coveralls-python-action@b5f4b04e702438c3f7eceb03acf0f3c60dbe252e
+        uses: coverallsapp/github-action@master
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           parallel-finished: true
+
+  deploy-pages:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'push' && github.ref_name == 'master' && github.repository_owner == 'monim67'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1

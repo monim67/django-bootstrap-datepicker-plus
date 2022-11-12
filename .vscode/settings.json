@@ -1,5 +1,7 @@
 {
   "python.formatting.provider": "black",
+  "python.linting.mypyEnabled": true,
+  "python.linting.pydocstyleEnabled": true,
   "python.testing.pytestEnabled": true,
   "python.testing.unittestEnabled": false,
   "[python]": {
@@ -8,7 +10,18 @@
       "source.organizeImports": true,
     }
   },
+  "[javascript]": {
+    "editor.tabSize": 2,
+    "editor.detectIndentation": false,
+    "editor.formatOnSave": true,
+  },
+  "[html]": {
+    "editor.tabSize": 2,
+    "editor.detectIndentation": false,
+    "editor.formatOnSave": true,
+  },
   "yaml.schemas": {
     "https://json.schemastore.org/github-workflow.json": ".github/workflows/*.yml"
   },
+  "esbonio.sphinx.confDir": "docs",
 }

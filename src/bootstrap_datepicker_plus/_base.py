@@ -14,8 +14,8 @@ class BasePickerInput(DateTimeBaseInput):
     """Base Date-Picker input class for widgets of this package."""
 
     variant = WidgetVariant.date
+    _date_format = "%Y-%m-%d"
     backend_date_format = "YYYY-MM-DD"
-    format_key = "DATE_INPUT_FORMATS"
     options: Optional[WidgetOptions] = None
     template_name = "bootstrap_datepicker_plus/input.html"
 
@@ -53,7 +53,7 @@ class BasePickerInput(DateTimeBaseInput):
             self.options,
             options,
         )
-        super().__init__(attrs)
+        super().__init__(attrs, self._date_format)
 
     def build_attrs(
         self, base_attrs: InputAttrs, extra_attrs: Optional[InputAttrs] = None

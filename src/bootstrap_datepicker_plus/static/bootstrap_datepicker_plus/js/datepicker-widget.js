@@ -116,7 +116,7 @@
     const widgetInstance = { config, $element: $inputWrapper, dateTimePickerData: $inputWrapper.data("DateTimePicker") }
     widgetInstance.dateTimePickerData.date(moment(hiddenInputElement.value, config.backend_date_format));
     widgetInstance.$element.on("dp.change", function (e) {
-      hiddenInputElement.value = e.date.format(config.backend_date_format);
+      hiddenInputElement.value = e.date ? e.date.format(config.backend_date_format) : null;
     });
     for (let [eventName, handler] of Object.entries(config.events)) {
       widgetInstance.$element.on(eventName, handler);

@@ -29,7 +29,7 @@ class WidgetSettings(BaseSettings):
     }
     momentjs_url: Optional[
         str
-    ] = "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"
+    ] = "https://cdn.jsdelivr.net/npm/moment@2.29.4/min/moment-with-locales.min.js"
     datetimepicker_js_url: Optional[
         str
     ] = "https://cdn.jsdelivr.net/npm/eonasdan-bootstrap-datetimepicker@4.17.49/build/js/bootstrap-datetimepicker.min.js"

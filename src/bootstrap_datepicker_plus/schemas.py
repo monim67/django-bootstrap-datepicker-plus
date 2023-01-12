@@ -6,7 +6,7 @@ from typing import Any, Dict, Union
 from typing_extensions import TypeAlias
 
 InputAttrs: TypeAlias = Dict[str, Any]
-WidgetOptions: TypeAlias = Dict[str, Union[bool, int, str]]
+WidgetOptions: TypeAlias = Dict[str, Union[bool, int, str, Dict[str, str]]]
 
 
 class WidgetVariant(str, Enum):

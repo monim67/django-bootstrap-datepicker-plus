@@ -36,8 +36,8 @@ replacements = [
         '"/django-bootstrap-datepicker-plus/demo/bootstrap',
     ),
     (
-        "/static/bootstrap_datepicker_plus/",
-        "/django-bootstrap-datepicker-plus/demo/static/bootstrap_datepicker_plus/",
+        "/static/",
+        "/django-bootstrap-datepicker-plus/demo/static/",
     ),
 ]
 paths: List[str] = [
@@ -71,4 +71,6 @@ paths: List[str] = [
     "./",
     "static/bootstrap_datepicker_plus/css/datepicker-widget.css",
     "static/bootstrap_datepicker_plus/js/datepicker-widget.js",
+    "static/js/bootstrap5.modal.forms.js",
+    "static/js/jquery.bootstrap.modal.forms.min.js",
 ]

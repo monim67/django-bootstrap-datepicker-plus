@@ -1,0 +1,32 @@
+{% extends 'myapp/bootstrap5/layout.html' %}
+{% load static django_bootstrap5 %}
+
+{% block extra_css %}
+{{ form.media.css }}
+{% endblock %}
+
+{% block extra_js %}
+{{ form.media.js }}
+<script src="{% static 'js/bootstrap5.modal.forms.js' %}"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', (e) => {
+    modalForm(document.getElementById('create-event'), {
+      formURL: "{% url 'myapp:modal-form' %}"
+    })
+  });
+</script>
+{% endblock %}
+
+{% block content %}
+<h2 class="pb-2 mt-4 mb-2 border-bottom">{{ title_text }}</h2>
+<div class="row">
+  <div class="col-6">
+    <button id="create-event" class="btn btn-primary" type="button" name="button">Create Event</button>
+  </div>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"></div>
+  </div>
+</div>
+{% endblock %}

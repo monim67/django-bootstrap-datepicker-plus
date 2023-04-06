@@ -24,4 +24,14 @@ urlpatterns = [
         views.DynamicFormsetView.as_view(),
         name="dynamic-formset",
     ),
+    path(
+        "modal-form.html",
+        views.EventModalCreateView.as_view(),
+        name="modal-form",
+    ),
+    path(
+        "modal-form-index.html",
+        views.ModalIndexTemplateView.as_view(),
+        name="modal-form-index",
+    ),
 ]

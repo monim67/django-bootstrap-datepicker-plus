@@ -42,11 +42,12 @@ typing-extensions = "*"
 django-bootstrap3 = "^21.2"
 django-bootstrap4 = "^22.1"
 django-bootstrap5 = "^22.1"
+django-bootstrap-modal-forms = "^2.2.1"
 pytest-django = "^4.5.2"
 pytest-dotenv = "^0.5.2"
 black = "^22.6.0"
 isort = "^5.10.1"
-pydocstyle = {extras = ["toml"], version = "^6.1.1"}
+pydocstyle = { extras = ["toml"], version = "^6.1.1" }
 mypy = "*"
 django-stubs = "^1.12.0"
 coverage = { extras = ["toml"], version = "^6.5.0" }
@@ -84,7 +85,14 @@ strict = true
 plugins = ["mypy_django_plugin.main"]
 
 [[tool.mypy.overrides]]
-module = ["dev.myapp.migrations.*", "urllib3.*", "crispy_forms.*", "django_filters.*", "importlib_metadata.*"]
+module = [
+    "dev.myapp.migrations.*",
+    "urllib3.*",
+    "crispy_forms.*",
+    "django_filters.*",
+    "importlib_metadata.*",
+    "bootstrap_modal_forms.*",
+]
 ignore_missing_imports = true
 
 [[tool.mypy.overrides]]
@@ -95,7 +103,7 @@ ignore_errors = true
 django_settings_module = "dev.mysite.settings"
 
 [tool.pytest.ini_options]
-pythonpath = "." # pytest-django needs it to find dev module
+pythonpath = "."                               # pytest-django needs it to find dev module
 django_find_project = false
 DJANGO_SETTINGS_MODULE = "dev.mysite.settings"
 addopts = "--reuse-db"

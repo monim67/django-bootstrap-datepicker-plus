@@ -19,6 +19,9 @@
     <li class="nav-item {% if url_name == 'django-filter' %}active{% endif %}">
       <a class="nav-link" href="{% url 'myapp:django-filter' %}">With django-filter</a>
     </li>
+    <li class="nav-item {% if url_name == 'modal-form-index' %}active{% endif %}">
+      <a class="nav-link" href="{% url 'myapp:modal-form-index' %}">With django-bootstrap-modal-forms</a>
+    </li>
     {% endwith %}
   </ul>
 </div>

@@ -1,7 +1,10 @@
 from typing import List, Optional, Type
 
+from bootstrap_modal_forms.generic import BSModalCreateView
 from django.forms import ModelForm, formset_factory
 from django.http import HttpRequest
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, FormView, UpdateView
 from django_filters.views import FilterView
 
@@ -12,7 +15,13 @@ from bootstrap_datepicker_plus.widgets import (
     TimePickerInput,
     YearPickerInput,
 )
-from dev.myapp.forms import CustomForm, EventFilter, EventForm, ToDoForm
+from dev.myapp.forms import (
+    CustomForm,
+    EventFilter,
+    EventForm,
+    EventModalModelForm,
+    ToDoForm,
+)
 from dev.myapp.models import Event
 
 
@@ -126,4 +135,26 @@ class DynamicFormsetView(
     extra_context = {
         "title_text": "Use with Formsets",
         "submit_text": "Submit",
+    }
+
+
+class EventModalCreateView(
+    NamespaceTemplateMixin, SuccessRedirectMixin, BSModalCreateView  # type: ignore
+):
+    template_name = "myapp/{namespace}/modal-form.html"
+    form_class = EventModalModelForm
+    success_message = "Success: Event was created."
+    success_url = reverse_lazy("index")
+    extra_context = {
+        "title_text": "Create new Event",
+        "submit_text": "Submit",
+    }
+
+
+class ModalIndexTemplateView(NamespaceTemplateMixin, TemplateView):
+    template_name = "myapp/{namespace}/modal-form-index.html"
+    extra_context = {
+        "title_text": "Usage with django-bootstrap-modal-forms",
+        "submit_text": "Submit",
+        "form": EventModalModelForm,  # Hack to make form.media work
     }

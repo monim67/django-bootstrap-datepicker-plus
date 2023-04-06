@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "django_filters",
+    "bootstrap_modal_forms",
     "bootstrap_datepicker_plus",
     "dev.myapp.apps.MyappConfig",
 ]

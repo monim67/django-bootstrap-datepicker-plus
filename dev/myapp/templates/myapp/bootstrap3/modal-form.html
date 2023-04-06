@@ -1,0 +1,15 @@
+{% load bootstrap3 %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8">
+      <h3>{{ title_text }}</h3>
+      <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+        <button type="submit" class="btn btn-primary">{{ submit_text }}</button>
+        {% endbuttons %}
+      </form>
+    </div>
+  </div>
+</div>

@@ -196,6 +196,17 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-bootstrap-modal-forms"
+version = "2.2.1"
+description = "A Django plugin for creating AJAX driven forms in Bootstrap modal."
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+Django = ">=1.8"
+
+[[package]]
 name = "django-bootstrap3"
 version = "21.2"
 description = "Bootstrap 3 support for Django projects"
@@ -740,11 +751,11 @@ testing-integration = ["build[virtualenv]", "filelock (>=3.4.0)", "jaraco.envs (
 
 [[package]]
 name = "shellingham"
-version = "1.5.0"
+version = "1.5.0.post1"
 description = "Tool to Detect Surrounding Shell"
 category = "dev"
 optional = false
-python-versions = ">=3.4"
+python-versions = ">=3.7"
 
 [[package]]
 name = "six"
@@ -1041,7 +1052,7 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "7da39cd7631b856df1386de8d5fd0ef9731de4ac985bad9c4e576846074f365b"
+content-hash = "9b8424054e10c380120956a9223a0174605ef444d1688eec3b8833d0888e5074"
 
 [metadata.files]
 alabaster = [
@@ -1176,6 +1187,10 @@ distlib = [
 Django = [
     {file = "Django-3.2.15-py3-none-any.whl", hash = "sha256:115baf5049d5cf4163e43492cdc7139c306ed6d451e7d3571fe9612903903713"},
     {file = "Django-3.2.15.tar.gz", hash = "sha256:f71934b1a822f14a86c9ac9634053689279cd04ae69cb6ade4a59471b886582b"},
+]
+django-bootstrap-modal-forms = [
+    {file = "django-bootstrap-modal-forms-2.2.1.tar.gz", hash = "sha256:e2badbfbed50ad5b2c943e6c6bc3478bd56b1c73a5b4ea05e861f98fa0da8d19"},
+    {file = "django_bootstrap_modal_forms-2.2.1-py3-none-any.whl", hash = "sha256:7f76cb47301702fbbaab22ebe9a6ee7c0c60d048b91079e07479a5149d56056c"},
 ]
 django-bootstrap3 = [
     {file = "django-bootstrap3-21.2.tar.gz", hash = "sha256:9a7e95a053455c15cdcbc5dc7f9261f9aecf01d0558435b59e7b364765f2c3e2"},
@@ -1482,8 +1497,8 @@ setuptools = [
     {file = "setuptools-65.3.0.tar.gz", hash = "sha256:7732871f4f7fa58fb6bdcaeadb0161b2bd046c85905dbaa066bdcbcc81953b57"},
 ]
 shellingham = [
-    {file = "shellingham-1.5.0-py2.py3-none-any.whl", hash = "sha256:a8f02ba61b69baaa13facdba62908ca8690a94b8119b69f5ec5873ea85f7391b"},
-    {file = "shellingham-1.5.0.tar.gz", hash = "sha256:72fb7f5c63103ca2cb91b23dee0c71fe8ad6fbfd46418ef17dbe40db51592dad"},
+    {file = "shellingham-1.5.0.post1-py2.py3-none-any.whl", hash = "sha256:368bf8c00754fd4f55afb7bbb86e272df77e4dc76ac29dbcbb81a59e9fc15744"},
+    {file = "shellingham-1.5.0.post1.tar.gz", hash = "sha256:823bc5fb5c34d60f285b624e7264f4dda254bc803a3774a147bf99c0e3004a28"},
 ]
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},

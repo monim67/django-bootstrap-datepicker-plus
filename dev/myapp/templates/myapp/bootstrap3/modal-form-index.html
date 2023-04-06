@@ -1,0 +1,31 @@
+{% extends 'myapp/bootstrap3/layout.html' %}
+{% load static bootstrap3 %}
+
+{% block extra_css %}
+{{ form.media.css }}
+{% endblock %}
+
+{% block extra_js %}
+{{ form.media.js }}
+<script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
+<script>
+  $(document).ready(function () {
+    $("#create-event").modalForm({
+      formURL: "{% url 'myapp:modal-form' %}"
+    });
+  });
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-6">
+    <button id="create-event" class="btn btn-primary" type="button" name="button">Create Event</button>
+  </div>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"></div>
+  </div>
+</div>
+{% endblock %}

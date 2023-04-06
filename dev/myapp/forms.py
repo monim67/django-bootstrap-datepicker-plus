@@ -1,5 +1,6 @@
 from typing import Iterable, NoReturn
 
+from bootstrap_modal_forms.forms import BSModalModelForm
 from crispy_forms.helper import FormHelper
 from django import forms
 from django_filters import DateFilter, FilterSet
@@ -63,6 +64,37 @@ class EventForm(forms.ModelForm[Event]):
             "end_month": MonthPickerInput(range_from="start_month"),
             "start_year": YearPickerInput().start_of("deprecated! do not use start_of"),
             "end_year": YearPickerInput().end_of("deprecated! do not use end_of"),
+        }
+
+
+class EventModalModelForm(BSModalModelForm):  # type: ignore
+    class Meta:
+        model = Event
+        fields = [
+            "start_date",
+            "end_date",
+            "start_time",
+            "end_time",
+            "start_datetime",
+            "end_datetime",
+            "start_month",
+            "end_month",
+            "start_year",
+            "end_year",
+        ]
+        widgets = {
+            "start_date": DatePickerInput(options={"format": "MM/DD/YYYY"}),
+            "end_date": DatePickerInput(
+                options={"format": "MM/DD/YYYY"}, range_from="start_date"
+            ),
+            "start_datetime": DateTimePickerInput(),
+            "end_datetime": DateTimePickerInput(range_from="start_datetime"),
+            "start_time": TimePickerInput(),
+            "end_time": TimePickerInput(range_from="start_time"),
+            "start_month": MonthPickerInput(),
+            "end_month": MonthPickerInput(range_from="start_month"),
+            "start_year": YearPickerInput(),
+            "end_year": YearPickerInput(range_from="start_year"),
         }
 
 

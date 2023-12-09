@@ -27,14 +27,14 @@ classifiers = [
     "Operating System :: OS Independent",
     "Development Status :: 5 - Production/Stable",
     "Framework :: Django",
-    "Framework :: Django :: 2.0",
-    "Framework :: Django :: 3.0",
-    "Framework :: Django :: 4.0",
+    "Framework :: Django :: 3.2",
+    "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.0",
 ]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-Django = ">=2,<5"
+Django = ">=2,<6"
 pydantic = "*"
 typing-extensions = "*"
 
@@ -125,7 +125,7 @@ source = [
 legacy_tox_ini = """
 [tox]
 isolated_build = True
-envlist = py{311,310,39,38,37}
+envlist = py{312,311,310,39,38,37}
 
 [testenv]
 allowlist_externals = poetry

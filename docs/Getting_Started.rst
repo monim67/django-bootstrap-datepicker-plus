@@ -7,7 +7,7 @@ Getting Started
 Prerequisites
 ********************
 
-- Python >= 3.7
+- Python >= 3.8
 - Django >= 2.0
 - Bootstrap >= 3
 - jquery >= 1.7.1

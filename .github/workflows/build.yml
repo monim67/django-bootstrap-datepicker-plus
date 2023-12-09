@@ -10,14 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.11"]
+        python-version: ["3.x"]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install poetry
         run: pipx install poetry
 
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
           cache: poetry
@@ -47,7 +47,7 @@ jobs:
           parallel: true
 
       - name: Upload pages artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v2
         if: github.event_name == 'push' && github.ref_name == 'master' && github.repository_owner == 'monim67'
         with:
           path: ./pages
@@ -57,14 +57,14 @@ jobs:
     needs: pre-build
     strategy:
       matrix:
-        python-version: ["3.10", "3.9", "3.8", "3.7"]
+        python-version: ["3.12", "3.11", "3.10", "3.9", "3.8", "3.7"]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install poetry
         run: pipx install poetry
 
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
           cache: poetry
@@ -109,4 +109,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v3

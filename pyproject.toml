@@ -6,7 +6,7 @@ description = """\
     DateTimePickerInput, MonthPickerInput, YearPickerInput\
     """
 readme = "README.rst"
-authors = ["Munim Munna <6266677+monim67@users.noreply.github.com>"]
+authors = ["Abdul Monim <6266677+monim67@users.noreply.github.com>"]
 repository = "https://github.com/monim67/django-bootstrap-datepicker-plus"
 documentation = "https://django-bootstrap-datepicker-plus.readthedocs.io/en/latest/"
 packages = [{ include = "bootstrap_datepicker_plus", from = "src" }]
@@ -72,7 +72,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry_bumpversion.file."src/bootstrap_datepicker_plus/__init__.py"]
 
 [tool.isort]
-py_version = "37"
+py_version = "38"
 profile = "black"
 
 [tool.pydocstyle]
@@ -80,7 +80,7 @@ convention = "google"
 add_select = "D401,D404"
 
 [tool.mypy]
-python_version = "3.7"
+python_version = "3.8"
 namespace_packages = true
 strict = true
 plugins = ["mypy_django_plugin.main"]
@@ -126,7 +126,7 @@ source = [
 legacy_tox_ini = """
 [tox]
 isolated_build = True
-envlist = py{312,311,310,39,38,37}
+envlist = py{312,311,310,39,38}
 
 [testenv]
 allowlist_externals = poetry

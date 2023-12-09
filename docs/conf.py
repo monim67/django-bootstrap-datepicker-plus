@@ -14,8 +14,8 @@
 # -- Project information -----------------------------------------------------
 
 project = "django-bootstrap-datepicker-plus"
-copyright = "2018, monim67"
-author = "Munim Munna"
+copyright = "2023 Abdul Monim"
+author = "Abdul Monim"
 
 # The full version, including alpha/beta/rc tags
 # release = "0.0.0"

@@ -7,22 +7,22 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     env:
       POETRY_VIRTUALENVS_CREATE: "false"
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install poetry
         run: |
           pipx install poetry
-          pipx inject poetry poetry-bumpversion
+          poetry self add poetry-bumpversion
 
       - name: Build
         run: |
           poetry version ${{ github.ref_name }}
           poetry build
 
-      - name: Publish
-        run: |
-          poetry config pypi-token.pypi ${{ secrets.PYPI_API_TOKEN }}
-          poetry publish
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1

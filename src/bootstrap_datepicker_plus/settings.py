@@ -7,7 +7,7 @@ from django.conf import settings as django_settings
 try:
     from pydantic import Field, validator
     from pydantic.env_settings import BaseSettings, SettingsSourceCallable
-except:  # pragma: no cover
+except ImportError:
     from pydantic.v1.env_settings import BaseSettings, SettingsSourceCallable  # type: ignore
     from pydantic.v1 import Field, validator  # type: ignore
 

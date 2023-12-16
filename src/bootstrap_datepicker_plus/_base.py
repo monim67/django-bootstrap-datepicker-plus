@@ -4,6 +4,7 @@ from typing import Any, Dict, Optional, Tuple
 
 from django import forms
 from django.forms.widgets import DateTimeBaseInput
+from typing_extensions import deprecated
 
 from ._config import WidgetConfig
 from .schemas import InputAttrs, WidgetOptions, WidgetVariant
@@ -79,6 +80,9 @@ class BasePickerInput(DateTimeBaseInput):
         context["addon_icon_class"] = settings.addon_icon_classes[self.variant]
         return context
 
+    @deprecated(
+        "Use 'range_from' instead. See https://github.com/monim67/django-bootstrap-datepicker-plus"
+    )
     def start_of(self, event_id: str) -> "BasePickerInput":
         """Set Date-Picker as the start-date of a date-range (Deprecated!!!)."""
         warnings.warn(
@@ -89,6 +93,9 @@ class BasePickerInput(DateTimeBaseInput):
         self.attrs["data-dbdp-start"] = event_id
         return self
 
+    @deprecated(
+        "Use 'range_from' instead. See https://github.com/monim67/django-bootstrap-datepicker-plus"
+    )
     def end_of(self, event_id: str, import_options: bool = True) -> "BasePickerInput":
         """Set Date-Picker as the end-date of a date-range (Deprecated!!!)."""
         warnings.warn(

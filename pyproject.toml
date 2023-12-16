@@ -26,6 +26,7 @@ classifiers = [
     "Environment :: Web Environment",
     "Operating System :: OS Independent",
     "Development Status :: 5 - Production/Stable",
+    "Typing :: Typed",
     "Framework :: Django",
     "Framework :: Django :: 2.0",
     "Framework :: Django :: 3.0",
@@ -37,7 +38,7 @@ classifiers = [
 python = "^3.8"
 Django = ">=2,<6"
 pydantic = "*"
-typing-extensions = "*"
+typing-extensions = "^4.5"
 
 [tool.poetry.group.build.dependencies]
 django-bootstrap3 = "^21.2"

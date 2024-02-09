@@ -18,7 +18,7 @@ def _django_settings_source(settings: BaseSettings) -> Dict[str, Any]:
     return getattr(django_settings, "BOOTSTRAP_DATEPICKER_PLUS", {})
 
 
-class WidgetSettings(BaseSettings):
+class WidgetSettings(BaseSettings):  # pyright: ignore
     """Settings to customize input widgets."""
 
     template_name: Optional[str]
@@ -59,10 +59,10 @@ class WidgetSettings(BaseSettings):
         @classmethod
         def customise_sources(
             cls,
-            init_settings: SettingsSourceCallable,
-            env_settings: SettingsSourceCallable,
-            file_secret_settings: SettingsSourceCallable,
-        ) -> Tuple[SettingsSourceCallable, ...]:
+            init_settings: SettingsSourceCallable,  # pyright: ignore
+            env_settings: SettingsSourceCallable,  # pyright: ignore
+            file_secret_settings: SettingsSourceCallable,  # pyright: ignore
+        ) -> Tuple[SettingsSourceCallable, ...]:  # pyright: ignore
             """Add django settings as config source."""
             return (
                 init_settings,

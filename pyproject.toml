@@ -49,8 +49,8 @@ pytest-django = "^4.5.2"
 pytest-dotenv = "^0.5.2"
 black = "^22.6.0"
 isort = "^5.10.1"
+pyright = "^1.1.350"
 pydocstyle = { extras = ["toml"], version = "^6.1.1" }
-mypy = "*"
 django-stubs = "^1.12.0"
 coverage = { extras = ["toml"], version = "^6.5.0" }
 rstcheck = "^6.1.0"
@@ -82,26 +82,8 @@ profile = "black"
 convention = "google"
 add_select = "D401,D404"
 
-[tool.mypy]
-python_version = "3.8"
-namespace_packages = true
-strict = true
-plugins = ["mypy_django_plugin.main"]
-
-[[tool.mypy.overrides]]
-module = [
-    "dev.myapp.migrations.*",
-    "urllib3.*",
-    "crispy_forms.*",
-    "django_filters.*",
-    "importlib_metadata.*",
-    "bootstrap_modal_forms.*",
-]
-ignore_missing_imports = true
-
-[[tool.mypy.overrides]]
-module = ["dev.myapp.migrations.*"]
-ignore_errors = true
+[tool.pyright]
+include = ["src", "dev", "tests"]
 
 [tool.django-stubs]
 django_settings_module = "dev.mysite.settings"
@@ -150,7 +132,7 @@ docs = "poetry run make -C docs html"
 lint = [
     { cmd = "python -m black --check src tests dev" },
     { cmd = "python -m isort --check-only src tests dev" },
-    { cmd = "mypy src tests dev" },
+    { cmd = "pyright" },
     { cmd = "pydocstyle src" },
     { cmd = "rstcheck --report-level warning README.rst docs/*.rst" },
 ]

@@ -37,7 +37,7 @@ class ToDoForm(forms.Form):
 
 
 class EventForm(forms.ModelForm[Event]):
-    class Meta:
+    class Meta:  # pyright: ignore
         model = Event
         fields = [
             "start_date",
@@ -68,7 +68,7 @@ class EventForm(forms.ModelForm[Event]):
 
 
 class EventModalModelForm(BSModalModelForm):  # type: ignore
-    class Meta:
+    class Meta:  # pyright: ignore
         model = Event
         fields = [
             "start_date",

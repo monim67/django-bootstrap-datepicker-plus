@@ -1,4 +1,5 @@
 """Package settings."""
+
 import functools
 from typing import Any, Dict, Optional, Tuple
 
@@ -8,8 +9,11 @@ try:
     from pydantic import Field, validator
     from pydantic.env_settings import BaseSettings, SettingsSourceCallable
 except:  # pragma: no cover
-    from pydantic.v1.env_settings import BaseSettings, SettingsSourceCallable  # type: ignore
     from pydantic.v1 import Field, validator  # type: ignore
+    from pydantic.v1.env_settings import (  # type: ignore
+        BaseSettings,
+        SettingsSourceCallable,
+    )
 
 from .schemas import WidgetOptions, WidgetVariant
 
@@ -32,18 +36,18 @@ class WidgetSettings(BaseSettings):  # pyright: ignore
         WidgetVariant.month: "bi-calendar",
         WidgetVariant.year: "bi-calendar",
     }
-    momentjs_url: Optional[
-        str
-    ] = "https://cdn.jsdelivr.net/npm/moment@2.29.4/min/moment-with-locales.min.js"
-    datetimepicker_js_url: Optional[
-        str
-    ] = "https://cdn.jsdelivr.net/npm/eonasdan-bootstrap-datetimepicker@4.17.49/build/js/bootstrap-datetimepicker.min.js"
-    datetimepicker_css_url: Optional[
-        str
-    ] = "https://cdn.jsdelivr.net/npm/eonasdan-bootstrap-datetimepicker@4.17.49/build/css/bootstrap-datetimepicker.min.css"
-    bootstrap_icon_css_url: Optional[
-        str
-    ] = "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+    momentjs_url: Optional[str] = (
+        "https://cdn.jsdelivr.net/npm/moment@2.29.4/min/moment-with-locales.min.js"
+    )
+    datetimepicker_js_url: Optional[str] = (
+        "https://cdn.jsdelivr.net/npm/eonasdan-bootstrap-datetimepicker@4.17.49/build/js/bootstrap-datetimepicker.min.js"
+    )
+    datetimepicker_css_url: Optional[str] = (
+        "https://cdn.jsdelivr.net/npm/eonasdan-bootstrap-datetimepicker@4.17.49/build/css/bootstrap-datetimepicker.min.css"
+    )
+    bootstrap_icon_css_url: Optional[str] = (
+        "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+    )
     app_static_url = "https://cdn.jsdelivr.net/gh/monim67/django-bootstrap-datepicker-plus@5.0.2/src/bootstrap_datepicker_plus/static/bootstrap_datepicker_plus/"
     debug: bool = Field(default_factory=lambda: getattr(django_settings, "DEBUG", True))
 

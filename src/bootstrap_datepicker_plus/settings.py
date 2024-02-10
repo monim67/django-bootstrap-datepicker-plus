@@ -8,7 +8,7 @@ from django.conf import settings as django_settings
 try:
     from pydantic import Field, validator
     from pydantic.env_settings import BaseSettings, SettingsSourceCallable
-except:  # pragma: no cover
+except Exception:  # pragma: no cover
     from pydantic.v1 import Field, validator  # type: ignore
     from pydantic.v1.env_settings import (  # type: ignore
         BaseSettings,
@@ -48,7 +48,7 @@ class WidgetSettings(BaseSettings):  # pyright: ignore
     bootstrap_icon_css_url: Optional[str] = (
         "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
     )
-    app_static_url = "https://cdn.jsdelivr.net/gh/monim67/django-bootstrap-datepicker-plus@5.0.2/src/bootstrap_datepicker_plus/static/bootstrap_datepicker_plus/"
+    app_static_url = "https://cdn.jsdelivr.net/gh/monim67/django-bootstrap-datepicker-plus@5.0.6/src/bootstrap_datepicker_plus/static/bootstrap_datepicker_plus/"
     debug: bool = Field(default_factory=lambda: getattr(django_settings, "DEBUG", True))
 
     @validator("addon_icon_classes")

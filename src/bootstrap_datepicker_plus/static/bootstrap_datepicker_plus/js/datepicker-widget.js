@@ -43,11 +43,19 @@
 
   document.addEventListener('DOMContentLoaded', function (event) {
     setTimeout(() => findAndProcessInputs(document));
-    document.addEventListener('DOMNodeInserted', function (event) {
-      setTimeout(() => {
-        if (event.target.querySelectorAll) findAndProcessInputs(event.target);
-      });
+    const observer = new MutationObserver((mutationsList, observer) => {
+      for (const mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+          const addedNodes = Array.from(mutation.addedNodes);
+          addedNodes.forEach(node => {
+            if (node.querySelectorAll) {
+              findAndProcessInputs(node);
+            }
+          });
+        }
+      }
     });
+    observer.observe(document, { childList: true, subtree: true });
   });
 
   /**

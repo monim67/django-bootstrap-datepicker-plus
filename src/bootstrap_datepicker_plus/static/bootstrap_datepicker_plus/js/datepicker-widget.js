@@ -92,6 +92,11 @@
     const widgetInstance = createWidgetInstance(inputWrapper, hiddenInputElement, config);
     widgetInstances.set(hiddenInputElement, widgetInstance);
 
+    const form = hiddenInputElement.closest("form");
+    form?.addEventListener("reset", () => {
+      setTimeout(() => inputElement.dispatchEvent(new Event("change")));
+    })
+
     if (config.range_from) {
       const widgetRangeFromInstance = getRangeFromInputElement(hiddenInputElement, config);
       if (widgetRangeFromInstance) {

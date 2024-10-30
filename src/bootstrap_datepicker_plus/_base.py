@@ -78,7 +78,9 @@ class BasePickerInput(DateTimeBaseInput):
         """Return widget context dictionary."""
         settings = get_widget_settings()
         context = super().get_context(name, value, attrs)
-        context["addon_icon_class"] = settings.addon_icon_classes[self.variant]
+        context["widget"]["addon_icon_class"] = settings.addon_icon_classes[
+            self.variant
+        ]
         return context
 
     @deprecated(

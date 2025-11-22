@@ -155,7 +155,24 @@
         function (e) {
           const code = e.keyCode || e.which;
 
-          console.log(code);
+          if (code === 8) {
+            e.preventDefault();
+            const start = this.selectionStart;
+            const end = this.selectionEnd;
+            const val = this.value;
+
+            if (start !== end) {
+              this.value = val.slice(0, start) + val.slice(end);
+              this.setSelectionRange(start, start);
+            } else if (start > 0) {
+              this.value = val.slice(0, start - 1) + val.slice(start);
+              this.setSelectionRange(start - 1, start - 1);
+            }
+
+            this.dispatchEvent(new Event("input", { bubbles: true }));
+            this.dispatchEvent(new Event("change", { bubbles: true }));
+            return;
+          }
 
           if (code >= 96 && code <= 105) {
             e.preventDefault();

@@ -134,6 +134,48 @@
     for (let [eventName, handler] of Object.entries(config.events)) {
       widgetInstance.$element.on(eventName, handler);
     }
+
+    const visibleInput = inputWrapper.querySelector("input[data-dbdp-config]");
+    if (visibleInput) {
+      const numpadMap = {
+        96: "0",
+        97: "1",
+        98: "2",
+        99: "3",
+        100: "4",
+        101: "5",
+        102: "6",
+        103: "7",
+        104: "8",
+        105: "9",
+      };
+
+      visibleInput.addEventListener(
+        "keydown",
+        function (e) {
+          const code = e.keyCode || e.which;
+
+          console.log(code);
+
+          if (code >= 96 && code <= 105) {
+            e.preventDefault();
+
+            const char = numpadMap[code];
+            const start = this.selectionStart;
+            const end = this.selectionEnd;
+            const val = this.value;
+
+            this.value = val.slice(0, start) + char + val.slice(end);
+            this.setSelectionRange(start + 1, start + 1);
+
+            this.dispatchEvent(new Event("input", { bubbles: true }));
+            this.dispatchEvent(new Event("change", { bubbles: true }));
+          }
+        },
+        true
+      );
+    }
+    
     return widgetInstance;
   }
 

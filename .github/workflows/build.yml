@@ -10,13 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.12"]
+        python-version: ["3.14"]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Install poetry
         run: pipx install poetry
 
+      - name: Add pipx to PATH
+        if: github.actor == 'nektos/act'
+        run: echo "/root/.local/bin" >> ${GITHUB_PATH}
+      
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
@@ -25,7 +29,7 @@ jobs:
       - name: Check poetry.lock
         run: |
           poetry env use ${{ matrix.python-version }}
-          poetry lock --check
+          poetry check --lock
 
       - name: Install dependencies
         run: |
@@ -41,14 +45,15 @@ jobs:
 
       - name: Coveralls Parallel
         uses: coverallsapp/github-action@master
+        if: github.actor != 'nektos/act'
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: run-${{ matrix.python-version }}
           parallel: true
 
       - name: Upload pages artifact
-        uses: actions/upload-pages-artifact@v2
-        if: github.event_name == 'push' && github.ref_name == 'master' && github.repository_owner == 'monim67'
+        uses: actions/upload-pages-artifact@v4
+        if: github.actor != 'nektos/act' && github.event_name == 'push' && github.ref_name == 'master' && github.repository_owner == 'monim67'
         with:
           path: ./pages
 
@@ -57,12 +62,16 @@ jobs:
     needs: pre-build
     strategy:
       matrix:
-        python-version: ["3.11", "3.10", "3.9", "3.8"]
+        python-version: ["3.13", "3.12", "3.11", "3.10"]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Install poetry
         run: pipx install poetry
+
+      - name: Add pipx to PATH
+        if: github.actor == 'nektos/act'
+        run: echo "/root/.local/bin" >> ${GITHUB_PATH}
 
       - uses: actions/setup-python@v5
         with:
@@ -80,6 +89,7 @@ jobs:
 
       - name: Coveralls Parallel
         uses: coverallsapp/github-action@master
+        if: github.actor != 'nektos/act'
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: run-${{ matrix.python-version }}
@@ -88,6 +98,7 @@ jobs:
   coveralls:
     runs-on: ubuntu-latest
     needs: build
+    if: github.actor != 'nektos/act'
     steps:
       - name: Coveralls Finished
         uses: coverallsapp/github-action@master
@@ -98,7 +109,7 @@ jobs:
   deploy-pages:
     runs-on: ubuntu-latest
     needs: build
-    if: github.event_name == 'push' && github.ref_name == 'master' && github.repository_owner == 'monim67'
+    if: github.actor != 'nektos/act' && github.event_name == 'push' && github.ref_name == 'master' && github.repository_owner == 'monim67'
     permissions:
       contents: read
       pages: write
@@ -109,4 +120,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v3
+        uses: actions/deploy-pages@v4

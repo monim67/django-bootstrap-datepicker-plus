@@ -1,12 +1,10 @@
 """Datastructures of the package."""
 
 from enum import Enum
-from typing import Any, Dict, Union
+from typing import Any, TypeAlias
 
-from typing_extensions import TypeAlias
-
-InputAttrs: TypeAlias = Dict[str, Any]
-WidgetOptions: TypeAlias = Dict[str, Union[bool, int, str, Dict[str, str]]]
+InputAttrs: TypeAlias = dict[str, Any]
+WidgetOptions: TypeAlias = dict[str, bool | int | str | dict[str, str]]
 
 
 class WidgetVariant(str, Enum):

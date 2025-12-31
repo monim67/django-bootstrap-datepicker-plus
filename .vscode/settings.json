@@ -3,6 +3,7 @@
   "python.testing.unittestEnabled": false,
   "[python]": {
     "editor.formatOnSave": true,
+    "editor.defaultFormatter": "ms-python.black-formatter",
     "editor.codeActionsOnSave": {
       "source.organizeImports": "explicit"
     }
@@ -21,4 +22,7 @@
     "https://json.schemastore.org/github-workflow.json": ".github/workflows/*.yml"
   },
   "esbonio.sphinx.confDir": "docs",
+  "python-envs.defaultEnvManager": "ms-python.python:poetry",
+  "python-envs.defaultPackageManager": "ms-python.python:poetry",
+  "python-envs.pythonProjects": [],
 }

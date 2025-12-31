@@ -2,6 +2,7 @@
     "recommendations": [
         "ms-python.python",
         "ms-python.black-formatter",
-        "ms-python.isort"
+        "ms-python.isort",
+        "sanjulaganepola.github-local-actions"
     ]
 }

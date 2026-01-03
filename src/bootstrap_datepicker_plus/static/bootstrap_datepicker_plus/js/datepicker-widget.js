@@ -76,7 +76,6 @@
         handleErrorAndThrow(err, inputElement);
       }
     }
-    findAndProcessDeprecatedRangeInputs(htmlElement);
   }
 
   /**
@@ -225,23 +224,6 @@
       inputElement.closest(`.${inputWrapperClass}`).after(errorDisplay);
     }
     throw new WidgetError(error.message);
-  }
-
-  /**
-   * @param {HTMLElement} htmlElement
-   */
-  function findAndProcessDeprecatedRangeInputs(htmlElement) {
-    const fromInputs = htmlElement.querySelectorAll('[data-dbdp-start]:not([disabled])')
-    for (const fromInput of fromInputs) {
-      const eventName = fromInput.dataset.dbdpStart;
-      const toInput = htmlElement.querySelector(`input[data-dbdp-end="${eventName}"]:not([disabled])`);
-      if (!toInput) continue;
-      const fromHiddenInput = fromInput.closest(`.${inputWrapperClass}`)?.nextElementSibling;
-      const toHiddenInput = toInput.closest(`.${inputWrapperClass}`)?.nextElementSibling;
-      if (fromHiddenInput && toHiddenInput && widgetInstances.has(fromHiddenInput) && widgetInstances.has(toHiddenInput)) {
-        configureRangeSelection(widgetInstances.get(fromHiddenInput), widgetInstances.get(toHiddenInput));
-      }
-    }
   }
 
   if ("bootstrap" in window) { // if bootstrap version >= 4

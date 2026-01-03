@@ -62,8 +62,8 @@ class EventForm(forms.ModelForm[Event]):
             "end_time": TimePickerInput(range_from="start_time"),
             "start_month": MonthPickerInput(),
             "end_month": MonthPickerInput(range_from="start_month"),
-            "start_year": YearPickerInput().start_of("deprecated! do not use start_of"),
-            "end_year": YearPickerInput().end_of("deprecated! do not use end_of"),
+            "start_year": YearPickerInput(),
+            "end_year": YearPickerInput(range_from="start_year"),
         }
 
 

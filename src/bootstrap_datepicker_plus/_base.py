@@ -5,7 +5,6 @@ from typing import Any
 
 from django import forms
 from django.forms.widgets import DateTimeBaseInput
-from typing_extensions import deprecated
 
 from ._config import WidgetConfig
 from .schemas import InputAttrs, WidgetOptions, WidgetVariant
@@ -82,32 +81,6 @@ class BasePickerInput(DateTimeBaseInput):
             self.variant
         ]
         return context
-
-    @deprecated(
-        "Use 'range_from' instead. See https://github.com/monim67/django-bootstrap-datepicker-plus"
-    )
-    def start_of(self, event_id: str) -> "BasePickerInput":
-        """Set Date-Picker as the start-date of a date-range (Deprecated!!!)."""
-        warnings.warn(
-            "The 'start_of' method is deprecated, use 'range_from' instead. "
-            "see https://github.com/monim67/django-bootstrap-datepicker-plus",
-            category=FutureWarning,
-        )
-        self.attrs["data-dbdp-start"] = event_id
-        return self
-
-    @deprecated(
-        "Use 'range_from' instead. See https://github.com/monim67/django-bootstrap-datepicker-plus"
-    )
-    def end_of(self, event_id: str, import_options: bool = True) -> "BasePickerInput":
-        """Set Date-Picker as the end-date of a date-range (Deprecated!!!)."""
-        warnings.warn(
-            "The 'end_of' method is deprecated, use 'range_from' instead. "
-            "see https://github.com/monim67/django-bootstrap-datepicker-plus",
-            category=FutureWarning,
-        )
-        self.attrs["data-dbdp-end"] = event_id
-        return self
 
     @property
     def media(self) -> forms.Media:  # type: ignore

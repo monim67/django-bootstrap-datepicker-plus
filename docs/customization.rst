@@ -25,7 +25,8 @@ Settings applies globally to all widgets used in your site.
     }
 
 
-You can set date and event hook options using JavaScript.
+JavaScript events and some options can only be set using JavaScript. Starting from v5.0, you can set events and options
+globally for all widgets like below in your html template inside a ``<script>`` tag.
 
 .. code:: javascript
 
@@ -33,7 +34,11 @@ You can set date and event hook options using JavaScript.
         widgetParent: jQuery("#myWidgetParent"),
     }
     window.dbdpEvents = {
+        "dp.change": e => console.log("Date selected:", e.date, e.oldDate),
         "dp.show": e => console.log("Calendar opened"),
+        "dp.hide": e => console.log("Calendar closed", e.date),
+        "dp.error": e => console.log("Invalid date input", e.date, e.oldDate),
+        "dp.update": e => console.log("viewDate changed", e.viewDate, e.change),
     }
 
 
@@ -63,15 +68,21 @@ to widget instance.
             },
         ))
 
-Similarly set date and event hook options using JavaScript.
+JavaScript events and some options can only be set using JavaScript. Starting from v5.0, you can set events and options
+for a specific widget for a widget with field name ``deadline_date`` like below in your html template inside a ``<script>`` tag.
 
 .. code:: javascript
 
+    // Applies to a widget with field name `deadline_date`
     window.dbdpOptions_deadline_date = {
         widgetParent: jQuery("#myWidgetParent"),
     }
     window.dbdpEvents_deadline_date = {
-        "dp.show": e => console.log("Calendar opened"),
+        "dp.change": (e) => console.log("Deadline changed:", e.date?.format('YYYY-MM-DD')),
+        "dp.show": e => console.log("Deadline picker opened"),
+        "dp.hide": e => console.log("Deadline picker closed", e.date),
+        "dp.error": e => console.log("Invalid date input", e.date, e.oldDate),
+        "dp.update": e => console.log("viewDate changed", e.viewDate, e.change),
     }
 
 

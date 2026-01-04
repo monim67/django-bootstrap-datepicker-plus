@@ -4,17 +4,13 @@
 version: 2
 
 build:
-  os: ubuntu-22.04
+  os: ubuntu-lts-latest
   tools:
-    python: "3.12"
+    python: "3.14"
   jobs:
-    pre_install:
-      - pip install poetry==1.7.1
-      - poetry export --only docs --without-hashes -o requirements.txt
-
-python:
-  install:
-    - requirements: requirements.txt
+    post_install:
+      - pip install "poetry>=2,<3"
+      - VIRTUAL_ENV=$READTHEDOCS_VIRTUALENV_PATH poetry install --only docs
 
 sphinx:
   configuration: docs/conf.py

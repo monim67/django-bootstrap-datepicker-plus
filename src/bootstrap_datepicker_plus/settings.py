@@ -65,7 +65,7 @@ class WidgetSettings(BaseSettings):
         "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
     )
     app_static_url: str = (
-        "https://cdn.jsdelivr.net/gh/monim67/django-bootstrap-datepicker-plus@5.0.6/src/bootstrap_datepicker_plus/static/bootstrap_datepicker_plus/"
+        "https://cdn.jsdelivr.net/gh/monim67/django-bootstrap-datepicker-plus@4c7f504/src/bootstrap_datepicker_plus/static/bootstrap_datepicker_plus/"
     )
     debug: bool = Field(default_factory=lambda: getattr(django_settings, "DEBUG", True))
 

@@ -10,12 +10,6 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-import os
-import sys
-
-sys.path.insert(0, os.path.abspath(".."))
-import bootstrap_datepicker_plus
-
 
 # -- Project information -----------------------------------------------------
 
@@ -24,7 +18,7 @@ copyright = "2018, monim67"
 author = "Munim Munna"
 
 # The full version, including alpha/beta/rc tags
-release = bootstrap_datepicker_plus.__version__
+release = "3.x"
 
 
 # -- General configuration ---------------------------------------------------
@@ -60,3 +54,10 @@ html_css_files = [
 
 # The master toctree document.
 master_doc = "index"
+
+rst_prolog = """
+.. warning::
+   You are viewing documentation for the legacy **3.x** branch, which is no longer maintained.
+   Please refer to the `latest documentation <https://django-bootstrap-datepicker-plus.readthedocs.io/en/latest/>`_
+   unless you are pinned to an older Django version < 2.0.
+"""

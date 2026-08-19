@@ -8,9 +8,7 @@ description = """\
 readme = "README.rst"
 requires-python = ">=3.10,<4"
 license = "MIT"
-authors = [
-    { name = "Abdul Monim", email = "6266677+monim67@users.noreply.github.com" },
-]
+authors = [{ name = "Abdul Monim" }]
 keywords = [
     "django",
     "bootstrap",
@@ -27,6 +25,14 @@ classifiers = [
     "Operating System :: OS Independent",
     "Development Status :: 5 - Production/Stable",
     "Typing :: Typed",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Framework :: Django",
     "Framework :: Django :: 2.0",
     "Framework :: Django :: 3.0",

@@ -4,18 +4,15 @@
 # list see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
-# -- Path setup --------------------------------------------------------------
-
-# If extensions (or modules to document with autodoc) are in another directory,
-# add these directories to sys.path here. If the directory is relative to the
-# documentation root, use os.path.abspath to make it absolute, like shown here.
-#
+from importlib.metadata import metadata
 
 # -- Project information -----------------------------------------------------
 
 project = "django-bootstrap-datepicker-plus"
 copyright = "2023 Abdul Monim"
 author = "Abdul Monim"
+project_metadata = metadata(project)
+llms_txt_description = project_metadata.get("Summary")
 
 # The full version, including alpha/beta/rc tags
 # release = "0.0.0"
@@ -54,3 +51,7 @@ html_css_files = [
 
 # The master toctree document.
 master_doc = "index"
+
+extensions = [
+    "sphinx_llm.txt",
+]

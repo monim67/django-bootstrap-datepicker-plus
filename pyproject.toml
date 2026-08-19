@@ -74,6 +74,7 @@ pre-commit = "^2.20.0"
 tox = "^3.24.5"
 
 [tool.poetry.group.docs.dependencies]
+sphinx-llm = "^0.4.1"
 sphinx-rtd-theme = "^3.0.2"
 
 [build-system]

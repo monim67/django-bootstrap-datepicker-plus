@@ -10,9 +10,8 @@
 {% endblock %}
 
 {% block content %}
-<h2 class="pb-2 mt-4 mb-2 border-bottom">Custom Form with Bootstrap 4</h2>
 <div class="row">
-  <div class='col-md-6'>
+  <div class="col-md-6">
     <form action="" method="post">
       {% csrf_token %}
       {% bootstrap_form form %}
@@ -21,6 +20,9 @@
       <button type="reset" class="btn btn-warning">Reset</button>
       {% endbuttons %}
     </form>
+  </div>
+  <div class="col-md-6">
+    {% include 'myapp/bootstrap4/agent-prompt.html' %}
   </div>
 </div>
 {% endblock %}

@@ -20,10 +20,11 @@
 {% block content %}
 <div class="row">
   <div class="col-md-6">
-    <h4>{{ title_text }}</h4>
     <button id="create-event" class="btn btn-primary" type="button" name="button">Create Event</button>
   </div>
-</div>
+  <div class="col-md-6">
+    {% include 'myapp/bootstrap4/agent-prompt.html' %}
+  </div>
 </div>
 <div class="modal fade" tabindex="-1" role="dialog" id="modal">
   <div class="modal-dialog" role="document">

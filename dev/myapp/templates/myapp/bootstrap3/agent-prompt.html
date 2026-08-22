@@ -1,0 +1,26 @@
+{% if agent_prompt %}
+<div class="panel panel-default" style="margin-top:1rem">
+  <div class="panel-heading text-primary">
+    <i class="bi bi-robot"></i>
+    <strong>Add to your project</strong>
+  </div>
+  <div class="panel-body">
+    <p class="text-muted">Copy and complete following prompt to your
+      AI coding agent to add anything from this example to your project.</p>
+    <div class="form-group">
+      <textarea id="agent-prompt" class="form-control input-sm" rows="16" readonly>{{ agent_prompt }}</textarea>
+    </div>
+    <button class="btn btn-sm btn-primary mt-2" onclick="copyPrompt('agent-prompt', this)">
+      <i class="bi bi-clipboard"></i> Copy prompt
+    </button>
+  </div>
+</div>
+<script>
+  function copyPrompt(id, btn) {
+    navigator.clipboard.writeText(document.getElementById(id).value).then(() => {
+      btn.innerHTML = '<i class="bi bi-check-lg"></i> Copied!';
+      setTimeout(() => btn.innerHTML = '<i class="bi bi-clipboard"></i> Copy prompt', 2000);
+    });
+  }
+</script>
+{% endif %}

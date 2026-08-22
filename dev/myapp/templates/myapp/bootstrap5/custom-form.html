@@ -10,15 +10,17 @@
 {% endblock %}
 
 {% block content %}
-<h2 class="pb-2 mt-4 mb-2 border-bottom">Custom Form with Bootstrap 5</h2>
 <div class="row">
-  <div class='col-md-6'>
+  <div class="col-md-6">
     <form action="" method="post">
       {% csrf_token %}
       {% bootstrap_form form %}
       <button type="submit" class="btn btn-primary">{{ submit_text }}</button>
       <button type="reset" class="btn btn-warning">Reset</button>
     </form>
+  </div>
+  <div class="col-md-6">
+    {% include 'myapp/bootstrap5/agent-prompt.html' %}
   </div>
 </div>
 {% endblock %}

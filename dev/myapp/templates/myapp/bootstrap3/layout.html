@@ -17,7 +17,23 @@
     .nav.justify-content-center {
       display: flex;
       justify-content: center;
-      margin-top: 3em;
+    }
+
+    footer .nav>li>a:hover {
+      background-color: transparent;
+    }
+
+    .border-bottom {
+      border-bottom: 1px solid #dee2e6;
+    }
+
+    .mt-4 {
+      margin-top: 1.5rem !important;
+    }
+
+    .my-4 {
+      margin-top: 1.5rem !important;
+      margin-bottom: 1.5rem !important;
     }
   </style>
 </head>
@@ -44,6 +60,7 @@
   </nav>
   <div class="container">
     <h2 class="page-header">{{ title_text }}</h2>
+    {% if lead_text %}<p class="lead">{{ lead_text | safe }}</p>{% endif %}
     {% block content %}{% endblock %}
   </div>
   {% include 'myapp/footer.html' %}

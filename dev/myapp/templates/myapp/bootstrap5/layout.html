@@ -24,6 +24,8 @@
     {% include 'myapp/nav-bar.html' %}
   </nav>
   <div class="container">
+    <h2 class="pb-2 mt-4 mb-2 border-bottom">{{ title_text }}</h2>
+    {% if lead_text %}<p class="lead">{{ lead_text | safe }}</p>{% endif %}
     {% block content %}{% endblock %}
   </div>
   {% include 'myapp/footer.html' %}

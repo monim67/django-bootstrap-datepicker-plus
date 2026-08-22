@@ -1,9 +1,8 @@
 import shutil
 from pathlib import Path
-from typing import List
 
-import urllib3
 from pytest_django.live_server_helper import LiveServer
+from website_downloader.crawler import CrawlOptions, crawl_site
 
 
 def test_build(live_server: LiveServer) -> None:
@@ -12,16 +11,9 @@ def test_build(live_server: LiveServer) -> None:
         shutil.rmtree(pages)
     demo = pages / "demo"
     demo.mkdir(parents=True)
-    http = urllib3.PoolManager()
-    for path in paths:
-        r = http.request("GET", f"{live_server.url}/{path}")
-        file_text = r.data.decode("utf-8")
-        for search_text, replace_text in replacements:
-            file_text = file_text.replace(search_text, replace_text)
-        file_path = demo.joinpath(f"{path}/index.html" if path.endswith("/") else path)
-        if not file_path.parent.exists():
-            file_path.parent.mkdir(parents=True)
-        file_path.write_text(file_text)
+    crawl_options = CrawlOptions(start_url=live_server.url, root=demo, max_pages=500)
+    stats = crawl_site(crawl_options)
+    assert stats.errors == 0
     pages.joinpath("index.html").write_text(
         '<META http-equiv="refresh" content="0;URL=demo/">'
     )
@@ -32,49 +24,3 @@ def test_build(live_server: LiveServer) -> None:
     pages.joinpath("configure/index.html").write_text(
         '<META http-equiv="refresh" content="0;URL=https://django-bootstrap-datepicker-plus.readthedocs.io/en/latest/Getting_Started.html">'
     )
-
-
-replacements = [
-    (
-        '"/bootstrap',
-        '"/django-bootstrap-datepicker-plus/demo/bootstrap',
-    ),
-    (
-        "/static/",
-        "/django-bootstrap-datepicker-plus/demo/static/",
-    ),
-]
-paths: List[str] = [
-    "bootstrap3/crispy-form.html",
-    "bootstrap3/custom-form.html",
-    "bootstrap3/django-filter.html",
-    "bootstrap3/dynamic-formset.html",
-    "bootstrap3/generic-view.html",
-    "bootstrap3/model-form.html",
-    "bootstrap3/modal-form-index.html",
-    "bootstrap3/modal-form.html",
-    "bootstrap3/",
-    "bootstrap4/crispy-form.html",
-    "bootstrap4/custom-form.html",
-    "bootstrap4/django-filter.html",
-    "bootstrap4/dynamic-formset.html",
-    "bootstrap4/generic-view.html",
-    "bootstrap4/model-form.html",
-    "bootstrap4/modal-form-index.html",
-    "bootstrap4/modal-form.html",
-    "bootstrap4/",
-    "bootstrap5/crispy-form.html",
-    "bootstrap5/custom-form.html",
-    "bootstrap5/django-filter.html",
-    "bootstrap5/dynamic-formset.html",
-    "bootstrap5/generic-view.html",
-    "bootstrap5/model-form.html",
-    "bootstrap5/modal-form-index.html",
-    "bootstrap5/modal-form.html",
-    "bootstrap5/",
-    "./",
-    "static/bootstrap_datepicker_plus/css/datepicker-widget.css",
-    "static/bootstrap_datepicker_plus/js/datepicker-widget.js",
-    "static/js/bootstrap5.modal.forms.js",
-    "static/js/jquery.bootstrap.modal.forms.min.js",
-]

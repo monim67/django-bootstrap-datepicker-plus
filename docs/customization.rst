@@ -6,23 +6,65 @@ Customization
 Customize All Inputs
 ******************************
 
-To customize the look and features copy the `settings block <settings_block_>`_
-to your settings.py file and customize it following instruction comments.
-Settings applies globally to all widgets used in your site.
+To customize the look and features copy the settings block below
+to your ``settings.py`` file and uncomment the options you want to change.
 
 .. code:: python
 
-    # The link above contains all settings
     BOOTSTRAP_DATEPICKER_PLUS = {
-        "options": {
-            "locale": "bn",
-        },
-        "variant_options": {
-            "date": {
-                "format": "MM/DD/YYYY",
-            },
-        }
+        # Options applied to all widgets. Full list: https://getdatepicker.com/4/Options/
+        # "options": {
+        #     "locale": "bn",
+        # },
+        #
+        # Override options for a specific picker variant only (it overrides "options" above)
+        # "variant_options": {
+        #     "date": {
+        #         "format": "MM/DD/YYYY",
+        #     },
+        #     "datetime": {
+        #         "format": "MM/DD/YYYY HH:mm",
+        #     },
+        #     "time": {
+        #         "format": "HH:mm",
+        #     },
+        # },
+        #
+        # HTML attributes for the widget <input> element
+        # "attrs": {
+        #     "class": "my-input-class",
+        # },
+        #
+        # Override the calendar icon for a specific variant
+        # "addon_icon_classes": {
+        #     "month": "bi-calendar-month",
+        # },
+        #
+        # Use a custom HTML template for the input widget
+        # detailed here https://django-bootstrap-datepicker-plus.readthedocs.io/en/latest/Template_Customizing.html
+        # "template_name": "your-app/custom-input.html",
+        #
+        # Advanced: Override CDN URLs for the datepicker JS/CSS/moment.js.
+        # defaults: https://github.com/monim67/django-bootstrap-datepicker-plus/blob/6.0.0/src/bootstrap_datepicker_plus/settings.py#L55-L69
+        # Set to None if you already include those files in your template.
+        # "datetimepicker_js_url": "https://...",
+        # "datetimepicker_css_url": "https://...",
+        # "momentjs_url": None,
+        # "bootstrap_icon_css_url": None,
+        #
+        # Advanced: To serve static files from Django's staticfiles instead of a CDN
+        # (e.g. for GDPR / offline / compliance requirements), download the JS/CSS
+        # files into a static directory, update the URLs above, and set:
+        # Note: you will be responsible for static file deployment in production
+        # including collecting django static files and serving them from your web server.
+        # "app_static_url": "bootstrap_datepicker_plus/",
     }
+
+.. note::
+
+    The ``format`` option controls the **display format** shown to the user only.
+    The widget always submits values to Django in a fixed backend format, so
+    ``input_formats`` on the form field is not required regardless of what ``format`` is set to.
 
 
 JavaScript events and some options can only be set using JavaScript. Starting from v5.0, you can set events and options
@@ -65,8 +107,24 @@ to widget instance.
             options={
                 "format": "MM/DD/YYYY",
                 "showTodayButton": False,
+                # "allowInputToggle": True,                      # open picker on input click, not just the icon
+                # "minDate": "today",                              # disable past dates
+                # "maxDate": "2099-12-31",                        # disable future dates
+                # "disabledDates": ["2024-12-25", "2025-01-01"], # block specific dates
+                # "enabledDates": ["2024-12-20", "2024-12-21"],  # allow only these dates
             },
         ))
+
+To control the **width** of a picker input, wrap the field in a Bootstrap grid column rather than setting a fixed
+width on the input itself — the calendar icon is part of a Bootstrap input-group and won't follow the input's width alone.
+
+.. code:: html
+
+    <div class="row">
+      <div class="col-md-4">
+        {{ form.deadline_date }}
+      </div>
+    </div>
 
 JavaScript events and some options can only be set using JavaScript. Starting from v5.0, you can set events and options
 for a specific widget for a widget with field name ``deadline_date`` like below in your html template inside a ``<script>`` tag.
@@ -85,5 +143,3 @@ for a specific widget for a widget with field name ``deadline_date`` like below 
         "dp.update": e => console.log("viewDate changed", e.viewDate, e.change),
     }
 
-
-.. _settings_block: https://github.com/monim67/django-bootstrap-datepicker-plus/blob/5.0.0/dev/mysite/settings.py#L140-L250

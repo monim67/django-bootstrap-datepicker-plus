@@ -28,6 +28,10 @@ def test_build(live_server: LiveServer) -> None:
     pages.joinpath("Bootstrap4.html").write_text(
         '<META http-equiv="refresh" content="0;URL=demo/">'
     )
+    pages.joinpath("configure").mkdir(parents=True, exist_ok=True)
+    pages.joinpath("configure/index.html").write_text(
+        '<META http-equiv="refresh" content="0;URL=https://django-bootstrap-datepicker-plus.readthedocs.io/en/latest/Getting_Started.html">'
+    )
 
 
 replacements = [

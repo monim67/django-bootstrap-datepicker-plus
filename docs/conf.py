@@ -12,7 +12,11 @@ project = "django-bootstrap-datepicker-plus"
 copyright = "2023 Abdul Monim"
 author = "Abdul Monim"
 project_metadata = metadata(project)
-llms_txt_description = project_metadata.get("Summary")
+llms_txt_description = (
+    project_metadata.get("Summary", "")
+    + ".\nFor Django version < 2.0, use [v3.x](/en/3.x/) instead."
+    + "\n This llms.txt file is served from /en/latest/llms.txt, adjust relative links if retrieved from elsewhere."
+)
 
 # The full version, including alpha/beta/rc tags
 # release = "0.0.0"

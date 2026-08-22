@@ -12,18 +12,18 @@ Errors displayed on browser screen
 
 .. error:: TemplateSyntaxError: bootstrap3/4 is not a registered tag library.
 
-This means you did not install django-bootstrap3 and add it to the list of INSTALLED_APPS. Checkout our
-`configuration instructions <configuration_page_>`_ to see how to do it.
+This means you did not install django-bootstrap3/4/5 and add it to the list of INSTALLED_APPS. Install it
+with ``pip install django-bootstrap5`` (or ``django-bootstrap4``) and add it to ``INSTALLED_APPS``.
+See :ref:`Configure template <configure_template>` section for detailed instruction.
 
 .. error:: TemplateDoesNotExist bootstrap_datepicker_plus/date-picker.html
 
 This means you did not install django-bootstrap-datepicker-plus and add it to the list of INSTALLED_APPS.
-Checkout our `configuration instructions <configuration_page_>`_ to see how to do it.
+See :ref:`Configure template <configure_template>` section for detailed instruction.
 
 .. error:: TemplateSyntaxError: Invalid block tag 'bootstrap_form'.
 
-You have not loaded bootstrap3/bootstrap4 tag. Checkout our
-`configuration instructions <configuration_page_>`_ to see how to do it.
+You have not loaded the bootstrap template tags. See :ref:`Configure template <configure_template>` section for template setup options with django-bootstrapX package.
 
 ****************************************
 Errors displayed on browser console
@@ -36,15 +36,14 @@ Sometimes the page loads just fine, but errors are logged into browser's develop
 .. error:: Uncaught ReferenceError: jQuery is not defined
 .. error:: Uncaught bootstrap-datetimepicker requires jQuery to be loaded first
 
-The above errors are listed in the console if you forget to add jQuery to your template. Bootstrap's
-JavaScript should be preceded by jQuery, otherwise Bootstrap will throw an error. Checkout our
-`configuration instructions <configuration_page_>`_ to see various options to do it.
+The above errors mean jQuery is missing or loaded after Bootstrap JS. jQuery must be loaded before
+Bootstrap JS and before ``{{ form.media }}``.
+See :ref:`Configure template <configure_template>` section for working examples.
 
 .. error:: Uncaught TypeError: Cannot read property 'Constructor' of undefined
 
-You forgot to add bootstrap JavaScript file to your template, make sure you have both Bootstrap JavasScript
-and CSS files to your included in your template. Checkout our `configuration instructions <configuration_page_>`_
-to see various options to do it.
+You forgot to add bootstrap JavaScript to your template. Make sure both Bootstrap JavaScript and CSS are
+included before ``{{ form.media }}``. See :ref:`Configure template <configure_template>` section for detailed instruction.
 
 ******************************
 Fix 404 (Not Found) errors
@@ -82,8 +81,21 @@ Now you can execute ``collectstatic`` command and reload the server from your ho
 No errors anywhere, but the calendar does not show up!
 ************************************************************
 
-You forgot to add ``{{ form.media }}`` to your template. Checkout our `configuration instructions <configuration_page_>`_
-to learn more about this issue.
+You forgot to add ``{{ form.media }}`` to your template. Make sure jQuery and Bootstrap are already
+loaded when ``{{ form.media }}`` renders.
+See :ref:`Configure template <configure_template>` section for working examples.
+
+******************************
+Calendar is clipped or hidden
+******************************
+
+The calendar popup is cut off or disappears behind another element. This is caused by a parent container
+with ``overflow: hidden`` or ``overflow: auto`` — common in Bootstrap's ``.form-row``, card bodies, or
+table cells. Fix it by overriding the overflow on that container:
+
+.. code-block:: css
+
+    .form-row { overflow: visible; }
 
 ******************************
 My error is not listed here
@@ -94,4 +106,3 @@ you can.
 
 
 .. _create_issue_page: https://github.com/monim67/django-bootstrap-datepicker-plus/issues/new/choose
-.. _configuration_page: https://monim67.github.io/django-bootstrap-datepicker-plus/configure/

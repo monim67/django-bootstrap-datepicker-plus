@@ -1,8 +1,8 @@
 ##############################
-Quick Walkthrough Tutorial
+Getting Started for Dummies
 ##############################
 
-This tutorial will take off where django official tutorial `Writing your first Django app, part 4 <django_tutorial_04_>`_
+This walkthrough is for absolute beginners in django continuing where django official tutorial `Writing your first Django app, part 4 <django_tutorial_04_>`_
 left off. If you don't have the project you can clone the following repository and checkout to completion of tutorial 04.
 
 ::
@@ -66,8 +66,8 @@ Add a CreateView for Question model. The ``get_form`` method is used to specify 
     class CreateView(generic.edit.CreateView):
         model = Question
         fields = ['question_text', 'pub_date']
-        def get_form(self):
-            form = super().get_form()
+        def get_form(self, form_class=None):
+            form = super().get_form(form_class)
             form.fields['pub_date'].widget = DateTimePickerInput()
             return form
 
@@ -183,8 +183,8 @@ We can now add a page to update a poll question. First we add an UpdateView to o
     class UpdateView(generic.edit.UpdateView):
         model = Question
         fields = ['question_text', 'pub_date']
-        def get_form(self):
-            form = super().get_form()
+        def get_form(self, form_class=None):
+            form = super().get_form(form_class)
             form.fields['pub_date'].widget = DateTimePickerInput()
             return form
 

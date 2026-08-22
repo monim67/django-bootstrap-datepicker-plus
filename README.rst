@@ -10,8 +10,9 @@ to show bootstrap-datepicker in django model forms and custom forms
 which can be configured easily for date-range selection.
 
 If you are not using Bootstrap use `django-flatpickr <https://github.com/monim67/django-flatpickr>`_ instead.
+If you are pinned to an older Django version < 2.0, use `v3.x <https://django-bootstrap-datepicker-plus.readthedocs.io/en/3.x/>`_ instead.
 
-|  |build-status| |docs-status| |coverage|
+|  |build-status| |docs-status| |coverage| |has-types| |downloads|
 |  |pyversions| |djversions| |license|
 
 |  |date-picker-image| |datetime-picker-image| |time-picker-image|
@@ -59,8 +60,8 @@ Usage in Generic View
     class CreateView(generic.edit.CreateView):
         model = Question
         fields = ["question_text", "pub_date"]
-        def get_form(self):
-            form = super().get_form()
+        def get_form(self, form_class=None):
+            form = super().get_form(form_class)
             form.fields["pub_date"].widget = DateTimePickerInput()
             return form
 
@@ -186,12 +187,12 @@ later reworked completely under MIT Licence.
     :alt: Coverage Status
     :height: 20px
 
-.. |pyversions| image:: https://img.shields.io/pypi/pyversions/django-bootstrap-datepicker-plus.svg
+.. |pyversions| image:: https://img.shields.io/pypi/pyversions/django-bootstrap-datepicker-plus.svg?cacheSeconds=86400
     :target: https://pypi.python.org/pypi/django-bootstrap-datepicker-plus
     :alt: Python Versions
     :height: 20px
 
-.. |djversions| image:: https://img.shields.io/pypi/djversions/django-bootstrap-datepicker-plus.svg
+.. |djversions| image:: https://img.shields.io/pypi/frameworkversions/django/django-bootstrap-datepicker-plus?cacheSeconds=86400
     :target: https://pypi.python.org/pypi/django-bootstrap-datepicker-plus
     :alt: DJango Versions
     :height: 20px
@@ -199,6 +200,16 @@ later reworked completely under MIT Licence.
 .. |license| image:: https://img.shields.io/pypi/l/django-bootstrap-datepicker-plus.svg
     :target: https://pypi.python.org/pypi/django-bootstrap-datepicker-plus
     :alt: Licence
+    :height: 20px
+
+.. |has-types| image:: https://img.shields.io/pypi/types/django-bootstrap-datepicker-plus.svg?cacheSeconds=86400
+    :target: https://pypi.python.org/pypi/django-bootstrap-datepicker-plus
+    :alt: Typed
+    :height: 20px
+
+.. |downloads| image:: https://img.shields.io/pypi/dw/django-bootstrap-datepicker-plus.svg?cacheSeconds=86400
+    :target: https://pypistats.org/packages/django-bootstrap-datepicker-plus
+    :alt: Downloads
     :height: 20px
 
 .. |buymeacoffee| image:: https://cdn.buymeacoffee.com/buttons/v2/default-orange.png

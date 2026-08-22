@@ -18,7 +18,7 @@ Usage in Generic View
     class CreateView(generic.edit.CreateView):
         model = Question
         fields = ["question_text", "pub_date"]
-        def get_form(self, form_class):
+        def get_form(self, form_class=None):
             form = super().get_form(form_class)
             form.fields["pub_date"].widget = DateTimePickerInput()
             return form
@@ -114,3 +114,56 @@ DatePickers can be linked to select a date-range or time-range.
                 "start_time": TimePickerInput(),
                 "end_time": TimePickerInput(range_from="start_time"),
             }
+
+********************
+Quirks
+********************
+
+django-filter: ``range_from`` uses the FilterSet field name
+=============================================================
+
+When using ``DatePickerInput`` inside a ``django-filters`` ``FilterSet``, pass the **FilterSet field name** to
+``range_from`` — not the underlying model field name. The FilterSet field name is the attribute name declared on
+the ``FilterSet`` class, which may differ from the model field it maps to (e.g. ``"start_date__gt"``).
+
+.. code-block:: python
+
+    from django_filters import DateFilter, FilterSet
+    from bootstrap_datepicker_plus.widgets import DatePickerInput
+
+    class EventFilter(FilterSet):
+        start_date__gt = DateFilter(
+            field_name="start_date",
+            lookup_expr="gt",
+            widget=DatePickerInput(),
+        )
+        start_date__lt = DateFilter(
+            field_name="start_date",
+            lookup_expr="lt",
+            widget=DatePickerInput(range_from="start_date__gt"),  # FilterSet field name, not model field name
+        )
+
+See the `full working example in the demo app <https://github.com/monim67/django-bootstrap-datepicker-plus/blob/master/dev/myapp/forms.py>`_.
+
+
+django-crispy-forms: set ``include_media = False`` when loading media manually
+================================================================================
+
+``{% crispy form %}`` automatically injects ``{{ form.media }}`` (or its CSS/JS counterparts) inline inside the
+rendered form. If you are already loading ``{{ form.media }}`` in your template, set ``helper.include_media = False``
+on your ``FormHelper`` to prevent the widget assets from being emitted twice.
+
+.. code-block:: python
+
+    from crispy_forms.helper import FormHelper
+
+    class ToDoForm(forms.Form):
+        start_date = forms.DateField(widget=DatePickerInput())
+
+        @property
+        def helper(self):
+            helper = FormHelper()
+            helper.include_media = False
+            return helper
+
+See the `full working example in the demo app <https://github.com/monim67/django-bootstrap-datepicker-plus/blob/master/dev/myapp/forms.py>`_.

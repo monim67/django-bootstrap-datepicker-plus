@@ -2,25 +2,32 @@
   <ul class="nav navbar-nav mr-auto">
     {% with url_name=request.resolver_match.url_name %}
     <li class="nav-item {% if url_name == 'custom-form' %}active{% endif %}">
-      <a class="nav-link" href="{% url 'myapp:custom-form' %}">Custom Form</a>
+      <a class="nav-link {% if url_name == 'custom-form' %}active{% endif %}"
+        href="{% url 'myapp:custom-form' %}">Custom Form</a>
     </li>
     <li class="nav-item {% if url_name == 'model-form' %}active{% endif %}">
-      <a class="nav-link" href="{% url 'myapp:model-form' %}">Model Form</a>
+      <a class="nav-link {% if url_name == 'model-form' %}active{% endif %}" href="{% url 'myapp:model-form' %}">Model
+        Form</a>
     </li>
     <li class="nav-item {% if url_name == 'generic-view' %}active{% endif %}">
-      <a class="nav-link" href="{% url 'myapp:generic-view' %}">Generic View</a>
+      <a class="nav-link {% if url_name == 'generic-view' %}active{% endif %}"
+        href="{% url 'myapp:generic-view' %}">Generic View</a>
     </li>
     <li class="nav-item {% if url_name == 'crispy-form' %}active{% endif %}">
-      <a class="nav-link" href="{% url 'myapp:crispy-form' %}">With Crispy Form</a>
+      <a class="nav-link {% if url_name == 'crispy-form' %}active{% endif %}" href="{% url 'myapp:crispy-form' %}">With
+        Crispy Form</a>
     </li>
     <li class="nav-item {% if url_name == 'dynamic-formset' %}active{% endif %}">
-      <a class="nav-link" href="{% url 'myapp:dynamic-formset' %}">Dynamic Formset</a>
+      <a class="nav-link {% if url_name == 'dynamic-formset' %}active{% endif %}"
+        href="{% url 'myapp:dynamic-formset' %}">Dynamic Formset</a>
     </li>
     <li class="nav-item {% if url_name == 'django-filter' %}active{% endif %}">
-      <a class="nav-link" href="{% url 'myapp:django-filter' %}">With django-filter</a>
+      <a class="nav-link {% if url_name == 'django-filter' %}active{% endif %}"
+        href="{% url 'myapp:django-filter' %}">With django-filter</a>
     </li>
     <li class="nav-item {% if url_name == 'modal-form-index' %}active{% endif %}">
-      <a class="nav-link" href="{% url 'myapp:modal-form-index' %}">With django-bootstrap-modal-forms</a>
+      <a class="nav-link {% if url_name == 'modal-form-index' %}active{% endif %}"
+        href="{% url 'myapp:modal-form-index' %}">With django-bootstrap-modal-forms</a>
     </li>
     {% endwith %}
   </ul>

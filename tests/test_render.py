@@ -1,4 +1,4 @@
-from pytest_django.fixtures import SettingsWrapper
+from pytest_django.fixtures import Settings
 
 from bootstrap_datepicker_plus.widgets import DatePickerInput
 
@@ -22,11 +22,11 @@ def test_presence_of_script_when_debug_true() -> None:
     assert "</script>" in widget_input.render("test", "test", {"data-dbdp-debug": ""})
 
 
-def test_absence_of_script_when_debug_false(settings: SettingsWrapper) -> None:
+def test_absence_of_script_when_debug_false(settings: Settings) -> None:
     widget_input = DatePickerInput()
     assert "</script>" not in widget_input.render("test", "test")
 
 
-def test_media_rendering(settings: SettingsWrapper) -> None:
+def test_media_rendering(settings: Settings) -> None:
     widget_input = DatePickerInput()
     assert "</script>" in widget_input.media.render()

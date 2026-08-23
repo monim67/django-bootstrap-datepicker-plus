@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-{% load django_bootstrap5 %}
+{% load django_bootstrap5 namespace_tags %}
 
 <html lang="en" dir="ltr">
 
 <head>
   <meta charset="utf-8">
+  {% canonical_url as canonical_url %}{% if canonical_url %}
+  <link rel="canonical" href="{{ canonical_url }}">
+  {% endif %}
   <title>django-bootstrap-datepicker-plus with Bootstrap 5 - {{ title_text }}</title>
   {% bootstrap_css %}
   {% block extra_css %}{% endblock %}

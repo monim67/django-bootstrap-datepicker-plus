@@ -62,6 +62,15 @@ class BasePickerInput(DateTimeBaseInput):
         """Build an attribute dictionary."""
         settings = get_widget_settings()
         attrs = {
+            # Browsers (notably Firefox) can restore a previously-typed raw
+            # string into this input on a soft page reload / bfcache
+            # navigation, bypassing the widget's own value formatting. That
+            # stale text is then reinterpreted using `backend_date_format`
+            # and can silently corrupt the displayed date (day/year swaps
+            # etc). Disabling autocomplete prevents the browser from doing
+            # this restoration. Explicit `attrs`/`options` can still
+            # override this if a caller wants the browser's autocomplete.
+            "autocomplete": "off",
             **settings.attrs,
             **base_attrs,
             **(extra_attrs or {}),

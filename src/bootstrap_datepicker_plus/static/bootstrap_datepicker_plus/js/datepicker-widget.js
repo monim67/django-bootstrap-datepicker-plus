@@ -82,24 +82,26 @@
    * @param {HTMLInputElement} inputElement
    */
   function processInputElement(inputElement) {
+    const initialValue = inputElement.value;
     const config = getConfig(inputElement);
     const inputWrapper = inputElement.closest(`.${inputWrapperClass}`);
     if (!inputWrapper) throw Error(`input must have a parent with class="${inputWrapperClass}"`)
-    const hiddenInputElement = createHiddenInputElement(inputElement)
-    inputWrapper.after(hiddenInputElement)
+    createAltInputElement(inputElement, inputWrapper);
 
     if (!config.options.format) config.options.format = config.backend_date_format.replace(/-01/g, "")
     if (config.range_from) config.options.useCurrent = false; // based on https://github.com/Eonasdan/tempus-dominus/issues/1075
-    const widgetInstance = createWidgetInstance(inputWrapper, hiddenInputElement, config);
-    widgetInstances.set(hiddenInputElement, widgetInstance);
+    const widgetInstance = createWidgetInstance(inputWrapper, inputElement, config);
+    widgetInstances.set(inputElement, widgetInstance);
 
-    const form = hiddenInputElement.closest("form");
+    const form = inputElement.closest("form");
     form?.addEventListener("reset", () => {
-      setTimeout(() => inputElement.dispatchEvent(new Event("change")));
+      setTimeout(() => {
+        widgetInstance.dateTimePickerData.date(initialValue ? moment(initialValue, config.backend_date_format) : null);
+      });
     })
 
     if (config.range_from) {
-      const widgetRangeFromInstance = getRangeFromInputElement(hiddenInputElement, config);
+      const widgetRangeFromInstance = getRangeFromInputElement(inputElement, config);
       if (widgetRangeFromInstance) {
         configureRangeSelection(widgetRangeFromInstance, widgetInstance);
       }
@@ -108,29 +110,35 @@
 
   /**
    * @param {HTMLInputElement} inputElement
+   * @param {HTMLInputElement} inputWrapper
    */
-  function createHiddenInputElement(inputElement) {
-    const formInputElement = document.createElement("input")
-    formInputElement.setAttribute("type", "hidden")
-    formInputElement.setAttribute("name", inputElement.getAttribute("name"))
-    inputElement.dataset.name = inputElement.getAttribute("name")
-    formInputElement.value = inputElement.value
-    inputElement.removeAttribute("name")
-    return formInputElement;
+  function createAltInputElement(inputElement, inputWrapper) {
+    const altInputElement = document.createElement("input");
+    const skipAttrs = ["name", "type", "value", "data-dbdp-config", "data-dbdp-debug"];
+    for (const attrName of inputElement.getAttributeNames()) {
+      if (skipAttrs.includes(attrName)) continue;
+      altInputElement.setAttribute(attrName, inputElement.getAttribute(attrName));
+      inputElement.removeAttribute(attrName);
+    }
+    altInputElement.dataset.name = inputElement.getAttribute("name");
+    inputElement.setAttribute("type", "hidden");
+    inputElement.after(altInputElement);
+    inputWrapper.after(inputElement);
+    return altInputElement;
   }
 
   /**
    * @param {HTMLElement} inputWrapper
-   * @param {HTMLInputElement} hiddenInputElement
+   * @param {HTMLInputElement} inputElement
    * @param {WidgetInputConfig} config
    */
-  function createWidgetInstance(inputWrapper, hiddenInputElement, config) {
+  function createWidgetInstance(inputWrapper, inputElement, config) {
     const $inputWrapper = jQuery(inputWrapper).datetimepicker(config.options);
     /** @type {WidgetInstance} */
     const widgetInstance = { config, $element: $inputWrapper, dateTimePickerData: $inputWrapper.data("DateTimePicker") }
-    widgetInstance.dateTimePickerData.date(moment(hiddenInputElement.value, config.backend_date_format));
+    widgetInstance.dateTimePickerData.date(moment(inputElement.value, config.backend_date_format));
     widgetInstance.$element.on("dp.change", function (e) {
-      hiddenInputElement.value = e.date ? e.date.format(config.backend_date_format) : null;
+      inputElement.value = e.date ? e.date.format(config.backend_date_format) : null;
     });
     for (let [eventName, handler] of Object.entries(config.events)) {
       widgetInstance.$element.on(eventName, handler);
@@ -154,12 +162,12 @@
   }
 
   /**
-   * @param {HTMLInputElement} hiddenInputElement
+   * @param {HTMLInputElement} inputElement
    * @param {WidgetInputConfig} config
    */
-  function getRangeFromInputElement(hiddenInputElement, config) {
-    const rangeFromInputName = hiddenInputElement.name.replace(/[^-]+$/, config.range_from);
-    let fromInputElement = hiddenInputElement.form?.elements.namedItem(rangeFromInputName);
+  function getRangeFromInputElement(inputElement, config) {
+    const rangeFromInputName = inputElement.name.replace(/[^-]+$/, config.range_from);
+    let fromInputElement = inputElement.form?.elements.namedItem(rangeFromInputName);
     if (!fromInputElement) {
       const elements = document.querySelectorAll(`input[name="${config.range_from}"]`);
       if (elements.length == 0) throw Error("range_from not found");
@@ -216,14 +224,14 @@
    * @param {HTMLInputElement?} inputElement
    */
   function handleErrorAndThrow(error, inputElement) {
-    if (inputElement?.hasAttribute('data-dbdp-debug')) {
+    if (inputElement.dataset.dbdpDebug !== undefined) {
       const errorMessage = error instanceof DisplayError ? error.message : "Something went wrong! Check browser console for errors.";
       const errorDisplay = document.createElement("div");
       errorDisplay.className = "alert alert-danger"
       errorDisplay.innerHTML = `${errorMessage}. This message is only visible when DEBUG=True`;
       inputElement.closest(`.${inputWrapperClass}`).after(errorDisplay);
     }
-    throw new WidgetError(error.message);
+    throw new WidgetError(inputElement, error.message);
   }
 
   if ("bootstrap" in window) { // if bootstrap version >= 4

@@ -52,6 +52,7 @@ class WidgetSettings(BaseSettings):
     addon_icon_classes: dict[WidgetVariant, str] = Field(
         default_factory=lambda: addon_icon_default_classes.copy()
     )
+    locale_infer_overrides: dict[str, str] = Field(default_factory=lambda: {})
     momentjs_url: str | None = (
         "https://cdn.jsdelivr.net/npm/moment@2.29.4/min/moment-with-locales.min.js"
     )

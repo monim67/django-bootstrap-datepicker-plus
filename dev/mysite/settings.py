@@ -14,6 +14,8 @@ import sys
 
 import django_stubs_ext
 
+from bootstrap_datepicker_plus.constants import INFER_FROM_LANGUAGE_CODE
+
 django_stubs_ext.monkeypatch()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -58,6 +60,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -142,7 +145,7 @@ BOOTSTRAP_DATEPICKER_PLUS = {
     # Options for all input widgets
     # More options: https://getdatepicker.com/4/Options/
     "options": {
-        # "locale": "bn",
+        "locale": INFER_FROM_LANGUAGE_CODE,
         "showClose": True,
         "showClear": True,
         "showTodayButton": True,
@@ -151,14 +154,14 @@ BOOTSTRAP_DATEPICKER_PLUS = {
     # You can set date and event hook options using JavaScript, usage in README.
     # You can also set options for specific variant widgets only which overrides above options.
     "variant_options": {
-        # "date": {
-        #     "format": "MM/DD/YYYY",
-        # },
-        # "datetime": {
-        #     "format": "MM/DD/YYYY HH:mm",
-        # },
-        "month": {
-            "format": "MMMM, YYYY",
+        "date": {
+            "format": "LL",  # eg. "January 1, 2020"
+        },
+        "datetime": {
+            "format": "ll LT",  # time without seconds
+        },
+        "time": {
+            "format": "LT",  # time without seconds
         },
     },
     #

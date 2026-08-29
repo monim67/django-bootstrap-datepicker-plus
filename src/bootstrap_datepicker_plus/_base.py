@@ -5,8 +5,10 @@ from typing import Any
 
 from django import forms
 from django.forms.widgets import DateTimeBaseInput
+from django.utils.translation import get_language
 
 from ._config import WidgetConfig
+from .constants import INFER_FROM_LANGUAGE_CODE
 from .schemas import InputAttrs, WidgetOptions, WidgetVariant
 from .settings import get_widget_settings
 
@@ -18,6 +20,7 @@ class BasePickerInput(DateTimeBaseInput):
     _date_format = "%Y-%m-%d"
     backend_date_format = "YYYY-MM-DD"
     options: WidgetOptions | None = None
+    _preferred_options: WidgetOptions | None = None
     template_name = "bootstrap_datepicker_plus/input.html"
 
     def __init__(
@@ -49,6 +52,7 @@ class BasePickerInput(DateTimeBaseInput):
             range_from=range_from,
         )
         self.config.update_options(
+            self._preferred_options,
             settings.options,
             settings.variant_options.get(self.variant),
             self.options,
@@ -61,11 +65,18 @@ class BasePickerInput(DateTimeBaseInput):
     ) -> InputAttrs:
         """Build an attribute dictionary."""
         settings = get_widget_settings()
+        config = self.config
+        if config.options.get("locale") == INFER_FROM_LANGUAGE_CODE:
+            lang = get_language()
+            if lang:
+                lang = settings.locale_infer_overrides.get(lang, lang)
+                config = config.model_copy(deep=True)
+                config.update_options({"locale": lang})
         attrs = {
             **settings.attrs,
             **base_attrs,
             **(extra_attrs or {}),
-            "data-dbdp-config": self.config.to_attr_value(),
+            "data-dbdp-config": config.to_attr_value(),
         }
         if settings.debug:
             attrs["data-dbdp-debug"] = ""

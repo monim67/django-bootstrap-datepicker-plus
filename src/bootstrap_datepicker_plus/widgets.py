@@ -16,6 +16,12 @@ __all__ = (
 class DatePickerInput(BasePickerInput):
     """Widget to display a Date-Picker Calendar on a DateField."""
 
+    _date_format = "%Y-%m-%d"
+    backend_date_format = "YYYY-MM-DD"
+    _preferred_options = {
+        "format": "ll",
+    }
+
 
 class TimePickerInput(BasePickerInput):
     """Widget to display a Time-Picker Calendar on a TimeField."""
@@ -23,6 +29,9 @@ class TimePickerInput(BasePickerInput):
     variant = WidgetVariant.time
     _date_format = "%H:%M:%S"
     backend_date_format = "HH:mm:ss"
+    _preferred_options = {
+        "format": "LTS",
+    }
 
 
 class DateTimePickerInput(BasePickerInput):
@@ -31,6 +40,9 @@ class DateTimePickerInput(BasePickerInput):
     variant = WidgetVariant.datetime
     _date_format = "%Y-%m-%d %H:%M:%S"
     backend_date_format = "YYYY-MM-DD HH:mm:ss"
+    _preferred_options = {
+        "format": "ll LTS",
+    }
 
 
 class MonthPickerInput(BasePickerInput):
@@ -39,6 +51,9 @@ class MonthPickerInput(BasePickerInput):
     variant = WidgetVariant.month
     _date_format = "%Y-%m-%d"
     backend_date_format = "YYYY-MM-01"
+    _preferred_options = {
+        "format": "MMMM, Y",
+    }
 
 
 class YearPickerInput(BasePickerInput):
@@ -47,3 +62,6 @@ class YearPickerInput(BasePickerInput):
     variant = WidgetVariant.year
     _date_format = "%Y-%m-%d"
     backend_date_format = "YYYY-01-01"
+    _preferred_options = {
+        "format": "Y",
+    }

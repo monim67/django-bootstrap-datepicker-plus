@@ -52,10 +52,8 @@ class EventForm(forms.ModelForm[Event]):
             "end_year",
         ]
         widgets = {
-            "start_date": DatePickerInput(options={"format": "MM/DD/YYYY"}),
-            "end_date": DatePickerInput(
-                options={"format": "MM/DD/YYYY"}, range_from="start_date"
-            ),
+            "start_date": DatePickerInput(),
+            "end_date": DatePickerInput(range_from="start_date"),
             "start_datetime": DateTimePickerInput(),
             "end_datetime": DateTimePickerInput(range_from="start_datetime"),
             "start_time": TimePickerInput(),
@@ -83,10 +81,8 @@ class EventModalModelForm(BSModalModelForm):  # type: ignore
             "end_year",
         ]
         widgets = {
-            "start_date": DatePickerInput(options={"format": "MM/DD/YYYY"}),
-            "end_date": DatePickerInput(
-                options={"format": "MM/DD/YYYY"}, range_from="start_date"
-            ),
+            "start_date": DatePickerInput(),
+            "end_date": DatePickerInput(range_from="start_date"),
             "start_datetime": DateTimePickerInput(),
             "end_datetime": DateTimePickerInput(range_from="start_datetime"),
             "start_time": TimePickerInput(),

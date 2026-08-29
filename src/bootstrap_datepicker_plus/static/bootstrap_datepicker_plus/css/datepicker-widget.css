@@ -69,3 +69,21 @@
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
+
+/* bootstrap 5.3 dark theme */
+[data-bs-theme=dark] .bootstrap-datetimepicker-widget.dropdown-menu {
+    background-color: var(--bs-dropdown-bg);
+    border: 1px solid var(--bs-dropdown-border-color);
+}
+
+[data-bs-theme=dark] .bootstrap-datetimepicker-widget table td.day:hover,
+[data-bs-theme=dark] .bootstrap-datetimepicker-widget table td.hour:hover,
+[data-bs-theme=dark] .bootstrap-datetimepicker-widget table td.minute:hover,
+[data-bs-theme=dark] .bootstrap-datetimepicker-widget table td.second:hover {
+    background: var(--bs-tertiary-bg);
+}
+
+[data-bs-theme=dark] .bootstrap-datetimepicker-widget table td span:hover,
+[data-bs-theme=dark] .bootstrap-datetimepicker-widget table thead tr:first-child th:hover {
+    background: var(--bs-tertiary-bg)
+}

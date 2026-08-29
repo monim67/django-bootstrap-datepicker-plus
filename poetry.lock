@@ -630,18 +630,21 @@ Django = ">=3.2"
 
 [[package]]
 name = "django-bootstrap5"
-version = "22.2"
+version = "26.2"
 description = "Bootstrap 5 for Django"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.10"
 groups = ["build"]
 files = [
-    {file = "django-bootstrap5-22.2.tar.gz", hash = "sha256:e944f5ced342e0e16cde77e1ddacb4b9fd5bce4cc190df2f7da0b8e18a24c9cb"},
-    {file = "django_bootstrap5-22.2-py3-none-any.whl", hash = "sha256:5d677bbfb94207c1a034d63a5f39d95ce287ef509e0b31dfb4d233cc81f93bcc"},
+    {file = "django_bootstrap5-26.2-py3-none-any.whl", hash = "sha256:179af37c59f4e9b1070fc650f30961c5d903c2c0ad60280ad5b63ed394f68658"},
+    {file = "django_bootstrap5-26.2.tar.gz", hash = "sha256:12331059c8230ba372ffaad990a706151e1ad8f721a870aa2e862cf6746f0d33"},
 ]
 
 [package.dependencies]
-Django = ">=3.2"
+django = ">=4.2"
+
+[package.extras]
+jinja = ["jinja2 (>=3.0,<4)"]
 
 [[package]]
 name = "django-crispy-forms"
@@ -2445,4 +2448,4 @@ ux = ["rich (>=13.7)"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<4"
-content-hash = "09ee01911fcee3229cfb794a20e0ef41d516c2e6d7660e265cbcdc4eb10761bc"
+content-hash = "3ce21ef72c30b58654f5266f07ae4a7ec0b56888d6290247a89f1dcab377c75f"

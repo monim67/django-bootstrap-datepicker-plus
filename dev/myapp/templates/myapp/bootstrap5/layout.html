@@ -14,7 +14,7 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light px-2">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary px-2">
     <a class="navbar-brand" href="https://github.com/monim67/django-bootstrap-datepicker-plus">
       <img src="https://github.githubassets.com/images/modules/site/icons/footer/github-mark.svg" class="mr-2"
         alt="GitHub mark">
@@ -27,7 +27,20 @@
     {% include 'myapp/nav-bar.html' %}
   </nav>
   <div class="container">
-    <h2 class="pb-2 mt-4 mb-2 border-bottom">{{ title_text }}</h2>
+    <div class="d-flex justify-content-between align-items-center">
+      <h2 class="pb-2 mt-4 mb-2 border-bottom">{{ title_text }}</h2>
+      <div class="dropdown ms-2">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          Theme: <span id="bd-theme-label">Auto</span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><button class="dropdown-item" data-bs-theme-value="light">Light</button></li>
+          <li><button class="dropdown-item" data-bs-theme-value="dark">Dark</button></li>
+          <li><button class="dropdown-item" data-bs-theme-value="auto">Auto</button></li>
+        </ul>
+      </div>
+    </div>
     {% if lead_text %}<p class="lead">{{ lead_text | safe }}</p>{% endif %}
     {% block content %}{% endblock %}
   </div>
@@ -35,6 +48,38 @@
 
   {% bootstrap_javascript %}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.slim.min.js"></script>
+  <script>
+    (() => {
+      'use strict'
+      const getStoredTheme = () => localStorage.getItem('theme')
+      const setStoredTheme = theme => localStorage.setItem('theme', theme)
+      const getPreferredTheme = () => getStoredTheme() || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+      const setTheme = theme => document.documentElement.setAttribute('data-bs-theme',
+        theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      setTheme(getPreferredTheme())
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        const stored = getStoredTheme()
+        if (stored !== 'light' && stored !== 'dark') setTheme(getPreferredTheme())
+      })
+      const updateToggleLabel = theme => {
+        const btn = document.querySelector('#bd-theme-label')
+        if (btn) btn.firstChild.textContent = theme.charAt(0).toUpperCase() + theme.slice(1) + ' '
+      }
+      window.addEventListener('DOMContentLoaded', () => {
+        const stored = getStoredTheme() || 'auto'
+        updateToggleLabel(stored)
+        document.querySelectorAll('[data-bs-theme-value]').forEach(el => {
+          el.addEventListener('click', () => {
+            const theme = el.getAttribute('data-bs-theme-value')
+            setStoredTheme(theme)
+            setTheme(theme)
+            updateToggleLabel(theme)
+            document.querySelectorAll('[data-bs-theme-value]').forEach(e => e.classList.toggle('active', e === el))
+          })
+        })
+      })
+    })()
+  </script>
   {% block extra_js %}{% endblock %}
 </body>
 

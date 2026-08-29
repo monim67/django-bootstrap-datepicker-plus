@@ -31,6 +31,7 @@ class TimePickerInput(BasePickerInput):
     backend_date_format = "HH:mm:ss"
     _preferred_options = {
         "format": "LTS",
+        "tooltips": {"today": "Go to now"},
     }
 
 
@@ -42,6 +43,7 @@ class DateTimePickerInput(BasePickerInput):
     backend_date_format = "YYYY-MM-DD HH:mm:ss"
     _preferred_options = {
         "format": "ll LTS",
+        "tooltips": {"today": "Go to now"},
     }
 
 

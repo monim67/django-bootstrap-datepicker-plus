@@ -3,15 +3,12 @@ from django.urls import path
 
 from dev.myapp import views
 
+from .utils import http_meta_redirect_view
+
 app_name = "myapp"
 
 urlpatterns = [
-    path(
-        "",
-        lambda _: HttpResponse(
-            '<META http-equiv="refresh" content="0;URL=custom-form.html">'
-        ),
-    ),
+    path("", http_meta_redirect_view("custom-form.html")),
     path("custom-form.html", views.CustomFormView.as_view(), name="custom-form"),
     path(
         "model-form.html", views.EventUpdateView.as_view(), {"pk": 1}, name="model-form"

@@ -11,23 +11,37 @@ to your ``settings.py`` file and uncomment the options you want to change.
 
 .. code:: python
 
+    from bootstrap_datepicker_plus.constants import INFER_FROM_LANGUAGE_CODE
+
     BOOTSTRAP_DATEPICKER_PLUS = {
         # Options applied to all widgets. Full list: https://getdatepicker.com/4/Options/
         # "options": {
         #     "locale": "bn",
+        #     # Or infer from active Django language code (detailed below).
+        #     # "locale": INFER_FROM_LANGUAGE_CODE, 
         # },
         #
         # Override options for a specific picker variant only (it overrides "options" above)
         # "variant_options": {
         #     "date": {
-        #         "format": "MM/DD/YYYY",
+        #         "format": "LL",  # eg. "January 1, 2020"
         #     },
         #     "datetime": {
-        #         "format": "MM/DD/YYYY HH:mm",
+        #         "format": "ll LT",  # time without seconds
         #     },
         #     "time": {
-        #         "format": "HH:mm",
+        #         "format": "LT",  # time without seconds
         #     },
+        # },
+        #
+        # Map Django language codes that don't match moment.js locale names directly.
+        # Only needed when using locale INFER_FROM_LANGUAGE_CODE (see below).
+        # "locale_infer_overrides": {
+        #     "hy": "hy-am",
+        #     "pa": "pa-in",
+        #     "ug": "ug-cn",
+        #     "zh-hans": "zh-cn",
+        #     "zh-hant": "zh-tw",
         # },
         #
         # HTML attributes for the widget <input> element
@@ -59,6 +73,31 @@ to your ``settings.py`` file and uncomment the options you want to change.
         # including collecting django static files and serving them from your web server.
         # "app_static_url": "bootstrap_datepicker_plus/",
     }
+
+.. rubric:: Infer Widget locale from Django Language Code
+
+Setting ``"locale": INFER_FROM_LANGUAGE_CODE`` makes the widget read the active
+Django language at render time (set by ``LocaleMiddleware`` or ``i18n_patterns``).
+
+**Not all Django language codes are inferred automatically.** Verify your
+language codes against the `Django language list <https://github.com/django/django/blob/main/django/conf/global_settings.py>`_
+and the `moment.js locale list <https://github.com/moment/moment/tree/develop/locale>`_.
+If a code doesn't match, map it manually via ``locale_infer_overrides`` settings as shown above. Known
+examples:
+
++-------------------+-----------------+
+| Django code       | moment.js code  |
++===================+=================+
+| ``hy``            | ``hy-am``       |
++-------------------+-----------------+
+| ``pa``            | ``pa-in``       |
++-------------------+-----------------+
+| ``ug``            | ``ug-cn``       |
++-------------------+-----------------+
+| ``zh-hans``       | ``zh-cn``       |
++-------------------+-----------------+
+| ``zh-hant``       | ``zh-tw``       |
++-------------------+-----------------+
 
 .. note::
 

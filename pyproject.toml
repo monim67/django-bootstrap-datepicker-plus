@@ -57,7 +57,7 @@ packages = [{ include = "bootstrap_datepicker_plus", from = "src" }]
 [tool.poetry.group.build.dependencies]
 django-bootstrap3 = "^21.2"
 django-bootstrap4 = "^22.1"
-django-bootstrap5 = "^22.1"
+django-bootstrap5 = "^26.2"
 django-bootstrap-modal-forms = "^2.2.1"
 pytest-django = "^4.5.2"
 pytest-dotenv = "^0.5.2"

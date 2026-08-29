@@ -161,3 +161,5 @@ test-cov = [
     { cmd = "coverage lcov -o coverage/lcov.info" },
     { cmd = "coverage report" },
 ]
+dagger = "dagger check --mod=.dagger/modules/ci.ts"
+dagger310 = "dagger call --mod=.dagger/modules/ci.ts test --python-version=3.10"

@@ -1,0 +1,9 @@
+{
+  "type": "module",
+  "dagger": {
+    "runtime": "bun"
+  },
+  "dependencies": {
+    "@dagger.io/dagger": "0.19.11"
+  }
+}

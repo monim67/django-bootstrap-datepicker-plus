@@ -4,7 +4,7 @@ from enum import Enum
 from typing import Any, TypeAlias
 
 InputAttrs: TypeAlias = dict[str, Any]
-WidgetOptions: TypeAlias = dict[str, bool | int | str | dict[str, str]]
+WidgetOptions: TypeAlias = dict[str, bool | int | str | dict[str, str] | list[Any]]
 
 
 class WidgetVariant(str, Enum):
